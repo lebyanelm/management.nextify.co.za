@@ -1,0 +1,15 @@
+<div class="container">
+  <h3>Create a new banner</h3>
+  
+  <button class="flexbox" (click)="openImageSelector()" [attr.isUploading]="isUploading" [attr.percent]="progress.percent">
+    <span>{{progress.name ? progress.name : 'Select image'}}</span>
+    <div class="space"></div>
+    <ion-icon name="arrow-forward" *ngIf="!isUploading && !progress.percent"></ion-icon>
+    <ion-icon name="checkmark-empty" *ngIf="progress.percent === 100"></ion-icon>
+    <input type="file" hidden #FileSelector>
+    <div class="progress" [style.width]="progress.percent + '%'"></div>
+  </button>
+
+  <br>
+  <button (click)="createBanner()" [disabled]="!(data.image) && (isUploading || !isUploading)">Create Banner</button>
+</div>

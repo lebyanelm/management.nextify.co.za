@@ -1,0 +1,53 @@
+@import "../../../setup.scss";
+
+.center { width: 60%; }
+.upload {
+    width: 100%;
+    
+    .placeholder-image {
+        width: 30%;
+        height: auto;
+        display: inline-block;
+        transition: opacity 400ms ease-in-out !important;
+
+        .avatar {
+            height: 50px;
+            width: 50px;
+            border: $border;
+            border-radius: 50px;
+            background: #EEE;
+            margin-right: 10px;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    }
+
+    .details {
+        display: inline-block;
+        font-size: 13px;
+        
+        width: 70%;
+        transform: translateY(-100%);
+
+        .image-name {
+            margin-bottom: 5px;
+        }
+
+        .progressbar {
+            width: 100%;
+            height: 5px;
+            background: #EEE;
+
+            .progressbar,
+            .progress {
+                border-radius: 5px !important;
+            }
+
+            .progress {
+                height: 100%;
+                width: 20%;
+                background: $secondary-color;
+            }
+        }
+    }
+}

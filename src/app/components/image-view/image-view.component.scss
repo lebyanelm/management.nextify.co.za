@@ -1,0 +1,21 @@
+@import "../../../setup.scss";
+ion-slides,
+ion-slide {
+    --max-width: 100% !important;
+    --max-height: 100% !important;
+}
+
+.image-name {
+    padding: 5px 10px;
+    border-radius: 1.5px;
+    background: $theme-color;
+    color: $text-light;
+    font-size: small;
+    font-weight: bold;
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-transform: uppercase;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
+}

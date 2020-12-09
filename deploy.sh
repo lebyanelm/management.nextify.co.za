@@ -1,0 +1,1 @@
+scp -r -v ./www libby@nextify.co.za:~/apps/partners/manage

@@ -1,0 +1,88 @@
+<ion-content>
+  <div class="page-header flexbox">
+    <div class="name flexbox">
+      <span class="name" style="font-weight: bolder;">Manage Promocodes & Coupons</span>
+      <span class="description">Spoil your customers with discounts they can use at checkout</span>
+    </div>
+    <div class="space"></div>
+    <div class="buttons">
+      <div class="input focus-grow">
+        <ion-icon name="search"></ion-icon>
+        <input type="text" placeholder="Filter promocodes" [disabled]="!sockets.data?.promocodes.length" #SearchInput>
+      </div>
+    </div>
+    <div class="buttons">
+      <button [disabled]="!selectedItems.length" (click)="confirmDeleteSelectedPromocodes(selectedItems)">Delete selected</button>
+    </div>
+    <div class="buttons">
+      <button class="clickable" (click)="openPromocodeModal()">Create new</button>
+    </div>
+  </div>
+  <ion-content *ngIf="(sockets.data && sockets.data.promocodes.length > 0 && SearchInput.value.length > 0 && searchResults.length !== 0) || (sockets.data && sockets.data.promocodes.length > 0 && SearchInput.value.length === 0)">
+    <table>
+      <thead>
+        <tr>
+          <td>Promocode</td>
+          <td>Discount</td>
+          <td>Usage</td>
+          <td>Active Until</td>
+          <td>Time Created</td>
+        </tr>
+      </thead>
+      <tbody *ngIf="!SearchInput.value">
+        <tr *ngFor="let promocode of sockets.data.promocodes" [attr.data-isRetainState]=isSelectionMode [attr.data-isSelected]="this.selectedItems.indexOf(promocode.id) !== -1">
+          <td class="name">
+            <div class="checkbox-container">
+              <ion-checkbox mode="ios" (click)="selectPromocode(promocode.id, Checkbox.checked)" #Checkbox></ion-checkbox>
+            </div>
+            <div class="name">{{promocode.code}}</div>
+          </td>
+          <td>{{promocode.discount}}%</td>
+          <td>{{promocode.usage}} {{promocode.usage == 1 ? 'time' : 'times'}}</td>
+          <td>{{promocode.ends || 'Until Terminated'}}</td>
+          <td>{{promocode.timeCreated.day}} {{promocode.timeCreated.time}}
+            <div class="buttons icon-only">
+              <button class="round no-border clickable" (click)="editPromocode(promocode)"><ion-icon class="center" name="create"></ion-icon></button>
+              <button class="round clickable danger" (click)="confirmDeletePromocode(promocode.id)"><ion-icon class="center" name=trash></ion-icon></button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="SearchInput.value">
+        <tr *ngFor="let promocode of searchResults" [attr.data-isRetainState]=isSelectionMode [attr.data-isSelected]="selectedItems.indexOf(promocode.id) !== -1">
+          <td class="name">
+            <div class="checkbox-container">
+              <ion-checkbox (click)="selectPromocode(promocode.id, Checkbox.checked)" #Checkbox></ion-checkbox>
+            </div>
+            {{promocode.code}}
+          </td>
+          <td>{{promocode.discount}}%</td>
+          <td>{{promocode.usage}} {{promocode.usage == 1 ? 'time' : 'times'}}</td>
+          <td>{{promocode.ends || 'Until Terminated'}}</td>
+          <td>
+            {{promocode.timeCreated.day}} {{promocode.timeCreated.time}}
+            <div class="buttons icon-only">
+              <button class="round no-border clickable" (click)="editPromocode(promocode)"><ion-icon class="center" name="create"></ion-icon></button>
+              <button class="round clickable danger" (click)="confirmDeletePromocode(promocode)"><ion-icon class="center" name=trash></ion-icon></button>
+            </div>
+        </tr>
+      </tbody>
+    </table>
+
+    
+  </ion-content>
+  <div class="error-container ion-text-center" *ngIf="!sockets.data?.promocodes.length">
+    <img class="error-image" src="/assets/images/illustrations/travel-tickets-monochrome.svg">
+    <div class="error-details">
+      <div class="error-title">You don't have promocodes yet</div>
+      <div class="error-message description">As you create promocodes, you can share them with your customers via Alert or Chat to give them discounts at checkout.</div>
+    </div>
+  </div>
+  <div class="error-container ion-text-center" *ngIf="SearchInput.value.length && !searchResults.length">
+    <img class="error-image" src="/assets/images/illustrations/travel-tickets-monochrome.svg">
+    <div class="error-details">
+      <div class="error-title">No results found</div>
+      <div class="error-message description">No results were found for search keyword <b>"{{SearchInput.value}}"</b>.</div>
+    </div>
+  </div>
+</ion-content>

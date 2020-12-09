@@ -1,0 +1,70 @@
+@import '../../../setup.scss';
+
+.feedback-modal-header{
+    padding: 20px;
+    text-align: center;
+    background: transparentize($theme-color, 0.9);
+
+    .feedback-modal-title,
+    .feedback-modal-description{
+        color: $theme-color;
+    }
+    
+    .feedback-modal-title{
+        font-size: xx-large;
+        font-weight: bolder;
+        margin-bottom: 5px;
+    }
+
+    .feedback-modal-description{
+        opacity: 0.5;
+        font-size: small;
+    }
+}
+
+.feedback-modal-contents {
+    width: 100%;
+    padding: 20px;
+
+    label {
+        font-size: 17px;
+        font-weight: normal;
+    }
+    
+    .feedback-rating {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 0;
+
+        & > ion-icon {
+            flex: 1;
+            background: transparent;
+            color: #EEE;
+            padding: 10px 0;
+        }
+
+        & > ion-icon[isActive=true] {
+            color: $theme-color;
+        }
+    }
+
+    textarea {
+        width: 100%;
+        max-width: 100%;
+        min-width: 100%;
+        height: 150px;
+        max-height: 150px;
+        min-height: 150px;
+        border: 1px solid #EEE;
+        background: transparentize(#EEE, 0.8);
+        border-radius: 5px;
+        outline: none;
+        padding: 20px;
+    }
+
+    .feedback-type-selection {
+        display: flex;
+        justify-content: space-between;
+    }
+}

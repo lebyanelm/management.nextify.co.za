@@ -1,0 +1,94 @@
+<ion-content [scrollY]="false">
+    <div class="page-header flexbox">
+        <div class="name flexbox">
+            <span class="name" style="">Manage your Business</span>
+            <span class="description">Summary of your business from the app (Includes all branches)</span>
+        </div>
+        <div class="space"></div>
+        <div class="buttons">
+            <button class="clickable" (click)="openDateStatementSelection()">Request statement</button>
+        </div>
+        <div class="buttons flexbox">
+            <button class="clickable" (click)="openWithdrawalModal()">Request withdrawal</button>
+        </div>
+    </div>
+
+    <ion-content *ngIf="sockets.data">
+        <!-- Table for numerical summary values -->
+        <div class="table">
+            <table>
+                <thead>
+                    <tr>
+                        <!-- Partner Balance -->
+                        <td class="balance-value">R{{sockets.data?.snapshots.totalEarnings.toFixed(2)}}</td>
+                        <!-- Quantities Sold in total -->
+                        <td>{{sockets.data?.snapshots.quantitiesSold}}</td>
+                        <!-- Total orders made in total -->
+                        <td>{{ordersCount}}</td>
+                        <!-- Total number of customers in total -->
+                        <td>{{sockets.data?.customers.length}}</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="balance-title">Your Balance</td>
+                        <td>Quantities Sold</td>
+                        <td>Total Orders</td>
+                        <td>Total Customers</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="panels flexbox">
+            <div class="panel">
+                <div class="avarage-customers header">
+                    <div class="name" style="font-weight: bold; font-size: large;">{{getMonth()}}'S TRANSACTIONS</div>
+                    <div class="description">All orders that came from the app</div>
+                </div>
+
+                <div class="data-container" #GraphContainer>
+                    <ngx-charts-line-chart
+                        [view]="[GraphContainer.offsetWitdh, GraphContainer.offsetHeight-20]"
+                        [animations]=true
+                        [legend]=false
+                        [xAxis]=true
+                        [yAxis]=true
+                        [yAxisLabel]="'Amount (Rands)'"
+                        [xAxisLabel]="'No. of Days'" 
+                        [showYAxisLabel]=true
+                        [showXAxisLabel]=false
+                        [gradient]=true
+                        [results]=graphCalculations
+                    ></ngx-charts-line-chart>
+                </div>
+            </div>
+
+            <!-- Branches performance -->
+            <div class="avarage-customers">
+                <div class="header">
+                    <div class="name" style="font-weight: bold;">Avg. Daily Customers</div>
+                    <div class="description">Customers visiting your app daily</div>
+                </div>
+                <div class="data" [style]="'--speed: ' + (sockets.data.snapshots.customerAvg > 10 ? 100 : 600) + 'ms'">{{sockets.data.snapshots.customerAvg.toFixed(1)}}</div>
+            </div>
+        </div>
+    </ion-content>
+</ion-content>
+
+<!-- <div class="panel">
+    <div class="panel-header">
+        <div class="panel-name">YOUR TOP BRANCHES IN ORDER</div>
+        <div class="panel-description">The branches with the most profit in total, to the least</div>
+    </div>
+
+    <div class="data-container">
+        <div class="branch-listing flexbox">
+            <div class="count">1.</div>
+            <div class="details">
+                <div class="name">Kaalfontein, South Africa</div>
+                <div class="id">B3984993843</div>
+            </div>
+        </div>
+    </div>
+</div> -->

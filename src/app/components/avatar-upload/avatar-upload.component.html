@@ -1,0 +1,25 @@
+<ion-content class="split-view">
+  <input type="file" #FileInput hidden accept="image/*">
+  <div class="center">
+    <br>
+    <button class="flexbox ion-text-center clickable" [disabled]="isUploading" (click)="browseFiles()">
+      <span>Browse</span>
+      <div class="space"></div>
+      <ion-icon name="arrow-forward"></ion-icon>
+    </button>
+
+    <br>
+    <h5>Uploading</h5>
+    <p class="link" *ngIf="!upload">No uploads currently running</p>
+    <div class="upload" *ngIf="upload" [attr.data-isStillUploading]=upload?.uploading>
+      <div class="placeholder-image"><div class="avatar" [style.background-image]="'url(' + upload.url + ')'"></div></div>
+      <div class="details">
+        <div class="image-name">{{upload.name}} ({{upload.progress.toFixed(0)}}%)</div>
+        <div class="progressbar" *ngIf="upload.uploading">
+          <div class="progress" [style.width]="upload.progress + '%'"></div>
+        </div>
+        <span *ngIf="!upload.uploading">Complete</span>
+      </div>
+    </div>
+  </div>  
+</ion-content>

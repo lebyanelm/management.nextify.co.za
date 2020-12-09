@@ -1,0 +1,25 @@
+<ion-content>
+  <div class="modal-header">Request Funds Withdrawal</div>
+
+  <div class="content-container" *ngIf="!isLoading">
+    <div class="withdraw-destination-account">
+      <div class="withdraw-from-account account">Nextify Technologies</div>
+      <div class="to-icon">
+        <ion-icon name="chevron-forward-sharp"></ion-icon>
+        <ion-icon name="chevron-forward-sharp"></ion-icon>
+      </div>
+      <div class="withdraw-to account">{{sockets.data?.businessName}}</div>
+    </div>
+  
+    <div class="withdrawal-amount">
+      <input type="text" placeholder="R0.00" [attr.isError]="isAmountError && !!WithdrawalAmountInput.value.length" #WithdrawalAmountInput>
+      <div class="withdrawal-maximum">Maximum R{{sockets.data?.snapshots.totalEarnings.toLocaleString()}}</div>
+    </div>
+  </div>
+
+  <div class="loader center" *ngIf="isLoading"></div>
+</ion-content>
+
+<ion-footer>
+  <button class="clickable" [disabled]="(!isAllowed && isAmountError && isLoading)" (click)="requestWithdrawal()">{{sockets.data?.snapshots.totalEarnings !== 0 ? isLoading ? 'Processing...' : 'Withdraw ' + (this.amount ? 'R' + this.amount.toFixed(2) : 'Funds') : 'Insufficient Balance'}}</button>
+</ion-footer>

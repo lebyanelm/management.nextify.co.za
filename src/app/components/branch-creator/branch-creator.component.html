@@ -1,0 +1,58 @@
+<div class="container">
+  <ion-content>
+    <!-- The map -->
+    <div class="map" #MapContainer></div>
+
+    <!-- Indicator to show current focused address -->
+    <p class="current-address" contenteditable="true" *ngIf="formattedAddress"><span>{{formattedAddress}}</span></p>
+
+    <!-- Center icon to represent the center of the map -->
+    <div class="center center-icon" [attr.isMapMove]=isMapMove>
+      <img src="/assets/icons/center.svg" height=40px alt="">
+      <div class="dot"></div>
+    </div>
+  </ion-content>
+  
+  <ion-content>
+    <div class="branches">
+      <h3>{{ isSelectBranch ? 'Select login branch' : 'Your branches' }}</h3>
+  
+      <div class="branches-list" *ngIf="sockets.data?.branches.length">
+        <div class="branch" [attr.isCurrent]="sockets.data.branches.indexOf(branch) === selectedBranchIndex" *ngFor="let branch of sockets.data.branches">
+          <div class="count" (click)="selectBranch(sockets.data.branches.indexOf(branch))"><b>{{sockets.data.branches.indexOf(branch) + 1}}</b>.</div>
+          <div class="metadata clickable" (click)="selectBranch(sockets.data.branches.indexOf(branch))">
+            <div class="name">{{branch.name}} <ion-icon name="checkmark"></ion-icon></div>
+            <div class="coordinates">{{branch.coordinates.lat.toFixed(5)}}, {{branch.coordinates.lng.toFixed(5)}}</div>
+          </div>
+          <div class="space" (click)="selectBranch(sockets.data.branches.indexOf(branch))"></div>
+          <div class="remove clickable" (click)="deleteBranch(branch.id)"><ion-icon class="center" name="close"></ion-icon></div>
+        </div>
+      </div>
+      
+      <div class="bottom-buttons">
+        <button class="clickable flexbox" (click)="addBranch()" *ngIf="!isSelectBranch">
+          <span>Add branch</span>
+          <div class="space"></div>
+          <ion-icon name=add></ion-icon>
+        </button>
+        <button class="clickable flexbox" (click)="confirmBranch()" *ngIf="isSelectBranch">
+          <span>Confirm branch</span>
+          <div class="space"></div>
+          <ion-icon name=arrow-forward></ion-icon>
+        </button>
+        <br>
+        <div class="flexbox" *ngIf="isSelectBranch">
+          <app-setting name="Remember?" description="Automatically remember this branch everytime logging in using this device." [isChecked]="false" #SettingComponent></app-setting>
+        </div>
+      </div>
+    </div>
+
+    <div class="error-container ion-text-center" *ngIf="!sockets.data?.branches.length">
+      <img class="error-image" src="/assets/images/illustrations/storefront-monochrome.svg">
+      <div class="error-details">
+        <div class="error-title small">You currently have no branches</div>
+        <div class="error-message description">All branches your business creates will appear right here.</div>
+      </div>
+    </div>
+  </ion-content>
+</div>

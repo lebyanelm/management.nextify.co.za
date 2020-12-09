@@ -1,0 +1,7 @@
+<ion-app [attr.data-isLoading]=isLoading [attr.data-isModalLoading]="isModalLoading">
+  <app-loader *ngIf="isLoading"></app-loader>
+  <ion-router-outlet></ion-router-outlet>
+
+  <!-- Bell sound license https://creativecommons.org/licenses/by/4.0/ from http://www.orangefreesounds.com/desk-bell-sound/ -->
+  <audio src="/assets/sounds/order.wav" hidden #AudioRoute></audio>
+</ion-app>

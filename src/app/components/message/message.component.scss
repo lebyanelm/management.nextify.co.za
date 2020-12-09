@@ -1,0 +1,177 @@
+@import '../../../setup.scss';
+
+.message-container {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 10px;
+    flex-basis: 100%;
+    position: relative;
+
+    .time-separator {
+        width: 100%;
+        height: 1px;
+        background: #EEE;
+        text-align: center;
+        margin: 10px 0;
+
+        &::after {
+            content: attr(time);
+            display: block;
+            background: #FFF;
+            padding: 0 10px;
+            position: absolute;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%);
+            font-size: small;
+            font-weight: bold;
+        }
+    }
+
+    .message-image {
+        display: block;
+        width: 100%;
+        height: 200px;
+        background-size: cover !important;
+        background-repeat: no-repeat;
+        background: #EEE;
+        border-radius: 10px;
+        margin-bottom: 5px;
+    }
+    
+    .message-content,
+    .message-bottom {
+        float: right;
+    }
+
+    .message-content-container,
+    .message-bottom-container {
+        width: 100%;
+    }
+    
+    .message-content-container {
+        .message-content {
+            width: fit-content;
+            padding: 5px;
+            border-radius: 10px;
+            background: $secondary-color;
+            color: $text-light;
+            border-bottom-right-radius: 0;
+            justify-self: right;
+            position: relative;
+            max-width: 80%;
+
+            .message-reply-content {
+                width: 100%;
+                padding: 5px 15px;
+                background: #EEE;
+                color: $text-dark;
+                opacity: 0.7;
+                border-radius: 10px;
+                position: absolute;
+                z-index: -1;
+                top: -24px;
+                left: 0;
+                transition: opacity 300ms ease-in-out;
+                cursor: pointer;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    .message-bottom {
+        width: fit-content;
+
+        .message-state {
+            &::after {
+                content: '\2713';
+            }
+
+            &[messageState='0'] {
+                &::after { opacity: 0.5; }
+            }
+
+            &[messageState='1'] {
+                &::after { opacity: 1; color: $theme-color; }
+            }
+
+            &[messageState='2'] {
+                &::after { opacity: 1; color: $secondary-color; }
+            }
+        }
+
+        .message-time {
+            font-size: smaller;
+            opacity: 0.5;
+        }
+    }
+
+    .reply-button-container {
+        display: block;
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        padding: 5px 10px;
+
+        ion-icon {
+            float: left;
+            opacity: 0;
+            transition: transform 300ms ease-in-out,
+                        opacity 300ms ease-in-out;
+            cursor: pointer;
+
+            &:hover {
+                color: $secondary-color;
+            }
+        }
+    }
+
+    &:hover {
+        .reply-button { 
+            opacity: 1;
+        }
+
+        .reply-button-container ion-icon {
+            opacity: 1;
+            transform: translateX(10px);
+        }
+    }
+
+    &[isOutbound=false] {
+        .message-content-container .message-content {
+            float: left;
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 0;
+            background: transparentize(#EEE, 0.5);
+            color: $text-dark;
+        }
+
+        .message-bottom-container .message-bottom {
+            float: left;
+        }
+
+        .reply-button-container ion-icon {
+            float: right;
+        }
+
+        &:hover {
+            .reply-button-container ion-icon {
+                transform: translateX(-10px);
+            }
+        }
+    }
+
+    &[isShowTime=false] {
+        .message-bottom .message-time {
+            display: none;
+        }
+    }
+
+    &[hasReply=true] {
+        margin-top: 20px;
+    }
+}

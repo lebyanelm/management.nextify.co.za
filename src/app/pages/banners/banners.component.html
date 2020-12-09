@@ -1,0 +1,29 @@
+<ion-content>
+  <div class="page-header flexbox">
+    <div class="name flexbox">
+      <div class="name flexbox">
+        <span class="name" style="font-weight: bolder;">Manage Banners</span>
+        <span class="description">Let your customers know more about your products</span>
+      </div>
+    </div>
+    <div class="space"></div>
+    <div class="buttons flexbox">
+      <button class="flexbox clickable" (click)="openBannerModal()">Create new banner</button>
+    </div>
+  </div>
+  <ion-content *ngIf="sockets.data?.banners.length">
+    <div class="banner clickable" [style.background-image]="'url(' + banner.image + ')'" *ngFor="let banner of sockets?.data.banners" (click)="confirmDeleteBanner(banner.id)">
+      <div>
+        <div class="button-name center">Remove</div>
+      </div>
+    </div>
+  </ion-content>
+  
+  <div class="error-container ion-text-center" *ngIf="!sockets.data?.banners.length">
+    <img class="error-image" src="/assets/images/illustrations/storefront-monochrome.svg">
+    <div class="error-details">
+      <div class="error-title">You don't have banners yet</div>
+      <div class="error-message description">As you create banners they should appear here, and they'll also be loaded on the app for every customer visit.</div>
+    </div>
+  </div>
+</ion-content>

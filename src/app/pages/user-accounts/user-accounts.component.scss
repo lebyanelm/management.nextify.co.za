@@ -1,0 +1,44 @@
+@import '../../../setup.scss';
+
+table {
+    td {
+        padding: 5px 8px;
+    }
+
+    tbody {
+        tr {
+            background: transparent;
+            border-bottom: $border;
+            transition: background 300ms ease-in-out,
+                        border-left-color 300ms ease-in-out;
+            border-left: 5px solid transparent;
+            
+            &:hover {
+                background: transparentize($theme-color, 0.98);
+                border-left-color: $secondary-color;
+            }
+
+            td {
+                user-select: all;
+
+                &[data-isOnline=true] {
+                    color: $success;
+                }
+    
+                &[data-isOnline=false] {
+                    color: $danger;
+                }
+            }
+        }
+    }
+}
+
+.avatar {
+    height: 40px;
+    width: 40px;
+    border-radius: 50px;
+    background: #EEE;
+    background-size: cover;
+    background-position: center center;
+    border: 1px solid #DDD;
+}

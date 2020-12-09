@@ -1,0 +1,79 @@
+<div class="app-brand">
+  <div class="brand-logo"><img src="/assets/icons/favicondark.png"></div>
+  <div class="app-name">
+    <div class="name">Nextify</div>
+    <span class="bottom-app-name">PARTNERS</span>
+  </div>
+</div>
+
+<div class="sidemenu-links">
+  <div class="links-shimmer"></div>
+  <div class="links-loaded">
+    <div class="sidebar-link clickable active sidebar-link-0" (click)="routerService.routeToSlide(0)">
+      <ion-icon name="receipt-outline" class="outline"></ion-icon>
+      <ion-icon name="receipt" class="filled"></ion-icon>
+      <div class="name">Manage Orders</div>
+    </div>
+
+    <div class="sidebar-link clickable sidebar-link-1" (click)="routerService.routeToSlide(1)">
+      <ion-icon name="fast-food-outline" class="outline"></ion-icon>
+      <ion-icon name="fast-food" class="filled"></ion-icon>
+      <div class="name">Products</div>
+    </div>
+
+    <div class="sidebar-link clickable sidebar-link-2" (click)="routerService.routeToSlide(2)">
+      <ion-icon name="pizza-outline" class="outline"></ion-icon>
+      <ion-icon name="pizza" class="filled"></ion-icon>
+      <div class="name">Extras</div>
+    </div>
+
+    <div class="sidebar-link clickable sidebar-link-3" (click)="routerService.routeToSlide(3)">
+      <ion-icon name="albums-outline" class="outline"></ion-icon>
+      <ion-icon name="albums" class="filled"></ion-icon>
+      <div class="name">Banners</div>
+    </div>
+
+    <div class="sidebar-link clickable sidebar-link-4" (click)="routerService.routeToSlide(4)">
+      <ion-icon name="cash-outline" class="outline"></ion-icon>
+      <ion-icon name="cash" class="filled"></ion-icon>
+      <div class="name">Promocodes</div>
+    </div>
+    
+    <div class="sidebar-link clickable sidebar-link-5" (click)="routerService.routeToSlide(5)">
+      <ion-icon name="people-outline" class="outline"></ion-icon>
+      <ion-icon name="people" class="filled"></ion-icon>
+      <div class="name">Customers</div>
+    </div>
+
+    <div class="sidebar-link clickable sidebar-link-6" (click)="routerService.routeToSlide(6)">
+      <ion-icon name="car-outline"></ion-icon>
+      <ion-icon name="car" class="filled"></ion-icon>
+      <div class="name">Manage Drivers</div>
+    </div>
+    
+    <div class="sidebar-link clickable sidebar-link-7" (click)="routerService.routeToSlide(7)">
+      <ion-icon name="receipt-outline" class="outline"></ion-icon>
+      <ion-icon name="receipt" class="filled"></ion-icon>
+      <div class="name">Business Reports</div>
+    </div>
+    
+    <div class="sidebar-link clickable sidebar-link-8" (click)="routerService.routeToSlide(8)">
+      <ion-icon name="aperture-outline" class="outline"></ion-icon>
+      <ion-icon name="aperture" class="filled"></ion-icon>
+      <div class="name">Account</div>
+    </div>
+
+    <!-- Let partners send feedback about the software -->
+    <div class="sidebar-link clickable sidebar-link-8" (click)="openSendFeedbackModal()">
+      <ion-icon name="ear-outline" class="outline"></ion-icon>
+      <ion-icon name="ear" class="filled"></ion-icon>
+      <div class="name">Send us a feedback</div>
+    </div>
+  </div>
+</div>
+
+<button class="bottom-signout-button light clickable" routerLink="/accounts">
+  <div class="name">SIGN OUT</div>
+  <div class="space"></div>
+  <ion-icon name="log-out-sharp"></ion-icon>
+</button>

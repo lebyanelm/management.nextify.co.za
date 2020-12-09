@@ -1,0 +1,68 @@
+<ion-content>
+  <div class="page-header flexbox">
+    <div class="name flexbox">
+      <div class="name flexbox">
+        <span class="name" style="font-weight: bolder;">Manage Extras</span>
+        <span class="description">Offer customers more together with your products</span>
+      </div>
+      <span class="name current-category clickable flexbox" *ngIf="sockets.data && (sockets.data.users.length > 0)"><div class="category-name">Currently active</div> <ion-icon name="arrow-down"></ion-icon></span>
+    </div>
+    <div class="space"></div>
+    <div class="buttons">
+      <div class="input focus-grow">
+        <ion-icon name="search"></ion-icon>
+        <input type="text" placeholder="Search extras" [disabled]="!sockets.data?.extras.length" #SearchInput>
+      </div>
+    </div>
+    <div class="buttons">
+      <button [disabled]="!selectedExtras.length" (click)="confirmExtraDelete(selectedExtras)">Delete selected</button>
+    </div>
+    <div class="buttons flexbox">
+      <button class="flexbox clickable" (click)="openExtrasModal()">Add new</button>
+    </div>
+  </div>
+  <ion-content *ngIf="sockets.data?.extras.length">
+    <table>
+      <thead>
+        <tr>
+          <td>Name</td>
+          <td>Price</td>
+          <td>No. Times Selected</td>
+          <td>Time Created</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let extra of (SearchInput.length ? searchResults : sockets.data.extras)" [attr.data-isRetainState]=isSelectionMode [attr.data-isSelected]="this.selectedExtras.indexOf(extra.id) !== -1">
+          <td class="name">
+            <div class="checkbox-container">
+              <ion-checkbox mode="ios" (click)="selectExtra(extra.id)" #Checkbox></ion-checkbox>
+            </div>
+            {{extra.name}}</td>
+          <td>ZAR {{extra.price}}</td>
+          <td>{{extra.noUses}}</td>
+          <td>{{extra.timeCreated.day}}, {{extra.timeCreated.time}} 
+            <div class="buttons icon-only">
+              <button class="round no-border clickable" (click)="editExtra(extra)"><ion-icon class="center" name="create"></ion-icon></button>
+              <button class="round clickable danger" (click)="confirmExtraDelete([extra.id])"><ion-icon class="center" name=trash></ion-icon></button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ion-content>
+  
+  <div class="error-container ion-text-center" *ngIf="!sockets.data?.extras.length">
+    <img class="error-image" src="/assets/images/illustrations/breakfast-monochome.svg">
+    <div class="error-details">
+      <div class="error-title">You don't have extras yet</div>
+      <div class="error-message description">As you create new extras they'll appear here, and you'll be able to add them to any product you create or already created.</div>
+    </div>
+  </div>
+  <div class="error-container ion-text-center" *ngIf="SearchInput.value.length && !searchResults.length">
+    <img class="error-image" src="/assets/images/illustrations/breakfast-monochome.svg">
+    <div class="error-details">
+      <div class="error-title">No results</div>
+      <div class="error-message description">No results were found for the search keyword <b>"{{SearchInput.value}}"</b>.</div>
+    </div>
+  </div>
+</ion-content>

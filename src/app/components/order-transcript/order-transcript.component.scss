@@ -1,0 +1,64 @@
+@import '../../../setup.scss';
+
+.order-transcript-header .order-number {
+    font-size: x-large;
+    font-weight: 900;
+}
+
+.order-transcript-header .order-customer-name {
+    opacity: 0.5;
+}
+
+table tr {
+    justify-content: space-around;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    padding-right: 0 !important;
+    margin-right: 0 !important;
+}
+
+.section table tr {
+    background: transparent !important;
+}
+
+.section table tr:last-child {
+    border-bottom: none !important;
+}
+
+.section table tr:hover {
+    border-left-color: transparent !important;
+}
+
+.section table tr td {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    padding-right: 0 !important;
+    margin-right: 0 !important;
+    text-align: right;
+}
+
+.section table tr td,
+.section table tr td span,
+.section table tr td b {
+    font-family: monospace !important;
+}
+
+.section table tr td.name {
+    font-weight: bold;
+    color: $theme-color;
+    text-align: left;
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.item-details {
+    padding: 20px 0;
+}
+
+.section-name {
+    font-size: large;
+    border-bottom: none !important;
+}
+
+.section-name.larger {
+    font-size: x-large !important;
+}

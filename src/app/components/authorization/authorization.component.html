@@ -1,0 +1,14 @@
+<ion-content class="ion-padding">
+  <div class="mini-details">
+    <div class="avatar background-image" [style.background-image]="'url(' + data.avatar + ')'"></div>
+    <div class="username">{{data.emailAddress}}</div>
+  </div>
+
+  <div class="label">Please verify it's you</div>
+  <input type="text" placeholder="eg. securepassword" type="password" [(ngModel)]="password">
+  <p class="label"><i>This is necessary to prevent Account-Theft which may happen by change of login details.</i></p>
+</ion-content>
+
+<ion-footer>
+  <button (click)="approve()" [disabled]="!(password.length >= 8) || (isLoading)">Verify</button>
+</ion-footer>

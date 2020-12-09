@@ -1,0 +1,13 @@
+<slideshow [height]="'512px'"
+           [autoPlay]="false"
+           [showArrows]="true"
+           [imageUrls]="images"
+           [lazyLoad]="images?.length > 1"
+           [autoPlayWaitForLazyLoad]="true"
+           [showDots]="images?.length > 1"
+           [showCaptions]="true"
+           class="'modal'"
+           #Slideshow>
+</slideshow>
+
+<div class="image-name" *ngIf="currentImage" [attr.index]="index">{{currentImage.split('/').pop()}}</div>

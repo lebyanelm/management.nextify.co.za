@@ -1,0 +1,16 @@
+.product-views {
+    margin: 10px 5px 10px 0;
+    opacity: 0.5;
+
+    &.first {
+        margin-left: 10px;
+    }
+
+    ion-icon {
+        margin-right: 2px;
+    }
+}
+
+.metadata {
+    .name { font-weight: bold; }
+}

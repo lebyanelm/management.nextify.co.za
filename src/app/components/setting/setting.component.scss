@@ -1,0 +1,14 @@
+.setting-container {
+    display: flex;
+    align-items: center;
+}
+
+.setting-details {
+    margin-left: 10px;
+    cursor: pointer;
+
+    .description {
+        font-size: smaller !important;
+        opacity: 0.5;
+    }
+}

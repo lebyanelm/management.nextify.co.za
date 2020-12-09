@@ -1,0 +1,93 @@
+<ion-content>
+  <div class="page-header flexbox">
+    <div class="name flexbox">
+      <span class="name" style="font-weight: bolder;">Manage your Profile</span>
+      <span class="description">Have control over your partner profile, some details are shown in the app.</span>
+    </div>
+    <div class="space"></div>
+    <div class="buttons flexbox">
+    </div>
+  </div>
+
+  <!-- User accounting details, changable avatars and details -->
+  <ion-content *ngIf="data">
+    <div class="partner-accounting-header">
+      <div class="partner-account-avatar" [style.background-image]="'url(' + (data.media.length === 1 ? data.media[0] : data.media[data.media.length - 1]) + ')'" (click)="addNewAvatar()">
+        <div class="span">Change</div>
+      </div>
+      <div class="partner-account-details">
+        <div class="partner-account-name">{{data.businessName}}</div>
+        <div class="status" [attr.data-status]=true><span>{{ data.isVerified[0] ? 'Verified' : 'Not Verified'}}</span></div>
+      </div>
+    </div>
+
+    <div class="partner-edit-forms">
+      <br>
+      <div class="split-inputs">
+        <div>
+          <div class="label">Business name</div>
+          <input type="text" [placeholder]="data.businessName" [(ngModel)]="updatedData.businessName">
+        </div>
+        <div>
+          <div class="label">Email address</div>
+          <input type="text" [placeholder]="data.emailAddress" [(ngModel)]="updatedData.emailAddress">
+        </div>
+      </div>
+
+      <br>
+      <div class="label">Business phone number</div>
+      <input type="text" [placeholder]="data.phoneNumber || 'eg. 0123456789'" [(ngModel)]="updatedData.phoneNumber">
+
+      <br>
+      <br>
+      <div class="label">Business address</div>
+      <input type="text" [placeholder]="data.address || 'eg. 4938 Lakeside Road, Business Quarter, Midrand, 1685'" [(ngModel)]="updatedData.address">
+
+      <br>
+      <br>
+      <br>
+      <div class="settings">
+        <div class="section-name">Settings</div>
+        <div class="setting flexbox">
+          <div class="leftside">
+            <div class="label flexbox">Enable Two-Factor Authentication</div>
+            <div class="description">For every login you'll be requested to verify it's you with an email code. This is recommended to secure your account from unidentified logins.</div>
+          </div>
+          <div class="space"></div>
+          <div class="rightside">
+            <ion-checkbox mode="ios" [(ngModel)]="updatedData.isTwoFactorLogin"></ion-checkbox>
+          </div>
+        </div>
+
+        <div class="setting">
+          <div class="leftside">
+            <div class="label flexbox">Delivery range <ion-badge mode=ios><div class="badge-value">{{parseFloat(IonRange.value.toString()).toFixed(1)}}km</div></ion-badge></div>
+            <div class="description">The maximum distance that your branches can be able to support as per delivery, in kilometers.</div>
+          </div>
+          <ion-range class="ion-no-padding" [min]="0" [max]="5" [step]=0.1 [snaps]=true [ticks]=true mode=ios [(ngModel)]=updatedData.deliveryRange #IonRange></ion-range>
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button class="clickable" (click)="authorizeAction()" [disabled]="!(updatedData.businessName || updatedData.emailAddress || updatedData.address || updatedData.phoneNumber || (updatedData.isTwoFactorLogin !== data.isTwoFactorLogin) || (updatedData.deliveryRange !== data.deliveryRange))">Save changes</button>
+        <button class="danger light clickable" (click)="authorizeAction(true)">Delete account</button>
+      </div>
+
+      <!-- Login activity of the account, showing the IP Address and Browser information -->
+      <!-- <div class="listed-login-activity">
+        <div class="section-name">First time login history</div>
+        <div class="login-activity flexbox" *ngFor="let login of data.trustedLogins">
+          <div class="country-flag-container"><div class="flag" style.position="relative">
+            <ion-icon ></ion-icon>
+          </div></div>
+          <div class="details"> -->
+            <!-- The address from which the login was made -->
+            <!--<div class="address">{{login.deviceType}}</div>
+            <div class="connecton-details">IP: <b>{{login.ipAddress}}</b></div>
+            <div class="date">{{login.timeCreated.day}}, {{login.timeCreated.time}}</div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </ion-content>
+</ion-content>

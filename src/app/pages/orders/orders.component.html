@@ -1,0 +1,173 @@
+<ion-content>
+  <div class="page-header flexbox">
+    <div class="name flexbox">
+      <span class="name" style="font-weight: bold;">Customer Orders</span>
+      <span class="description">View and process orders placed by your customers</span>
+    </div>
+    <div class="space"></div>
+    <div class="buttons flexbox">
+      <div class="input focus-grow">
+        <ion-icon name="search"></ion-icon>
+        <input type="text" placeholder="Search orders" [disabled]="!branch.id && sockets.data?.orders[branch.id] && !sockets.data?.orders[branch.id].length" #SearchInput>
+      </div>
+      <button title="It is recomended that you clear orders that are no longer to be unattended to make searches faster.">Clear all orders</button>
+    </div>
+  </div>
+
+  <ion-content *ngIf="sockets.data && branch.id">
+    <div #OrdersContentContainer *ngIf="sockets.data?.orders[branch?.id] && sockets.data?.orders[branch?.id].length">
+      <!-- Order Status: 1 -->
+      <div class="orders-section">
+        <div class="section-name">
+          <b class="name">NEW (Unprocessed)</b>
+          <div class="quick-action" (click)="changeOrdersStatus([], 2)">MARK ALL IN PROGRESS <ion-icon name="arrow-forward"></ion-icon></div>
+        </div>
+  
+        <table class="orders-section-list">
+          <thead>
+            <tr>
+              <td>Preview & Customer</td>
+              <td>Order Number</td>
+              <td>Items</td>
+              <td>Special Instructions & Time</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="order-item" *ngFor="let order of SearchInput.value ? searchResults : sockets.data?.orders[branch?.id]" [style.display]="order.status === 1 ? '' : 'none'" [title]="['Order placed by ', order.customer].join('')" (dblclick)="openTranscript(order)">
+              <td>
+                <div class="order-product-previews" [attr.data-customerName]="order.customer">
+                  <div class="order-product-preview" *ngFor="let snapshot of order.snapshots" [style.background-image]="'url(' + snapshot + ')'"></div>
+                </div>
+              </td>
+    
+              <td class="order-reference-details">
+                <div class="order-number">{{order.id}}</div>
+              </td>
+  
+              <td class="items">
+                <span *ngFor="let item of order.products">{{item.name}}{{order.products.indexOf(item) === order.products.length-1 ? '' : ','}}</span>
+              </td>
+  
+              <td class="order-time-details">
+                <div class="expectation-time">{{order.restaurantInstructions || 'N/A'}}</div>
+                <div class="order-time">Placed {{order.timeCreated.day.split(',')[0]}} at {{order.timeCreated.time}}</div>
+              </td>
+    
+              <td class="action flexbox">
+                <div class="height-adgustment"></div>
+                <div class="space"></div>
+                <button class="button" (click)="changeOrdersStatus([order.id], 2)">Mark as in Progress</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+      <!-- Order Status: 2 -->
+      <div class="orders-section">
+        <div class="section-name">
+          <b class="name">IN PROGRESS</b>
+          <div class="quick-action" (click)="changeOrdersStatus([], 3)">MARK ALL READY <ion-icon name="arrow-forward"></ion-icon></div>
+        </div>
+  
+        <table class="orders-section-list">
+          <tbody>
+            <tr class="order-item" *ngFor="let order of SearchInput.value ? searchResults : sockets.data?.orders[branch?.id]" [style.display]="order.status === 2 ? '' : 'none'" [title]="['Order placed by ', order.customer].join('')" (dblclick)="openTranscript(order)">
+              <td>
+                <div class="order-product-previews" [attr.data-customerName]="order.customer">
+                  <div class="order-product-preview" *ngFor="let snapshot of order.snapshots" [style.background-image]="'url(' + snapshot + ')'"></div>
+                </div>
+              </td>
+    
+              <td class="order-reference-details">
+                <div class="order-number">{{order.id}}</div>
+              </td>
+  
+              <td class="items">
+                <span *ngFor="let item of order.products">{{item.name}}{{order.products.indexOf(item) === order.products.length-1 ? '' : ','}}</span>
+              </td>
+    
+              <td class="order-time-details">
+                <div class="expectation-time">{{order.restaurantInstructions || 'N/A'}}</div>
+                <div class="order-time">Placed {{order.timeCreated.day.split(',')[0]}} at {{order.timeCreated.time}}</div>
+              </td>
+    
+              <td class="action flexbox">
+                <div class="height-adgustment"></div>
+                <div class="space"></div>
+                <button class="button" (click)="changeOrdersStatus([order.id], 3)">Mark as Completed</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+      <!-- Order Status: 3 -->
+      <div class="orders-section">
+        <div class="section-name">
+          <b class="name">CURRENTY IN DELIVERY</b>
+          <div class="quick-action" (click)="changeOrdersStatus([], 4)">SET ALL AS BACK IN PROGRESS <ion-icon name="arrow-forward"></ion-icon></div>
+        </div>
+  
+        <table class="orders-section-list">
+          <thead>
+            <tr>
+              <td>Preview & Driver</td>
+              <td>Order Number</td>
+              <td>Items</td>
+              <td>Special Instructions & Time</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="order-item" *ngFor="let order of SearchInput.value ? searchResults : sockets.data?.orders[branch?.id]" [style.display]="order.status === 3 ? '' : 'none'" [attr.isStrikeThrough]="order.status === 3" [title]="['Order placed by ', order.customer].join('')" (dblclick)="openTranscript(order)">
+              <td>
+                <div class="order-product-previews" [attr.data-driverName]="order.driver ? order.driver : ''">
+                  <div class="order-product-preview" *ngFor="let snapshot of order.snapshots" [style.background-image]="'url(' + snapshot + ')'"></div>
+                </div>
+              </td>
+    
+              <td class="order-reference-details">
+                <div class="order-number">{{order.id}}</div>
+              </td>
+  
+              <td class="items">
+                <span *ngFor="let item of order.products">{{item.name}}{{order.products.indexOf(item) === order.products.length-1 ? '' : ','}}</span>
+              </td>
+  
+              <td class="order-time-details">
+                <div class="expectation-time">{{order.restaurantInstructions || 'N/A'}}</div>
+                <div class="order-time">Placed {{order.timeCreated.day.split(',')[0]}} at {{order.timeCreated.time}}</div>
+              </td>
+    
+              <td class="action flexbox">
+                <div class="height-adgustment"></div>
+                <div class="space"></div>
+                <button class="button" (click)="changeOrdersStatus([order.id], 4)">Remove this order</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Order Status: 4, Moved to completed order, not seen on the platform. -->
+    </div>
+    <!-- If there aren't any orders in total at all statuses -->
+    <div class="error-container ion-text-center" *ngIf="!sockets.data?.orders[branch?.id] || (sockets.data.orders[branch?.id] && !sockets.data?.orders[branch?.id].length)">
+      <img class="error-image" src="/assets/images/illustrations/food-delivery-monochrome.svg">
+      <div class="error-details">
+        <div class="error-title">You currently have no orders</div>
+        <div class="error-message description">As users place orders they should appear here for you to process them.</div>
+      </div>
+    </div>
+  </ion-content>
+
+  <!-- If partners hasn't added any branches yet -->
+  <div class="error-container ion-text-center" *ngIf="!sockets.data?.branches.length">
+    <img class="error-image" src="/assets/images/illustrations/app-user-monochrome.svg">
+    <div class="error-details">
+      <div class="error-title">You haven't added any branches</div>
+      <div class="error-message description">You can only recieve orders and messages from your app and customers once you add a branch.</div>
+    </div>
+  </div>
+</ion-content>
+

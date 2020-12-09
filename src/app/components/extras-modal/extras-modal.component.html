@@ -1,0 +1,34 @@
+<ion-content>
+  <div class="app-loader" *ngIf="isLoading" [attr.data-isComplete]=isLoadingComplete></div>
+  <div class="modal-header"><div class="name">{{data && data.id ? 'Edit: ' + data.name : 'Create a new extra'}}</div></div>
+
+  <div class="content product-modal-content ion-padding">
+    <p *ngIf="isLoading && !isLoadingComplete" class="link ion-text-center">Creating extra...</p>
+    <p *ngIf="isLoading && !isLoadingComplete && data.id" class="link ion-text-center">Saving changes...</p>
+    <p *ngIf="isLoadingComplete && !isError" class="link ion-text-center">Extra created!</p>
+    <div class="metadata" *ngIf="!isLoading">
+      <p class="text-danger ion-text-center" *ngIf="isError && !isLoading">{{error}}</p>
+      <div class="split-inputs">
+        <div class="split-input">
+          <!-- Promocode -->
+          <label class="label">Name</label>
+          <input type="text" placeholder="eg. Tomato Sauce" [(ngModel)]="data.name" *ngIf="!data.id"> 
+          <input type="text" placeholder="eg. Tomato Sauce" [(ngModel)]="changes.name" *ngIf="data.id"> 
+        </div>
+        <div class="split-input">
+          <!-- Promocode end date -->
+          <label class="label">Price</label>
+          <input type="text" placeholder="eg. 4.50 (No currency)" [(ngModel)]="data.price" *ngIf="!data.id">
+          <input type="text" placeholder="eg. 4.50 (No currency)" [(ngModel)]="changes.price" *ngIf="data.id">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+</ion-content>
+
+<ion-footer class="buttons">
+  <button class="clickable" (click)="createExtra()" [disabled]="(isLoading || !isLoading) && !(data.name.length && data.price.length)" *ngIf="!data.id">Create Extra</button>
+  <button class="clickable" (click)="editExtra()" [disabled]="!(changes.name !== data.name || changes.price !== data.price)" *ngIf="data.id">Save Changes</button>
+</ion-footer>

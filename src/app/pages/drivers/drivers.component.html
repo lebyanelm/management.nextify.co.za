@@ -1,0 +1,69 @@
+<ion-content>
+  <div class="page-header flexbox">
+    <div class="name flexbox">
+      <div class="name flexbox">
+        <span class="name" style="font-weight: bolder;">Manage Drivers</span>
+        <span class="description">Add or remove drivers who will handle order deliveries</span>
+      </div>
+      <span class="name current-category clickable flexbox" *ngIf="sockets.data && (sockets.data.users.length > 0)"><div class="category-name">Currently active</div> <ion-icon name="arrow-down"></ion-icon></span>
+    </div>
+    <div class="space"></div>
+    <div class="buttons">
+      <div class="input focus-grow">
+        <ion-icon name="search"></ion-icon>
+        <input type="text" placeholder="Search drivers" [disabled]="!sockets.data?.extras.length" (keyup)="search(SearchInput.value)" #SearchInput>
+      </div>
+    </div>
+    <div class="buttons">
+      <button [disabled]="!selectedDrivers.length" (click)="confirmDeleteSelected()">Remove selected</button>
+    </div>
+    <div class="buttons flexbox">
+      <button class="flexbox clickable" (click)="openAddDriverModal()">Add a driver</button>
+    </div>
+  </div>
+  <ion-content *ngIf="sockets.data?.drivers.length && ((!SearchInput.value && !searchResults.length) || (SearchInput.value && searchResults.length))">
+    <table>
+      <thead>
+        <tr>
+          <td>Name</td>
+          <td>Username</td>
+          <td>No. Deliveries</td>
+          <td>Time Created</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let driver of (SearchInput.value.length && searchResults.length ? searchResults : sockets.data.drivers)" [attr.data-isSelected]="selectedDrivers.indexOf(driver.id) !== -1" [attr.data-isRetainState]=isSelectionMode>
+          <td class="name">
+            <div class="checkbox-container">
+              <ion-checkbox mode="ios" (click)="selectDriver(driver.id)" #Checkbox></ion-checkbox>
+            </div>
+            {{driver.name}} 
+          </td>
+          <td>{{driver.username}}</td>
+          <td>{{driver.noDeliveries}}</td>
+          <td>{{driver.timeCreated.day}}, {{driver.timeCreated.time}}
+            <div class="buttons icon-only">
+              <button class="round no-border clickable" (click)="openAddDriverModal(driver)"><ion-icon class="center" name="create"></ion-icon></button>
+              <button class="round clickable danger" (click)="confirmDriverDelete(driver)"><ion-icon class="center" name=trash></ion-icon></button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ion-content>
+  
+  <div class="error-container ion-text-center" *ngIf="!sockets.data?.drivers.length">
+    <img class="error-image" src="/assets/images/illustrations/food-delivery-monochrome.svg">
+    <div class="error-details">
+      <div class="error-title">You don't have drivers yet</div>
+      <div class="error-message description">As you create new extras they'll appear here, and you'll be able to add them to any product you create or already created.</div>
+    </div>
+  </div>
+  <div class="error-container ion-text-center" *ngIf="SearchInput.value.length && !searchResults.length">
+    <img class="error-image" src="/assets/images/illustrations/food-delivery-monochrome.svg">
+    <div class="error-details">
+      <div class="error-title">No results</div>
+      <div class="error-message description">No results were found for the search keyword <b>"{{SearchInput.value}}"</b>.</div>
+    </div>
+  </div>
+</ion-content>

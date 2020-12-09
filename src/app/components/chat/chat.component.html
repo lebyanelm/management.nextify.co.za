@@ -1,0 +1,121 @@
+<div class="chat-messaging-container" [attr.isChatOpen]="isChatOpen">
+  <!-- Messages -->
+  <div class="messages-chat-container" [attr.isMessagesOpen]="isMessagesOpen && isMessageOpenTemp">
+    <!-- Chat message header -->
+    <div class="chat-header">
+      <div class="flexbox" *ngIf="!isNewChat && activeCustomerId && recipientDetails[activeCustomerId]">
+        <div class="avatar-container"><div class="avatar" [style.background-image]="'url(' + recipientDetails[activeCustomerId].avatar + ')'"></div></div>
+        <div class="details">
+          <div class="name">{{recipientDetails[activeCustomerId].name}}</div>
+          <div class="status" [attr.isOnline]="recipientDetails[activeCustomerId].isOnline">{{recipientDetails[activeCustomerId].isOnline ? 'Active' : 'Inactive'}}</div>
+        </div>
+        <div class="space"></div>
+        <div class="buttons">
+          <div class="button ion-activatable" (click)="clearChats(recipientDetails[activeCustomerId].id)">
+            <ion-ripple-effect></ion-ripple-effect>
+            <ion-icon class="center" name="trash"></ion-icon>
+          </div>
+        </div>
+      </div>
+
+      <!-- If a message is being sent to a new recipient -->
+      <div *ngIf="isNewChat" class="flexbox">
+        <app-select [okText]="'Select Recipient'" placeholder="Select a chat recipient" header="Select a recipient" [isMultiSelect]=false [runBeforeOnClick]="{handler: loadCustomers, self: this}" (changes)="recipientSelectChange(RecipientsSelect.selected)" #RecipientsSelect></app-select>
+        <div class="space"></div>
+        <div (click)="closeMessages()">Cancel</div>
+      </div>
+    </div>
+    <div class="chat-messages space" *ngIf="activeCustomerId" #ChatMessages>
+      <app-message
+        *ngFor="let message of socketsService.data.messages[branchService.id][activeCustomerId]"
+        [message]="message.body"
+        [attachments]="message.attachments"
+        [type]="message.type"
+        [isShowTime]="socketsService.data.messages[branchService.id][activeCustomerId][ socketsService.data.messages[branchService.id][activeCustomerId].indexOf(message) ? socketsService.data.messages[branchService.id][activeCustomerId].indexOf(message) - 1 : socketsService.data.messages[branchService.id][activeCustomerId].indexOf(message) ].timeCreated.day !== message.timeCreated.day"
+        [timeCreated]="message.timeCreated"
+        [state]="message.state"></app-message>
+     
+    </div>
+    <div class="chat-footer">
+      <div class="loader-progress" *ngIf="isUpload" [style.width]="progress + '%'"></div>
+      <div class="selected-reply" *ngIf="isReplying">
+        <div class="reply-to">Replying to Frank Casino</div>
+        <div class="reply-content">Hey there</div>
+      </div>
+      
+      <textarea type="text" placeholder="Type your message..." autocapitalize="true" autofocus [(ngModel)]="message.body"></textarea>
+
+      <div class="buttons flexbox">
+        <app-file-selector [placeholder]="'Select attachments'" #FileSelect></app-file-selector>
+        <div class="space"></div>
+        <button class="send-button ion-activatable flexbox" (click)="sendMessage()" [disabled]="!(message.body.length && message.to)">
+          <span>Send message</span> <ion-icon name="send"></ion-icon>
+          <ion-ripple-effect></ion-ripple-effect>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chat listing -->
+  <div class="chat-list-container">
+    <div class="header ion-activatable" (click)="toggleChatOpenState()">
+      <ion-ripple-effect></ion-ripple-effect>
+      <div class="avatar" [attr.isConnected]="status.status">
+        <ion-icon class="center" name="chatbox-ellipses-sharp"></ion-icon>
+      </div>
+      <div class="tab-name flex"><b>Messaging</b> <span *ngIf="noTotalUnreadMessages !== 0">({{noTotalUnreadMessages}} Unread)</span></div>
+      <div class="space"></div>
+      <div class="buttons">
+        <div class="tab-button chat-state-indication" [attr.isChatOpen]="isChatOpen">
+          <ion-icon name="chevron-up-sharp"></ion-icon>
+        </div>
+      </div>
+    </div>
+    
+    <div class="chatlist-container">
+      <div class="chatlist-search">
+        <input type="text" placeholder="Search customers..." (keyup)="startSearch($event)">
+        <ion-icon class="search-icon" name="search"></ion-icon>
+
+        <br>
+        <div class="section">
+          <div class="name"></div>
+          <div class="space"></div>
+          <div class="button link flexbox" (click)="openMessages(true)"><ion-icon name="add"></ion-icon> New Chat</div>
+        </div>
+      </div>
+
+      <div class="chatlist" *ngIf="socketsService.data && socketsService.data.messages && socketsService.data.messages[branchService?.id]">
+        <div class="chat ion-activatable" (click)="openMessages(false, chat)" *ngFor="let chat of (searchKeyword.length ? searchedCustomers : recipientList)">
+          <ion-ripple-effect></ion-ripple-effect>
+          <div class="chat-avatar-container">
+            <div
+              class="avatar" 
+              [style.background-image]="'url(' + recipientDetails[chat].avatar + ')'"
+              [style.background-size]="'cover'"
+              [style.background-repeat]="'no-repeat'"
+              [attr.unreadMessageCount]="getUnreadMessagesCount(socketsService.data.messages[branchService.id][chat])"></div>
+          </div>
+          <div class="chat-details">
+            <div class="chat-name flexbox">
+              {{recipientDetails[chat].name}}
+              <div class="space"></div>
+              <div class="previous-time">{{socketsService.data.messages[branchService.id][chat][socketsService.data.messages[branchService.id][chat].length ? socketsService.data.messages[branchService.id][chat].length - 1 : socketsService.data.messages[branchService.id][chat][0]].timeCreated.time}}</div>
+            </div>
+            <div class="chat-previous-message" [attr.isUnread]="true">{{socketsService.data.messages[branchService.id][chat][socketsService.data.messages[branchService.id][chat].length ? socketsService.data.messages[branchService.id][chat].length - 1 : socketsService.data.messages[branchService.id][chat][0]].body}}</div>
+          </div>
+        </div>
+
+        <div class="no-messages ion-text-center" *ngIf="!recipientList.length && !searchKeyword">
+          <ion-icon name="person"></ion-icon>
+          <div class="message">No active chat yet, start one.</div>
+        </div>
+
+        <div class="no-messages ion-text-center" *ngIf="!searchedCustomers.length && searchKeyword">
+          <ion-icon name="person"></ion-icon>
+          <div class="message">No customers found.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

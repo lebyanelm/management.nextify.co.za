@@ -1,0 +1,147 @@
+@import '../../../setup.scss';
+
+.container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    height: 450px;
+}
+
+.map,
+ion-content.main {
+    height: 450px;
+    text-align: center;
+}
+
+.map {
+    background: rgb(232, 233, 237);
+    flex: 0.5; 
+}
+
+.current-address {
+    display: block;
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    color: #FFFFFF;
+
+    span {
+        padding: 5px 10px;
+        font-weight: bold;
+        border-radius: 5px;
+        font-size: smaller;
+        background: $theme-color;
+    }
+}
+
+.center-icon {
+    .dot {
+        opacity: 0;
+        transition: opacity 300ms ease-in-out;
+        height: 10px;
+        width: 10px;
+        background: #000000;
+        border-radius: 50px; 
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-55%) translateY(-100%);
+    }
+
+    img { transition: transform 300ms ease-in-out; }
+
+    &[isMapMove=true] {
+        img { transform: translateY(-50%); }
+        .dot { opacity: 1; }
+    }
+}
+
+.branches {
+    padding: 0 20px;
+    flex: 1;
+
+    .branches-list {
+        padding: 20px 0;
+        text-align: left !important;
+
+        .separator {
+            padding: 20px 0;
+            font-weight: normal !important;
+        }
+
+        .branch {
+            display: flex;
+            align-items: center;
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+            border-bottom: 1px solid #EEE;
+            cursor: pointer;
+
+            ion-icon { transition: opacity 300ms ease-in-out; }
+            &[isCurrent=true] ion-icon[name=checkmark] { opacity: 1; }
+            &[isCurrent=false] ion-icon[name=checkmark] { opacity: 0; }
+
+            &:hover {
+                .remove { opacity: 1; }
+            }
+            
+            &[isCurrent=true] {
+                .name { color: $secondary-color; }
+                ion-icon { opacity: 1; }
+            }
+
+            .metadata {
+                padding-left: 10px;
+            }
+            
+            .name {
+                font-weight: bold;
+            }
+            
+            .coordinates {
+                opacity: 0.5;
+            }
+
+            .remove {
+                opacity: 0;
+                transition: opacity 300ms ease-in-out;
+                height: 20px;
+                width: 20px;
+                border-radius: 50px;
+                background-color: $danger;
+                color: $text-light;
+                position: relative;
+            }
+        }
+    }
+
+    .bottom-buttons {
+        display: flex;
+        background: #FFF;
+        flex-direction: column;
+        position: absolute;
+        bottom: 20px;
+        padding-right: 20px;
+        width: 95%;
+        z-index: 10000000;
+
+        button {
+            float: left;
+            padding: 12px 10px;
+            background: $theme-color;
+            border: 1px solid #EEE;
+            color: #FFF;
+            width: 100%;
+            margin-right: 20px;
+        }
+
+        div {
+            label { padding: 0 10px; }
+        }
+    }
+
+    .description {
+        font-size: smaller !important;
+        opacity: 0.5;
+    }
+}

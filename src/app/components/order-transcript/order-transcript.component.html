@@ -1,0 +1,87 @@
+<ion-content class="ion-padding" *ngIf="order">
+  <div class="order-transcript-header">
+    <div class="order-number">Order {{order.id}} - {{orderStatus}}</div>
+    <div class="order-customer-name">Placed by {{order.customer}}, {{getTimeElapsed(order.timeCreated.timestamp).hours}} hours and {{getTimeElapsed(order.timeCreated.timestamp).minutes}} minutes ago</div>
+  </div>
+
+  <br>
+  <div class="section">
+    <table>
+      <tbody>
+        <tr>
+          <td class="name">Items</td>
+          <td><span *ngFor="let item of order.products">{{order.products.length > 1 && order.products.indexOf(item) !== 0 ? ', ' : ''}} {{item.quantity}} x {{item.name}}</span></td>
+        </tr>
+
+        <tr>
+          <td class="name">Destination</td>
+          <td>{{order.destination.address.join(',')}}</td>
+        </tr>
+
+        <tr>
+          <td class="name">Promocode</td>
+          <td>{{order.promocodeUsed.code ? order.promocodeUsed.code + ' (-' + order.promocodeUsed.discount + '%)' : 'None used'}}</td>
+        </tr>
+
+        <tr>
+          <td class="name">Payment</td>
+          <td>{{order.paymentMethodId === 'cash' ? 'Cash' : 'Credit Card'}}</td>
+        </tr>
+
+        <tr>
+          <td class="name">Paid</td>
+          <td><b>ZAR</b> {{order.totalPrice}}</td>
+        </tr>
+
+        <tr>
+          <td class="name">Instructions</td>
+          <td>{{order.restaurantInstructions ? order.restaurantInstructions : 'No comments'}}</td>
+        </tr>
+
+        <tr *ngFor="let section of sectionsSelected">
+          <td class="name">{{section.name}}</td>
+          <td>{{section.value}}</td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <div class="item-details" *ngFor="let item of order.products">
+      <div class="section-name"><b>{{item.quantity}} x</b> {{item.name}}</div>
+      <table>
+        <tbody>
+          <tr>
+            <td class="name">Quantity</td>
+            <td>{{item.quantity}}</td>
+          </tr>
+
+          <tr>
+            <td class="name">Unit Price</td>
+            <td><b>ZAR</b> {{item.price}}</td>
+          </tr>
+
+          <tr>
+            <td class="name">Is aded as side?</td>
+            <td>{{item.isSide ? 'Yes (for ' + getProductName(item.mainProduct) + ')' : 'No'}}</td>
+          </tr>
+          
+          <tr>
+            <td class="name" *ngIf="item.extras.length">Extras</td>
+            <td>{{getExtraNames(item.extras)}}</td>
+          </tr>
+
+          <tr *ngFor="let option of objectToArray(item.selectedOptions)">
+            <td class="name">{{option.name}}</td>
+            <td>{{option.option}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <button>
+      <span *ngIf="order.status === 1">Mark as in Progress</span>
+      <span *ngIf="order.status === 2">Mark as Completed</span>
+      <span *ngIf="order.status === 3">Remove</span>
+    </button>
+  </div>
+</ion-content>

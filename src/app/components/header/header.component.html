@@ -1,0 +1,29 @@
+<div class="flexbox">
+  <div class="business-profile-dropdown-button flexbox clickable" (click)="openBranchCreatorModal()">
+    <div class="avatar-container"><div class="avatar background-image" *ngIf="sockets.data" [style.background-image]="'url(' + sockets.data.media[sockets.data.media.length-1] + ')'"></div></div>
+    <div class="business-details" *ngIf="sockets.data">
+      <div class="name">{{ sockets.data.businessName }}</div>
+      <div class="partner-id">{{ sockets.data.id.toUpperCase() }} {{sockets.data.branches[branch.index] ? '|' + sockets.data.branches[branch.index].name : '' }}</div>
+    </div>
+    <ion-icon name=arrow-forward></ion-icon>
+  </div>
+
+  <div class="space"></div>
+
+  <div class="stats flexbox">
+    <div class="flexbox send-message clickable" (click)="openMessageModal()">
+      <ion-icon name="alert-circle-sharp"></ion-icon>
+      Send an alert
+    </div>
+    
+    <div class="flexbox car-connected">
+      <ion-icon name="car"></ion-icon>
+      {{driverConnections}} Connected
+    </div>
+
+    <div class="order-notifications flexbox clickable" (click)="changeBranchStatus(!BranchStatusToggle.checked)">
+      <ion-toggle color="dark" mode="md" [checked]="isOnline" class="connection-toggle" #BranchStatusToggle></ion-toggle>
+      Branch Online?
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<ion-content>
+  <div class="app-loader" *ngIf="isLoading" [attr.data-isComplete]=isLoadingComplete></div>
+  <div class="modal-header"><div class="name">Send an alert</div></div>
+
+  <div class="content product-modal-content ion-padding">
+    <p *ngIf="isLoading && !isLoadingComplete" class="link ion-text-center">Creating promocode...</p>
+    <p *ngIf="isLoadingComplete && !isError" class="link ion-text-center">Promocode created!</p>
+    <div class="metadata" *ngIf="!isLoading">
+      <!-- Message input -->
+      <div class="label">Message</div>
+      <input type="text" placeholder="eg. We are now open, feel free to place an order." [(ngModel)]="message.text">
+      <br>
+      <br>
+      <div class="label">Recipients (Optional)</div>
+      <input type="text" placeholder="eg. C192837748322, C837838299323" [(ngModel)]="message.recipients">
+      <div class="text-light">Leave recipients empty to send to all customers.</div>
+    </div>
+  </div>
+
+  
+</ion-content>
+
+<ion-footer class="buttons">
+  <button class="clickable" (click)="sendMessage()">Send Alert</button>
+</ion-footer>

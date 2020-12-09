@@ -1,0 +1,13 @@
+<div class="container" (click)="openFileSelector()" [attr.hasError]="errorCode > 0" [attr.isProgress]="true" [attr.disabled]="disabled">
+  <div class="name">{{name}}</div>
+  <input type="file" hidden #Input pattern="document/*">
+  <div class="placeholder" [attr.isSelected]="!!file">{{file ? file.name : placeholder}}</div>
+
+  <div class="progress" [attr.progress]="progress" [style.width]="progress + '%'"></div>
+  <div class="progress-track" *ngIf="progress !== 0"></div>
+</div>
+
+<p class="description error" *ngIf="errorCode === 1">Filetype not recognized</p>
+<p class="description error" *ngIf="errorCode === 2">File size for "{{name}}" morethan 2MB</p>
+<p class="description error" *ngIf="errorCode === 3">No file selected, cancelled.</p>
+<p class="description success" *ngIf="errorCode === -1">File uploaded</p>

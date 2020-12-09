@@ -1,0 +1,21 @@
+.modal-header {
+    padding: 10px 0;
+    font-size: small !important;
+    position: relative !important;
+    margin-bottom: 4px solid #EEE !important;
+}
+
+.date-selector {
+    width: 90%;
+    display: flex;
+    margin: 20px auto;
+    padding: 0 20px;
+    justify-content: space-between;
+    text-align: center;
+
+    ion-datetime {
+        transform: translateX(-5px);
+    }
+
+    & > * { flex: 1; }
+}

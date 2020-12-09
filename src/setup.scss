@@ -1,0 +1,79 @@
+/******** VARIABLES **********/
+$theme-color: #16151d; //16151d
+$secondary-color: #3d9ae8;
+$text-dark: #000000;
+$text-light: #ffffff;
+$background-color: #ffffff;
+$success: rgb(33, 202, 149);
+$danger: rgb(246, 59, 95);
+$warning: rgb(246, 196, 59);
+$theme-color-light: transparentize($theme-color, 0.99);
+$secondary-color-light: transparentize($secondary-color, 0.98);
+
+$radius: 0px;
+$font-size: 13px;
+$shadow: 1px 1px 40px transparentize($theme-color, 0.9);
+$border: 1px solid transparentize($theme-color, 0.9);
+$border-secondary: 1px solid $secondary-color;
+$font-family: 'Roboto', sans-serif;
+
+// Polyfills
+.ion-activatable {
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+
+  &.absolute {
+    position: absolute;
+  }
+}
+
+/************************** KEYFRAMES *************************/
+@keyframes Spin {
+  from {
+    transform: rotate(0deg) translate(-50%, -50%);
+    transform-origin: center;
+  }
+  to {
+    transform: rotate(360deg) translate(-50%, -50%);
+    transform-origin: center;
+  }
+}
+
+@keyframes GrowLoader {
+  from {
+    width: 0;
+  }
+  to {
+    width: 85%;
+  }
+}
+
+@keyframes Pulse {
+  from {
+    opacity: 0.3;
+    animation-direction: alternate;
+  }
+  to {
+    opacity: 1;
+    animation-direction: alternate;
+  }
+}
+
+@keyframes LoaderShimmer {
+  0% {
+    left: 0;
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    left: 50%;
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    transform: translateX(100);
+    opacity: 0;
+  }
+}

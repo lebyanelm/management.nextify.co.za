@@ -1,0 +1,68 @@
+@import '../../../setup.scss';
+
+.accounts-form-container {
+    display: block;
+    width: 300px;
+
+    .brand-logo {
+        height: 90px;
+        width: 90px;
+        margin: 0 auto 20px auto;
+        position: relative;
+        background: $text-light;
+        border-radius: 50px;
+        border: 1px solid transparentize($theme-color, 0.8);
+        color: $text-light;
+
+        img { height: 40px; border-radius: 50px; }
+
+        &[isUsingAvatar=true] {
+            img {  }
+        }
+    }
+
+    .form-header {
+        margin-bottom: 30px;
+        &, * {
+            font-size: 25px;
+        }
+        span {
+            font-weight: 200 !important;
+        }
+    }
+
+    .form-action-instruction {
+        margin-bottom: 10px;
+    }
+    
+    button {
+        padding: 20px;
+        border-radius: 0;
+    }
+}
+
+.footer {
+    height: 50px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: transparentize($theme-color, 0.8);
+    background-image: url('/assets/images/placeholder@3x.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.link {
+    font-style: italic;
+}
+
+/*** Ionic Slides ***/
+ion-slides {
+    ion-slide {
+        display: inline-block;
+        text-align: start;
+        margin: 0;
+        width: 100% !important;
+    }
+}

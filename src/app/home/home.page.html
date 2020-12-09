@@ -1,0 +1,26 @@
+<!-- Container of the side menu and the page content -->
+<div class="app-page-content">
+    <!-- The side menu off the app -->
+    <app-sidebar></app-sidebar>
+
+    <!-- The right content of the page -->
+    <div class="right-pane-content">
+        <app-header></app-header>
+        <div class="current-page-contents">
+            <ion-slides #IonSlider>
+                <ion-slide><app-orders></app-orders></ion-slide>
+                <ion-slide><app-products></app-products></ion-slide>
+                <ion-slide><app-extras></app-extras></ion-slide>
+                <ion-slide><app-banners></app-banners></ion-slide>
+                <ion-slide><app-promocodes></app-promocodes></ion-slide>
+                <ion-slide><app-user-accounts></app-user-accounts></ion-slide>
+                <ion-slide><app-drivers></app-drivers></ion-slide>
+                <ion-slide><app-reports></app-reports></ion-slide>
+                <ion-slide><app-settings></app-settings></ion-slide>
+            </ion-slides>
+        </div>
+    </div>
+</div>
+
+<!-- Chat component for sending and recieving messages from partner's customers -->
+<app-chat [attr.isChatOpen]="Chat.isChatOpen" #Chat></app-chat>

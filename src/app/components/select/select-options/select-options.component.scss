@@ -1,0 +1,49 @@
+ion-checkbox {
+    pointer-events: none !important;
+}
+
+.select-options-container {
+    height: 100%;
+    
+    .select-options-header {
+        text-align: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #EEE;
+    }
+
+    .select-options {
+        padding: 20px;
+        height: 80% !important;
+
+        .select-option {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #EEE;
+
+            .option-detail {
+                margin-left: 10px;
+
+                .name {
+                    font-weight: bold;
+                }
+
+                .price {
+                    font-size: smaller;
+                    opacity: 0.5;
+                }
+            }
+        }
+    }
+}
+
+.bottom-buttons {
+    position: absolute;
+    bottom: 0;
+
+    button {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+    }
+}

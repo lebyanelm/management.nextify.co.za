@@ -1,0 +1,24 @@
+<div class="select-options-container">
+  <div class="select-options-header">{{title}}</div>
+  <ion-content class="select-options ion-padding">
+    <div class="select-option" *ngFor="let option of options" (click)="selectOption(option)">
+      <ion-checkbox [checked]="selectedValues.indexOf(option) !== -1"></ion-checkbox>
+      <div class="option-detail">
+        <div class="name">{{option.name}}</div>
+        <div class="price" *ngIf="option.price">+ZAR {{parseFloat(option.price).toFixed(2)}}</div>
+        <div class="price" *ngIf="!option.price && option.id">{{option.id}}</div>
+      </div>
+    </div>
+
+    <!-- If there aren't any options loaded -->
+    <div *ngIf="options.length === 0" class="center description ion-text-center">No options available for selection</div>
+  </ion-content>
+</div>
+
+<div class="bottom-button">
+  <button class="flexbox clickable" (click)="setOptions()">
+    <span>{{okText}}</span>
+    <div class="space"></div>
+    <ion-icon name="checkmark-outlinex"></ion-icon>
+  </button>
+</div>

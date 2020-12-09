@@ -1,0 +1,34 @@
+@import "../../../setup.scss";
+
+input {
+    margin-top: 5px;
+    border-color: #EEE;
+    border-width: 1px;
+    padding: 10px 0;
+    border-bottom-width: 4px;
+    font-size: 13px;
+    transition: border-color 500ms ease-in-out;
+
+    &:focus {
+        border-color: transparentize($theme-color, 0)
+    }
+}
+
+.mini-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .avatar {
+        height: 70px;
+        width: 70px;
+        background: #EEE;
+        background-size: cover !important;
+        background-repeat: no-repeat;
+        background-position: center center;
+        border: $border;
+        border-radius: 50px;
+        margin-bottom: 10px;
+    }
+}

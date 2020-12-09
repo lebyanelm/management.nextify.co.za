@@ -1,0 +1,25 @@
+<ion-content>
+  <div class="modal-header">Select Statement Date Range</div>
+
+  <div class="date-selector">
+    <div>
+      <label class="label">Statement from date</label>
+      <ion-datetime
+        placeholder="Select a date"
+        [dayValues]=undefined
+        doneText="Select start date"
+        #IonStartDateInput></ion-datetime>
+    </div>
+    <div>
+      <label class="label">Statement end date</label>
+      <ion-datetime
+        placeholder="Select a date"
+        [dayValues]="undefined"
+        doneText="Select end date"
+        #IonEndDateInput></ion-datetime>
+    </div>
+  </div>
+</ion-content>
+<ion-footer>
+  <button [disabled]="!(IonStartDateInput.value && IonEndDateInput.value && isAllowed && !isLoading)" (click)="generateStatement()">{{isLoading ? 'This might take a while' : 'Generate Statement'}}</button>
+</ion-footer>

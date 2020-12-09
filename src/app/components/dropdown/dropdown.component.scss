@@ -1,0 +1,59 @@
+@import '../../../setup.scss';
+
+.dropdown-button {
+    padding: 5px 5px 2px 5px;
+    border: $border;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: $background-color;
+    cursor: pointer;
+
+    ion-icon {
+        margin-right: 0;
+        padding-right: 0;
+    }
+
+    .name {
+        ion-icon[name=chevron-down] { margin-right: 5px; }
+    }
+
+    .container { z-index: 1; }
+
+    .dropdown-items {
+        background: $background-color;
+        border: $border;
+        padding: 10px 0;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        transform: translateY(10px);
+        width: 200px;
+        box-shadow: $shadow;
+        animation: skew 360ms ease-in-out;
+        
+        li { padding: 8px 10px !important; }
+        li:hover { background: #EEE; color: $secondary-color; }
+
+        li[role=danger] { color: $danger; }
+        li[role=danger]:hover { color: $text-light; background: $danger; }
+
+        &::before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: -10px;
+            left: 0;
+            width: 100%;
+            height: calc(100% + 10px);
+            background: $background-color;
+            opacity: 0.2;
+            z-index: -1;
+        }
+    }
+}
+
+@keyframes skew {
+    from { transform: scaleX(-90deg) }
+    to { transform: scaleX(0deg) }
+}

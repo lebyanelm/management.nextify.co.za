@@ -1,0 +1,35 @@
+<ion-content>
+  <div class="feedback-modal-header">
+    <div class="feedback-modal-title">Send us a feedback</div>
+    <div class="feedback-modal-description">Do you have a feedback or found a bug in the platform? Your feedback is much appreciated and we'd love to hear from you.</div>
+  </div>
+
+  <div class="feedback-modal-contents">
+    <label>How was your experience?</label>
+    <div class="feedback-rating">
+      <ion-icon class="ion-activatable" name="star" *ngFor="let rating of ratings" [attr.isActive]="rating <= (selectedRating ? selectedRating : 0)" (click)="selectedRating = rating">
+        <ion-ripple-effect></ion-ripple-effect>
+      </ion-icon>
+    </div>
+
+    <label>Please tell us more about your feedback</label>
+    <br>
+    <br>
+    <textarea placeholder="Describe your feedback" [(ngModel)]="description"></textarea>
+    
+    <br>
+    <br>
+    <label>Select your feedback type</label>
+    <br>
+    <br>
+    <div class="feedback-type-selection">
+      <app-setting (click)="selectedFeedbackType = 1" [name]="'Bug Report'" [description]="'I found a problem'" [isChecked]="selectedFeedbackType === 1"></app-setting>
+      <app-setting (click)="selectedFeedbackType = 2" [name]="'Suggestion'" [description]="'I\'d love to see this'" [isChecked]="selectedFeedbackType === 2"></app-setting>
+      <app-setting (click)="selectedFeedbackType = 3" [name]="'Other'" [description]="'Can\'t describe it'" [isChecked]="selectedFeedbackType === 3"></app-setting>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <button class="clickable" [disabled]="!(selectedFeedbackType && description && selectedRating)" (click)="sendFeedback()">Send Feedback!</button>
+</ion-footer>

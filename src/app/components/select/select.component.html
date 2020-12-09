@@ -1,0 +1,8 @@
+<div class="select" #Select>
+  <div class="placeholder" *ngIf="!selected.length">{{placeholder}}</div>
+  <div class="values" *ngIf="selected.length !== 0"><span *ngFor="let extra of selected">{{(selected.length > 1 && selected.indexOf(extra) !== 0) ? ',' : ''}} {{extra.name ? extra.name : extra}}</span></div>
+  
+  <div class="value"></div>
+  <div class="space"></div>
+  <ion-icon name="caret-down-sharp"></ion-icon>
+</div>

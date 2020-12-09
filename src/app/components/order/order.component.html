@@ -1,0 +1,36 @@
+<div class="product-name-id">
+  <div class="name flexbox"><span *ngFor="let product of products">{{product.name}}, </span></div>
+  <div class="id">Order {{id}}</div>
+</div>
+
+<div class="product-metadata">
+  <div class="metadata">
+    <div class="name">Total Price</div>
+    <div class="value">ZAR {{totalPrice}}</div>
+  </div>
+  <div class="metadata">
+    <div class="name">Customer</div>
+    <div class="value">
+      <span *ngFor="let product of products">{{customer}}</span>
+    </div>
+  </div>
+  <div class="metadata">
+    <div class="name">Promocode Used</div>
+    <div class="value" *ngIf="promocodeUsed.code">{{promocodeUsed.code}}, -{{promocodeUsed.discount}}%</div>
+    <div class="value" *ngIf="!promocodeUsed.code">None used</div>
+  </div>
+  <div class="metadata">
+    <div class="name">Destination</div>
+    <div class="value">{{destination.address}}</div>
+  </div>
+  <div class="metadata">
+    <div class="name">Extras</div>
+    <div class="value" *ngIf="extras?.length">{{extras}}, <span class="strike">{{getExcludedExtras()}}</span></div>
+    <div class="value" *ngIf="!extras?.length"><span>None selected</span></div>
+  </div>
+</div>
+
+<div class="attachments-right-button">
+  <div class="space"></div>
+  <div class="action-button danger clickable" (click)="processProduct()" *ngIf="status === 1"><span>Processed</span></div>
+</div>

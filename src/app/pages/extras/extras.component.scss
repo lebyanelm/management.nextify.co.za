@@ -1,0 +1,19 @@
+@import '../../../setup.scss';
+
+table {
+    td {
+        position: relative;
+        button {
+            &:first-child {
+                transition: transform 300ms 0 ease-in-out;
+                transform: translateX(50%);
+            }
+        }
+    }
+
+    tr:hover {
+        button:first-child {
+            transform: translateX(0);
+        }
+    }
+}

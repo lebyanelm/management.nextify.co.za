@@ -1,0 +1,167 @@
+@import "../../../setup.scss";
+
+input {
+    margin-top: 5px;
+    border-color: #EEE;
+    border-width: 1px;
+    padding: 10px 0;
+    border-bottom-width: 4px;
+    font-size: 13px;
+    transition: border-color 500ms ease-in-out;
+
+    &:focus {
+        border-color: transparentize($theme-color, 0)
+    }
+}
+
+.partner-accounting-header {
+    display: flex;
+    align-items: center;
+
+    .partner-account-avatar {
+        height: 70px;
+        width: 70px;
+        background: #FFF;
+        border: $border;
+        border-radius: 50px;
+        position: relative !important;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        left: 0;
+        cursor: pointer;
+
+        .span,
+        &::before {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+
+        }
+
+        .span {
+            color: $text-light;
+            
+            font-size: 12px;
+        }
+
+        &::before {
+            content: "";
+            display: block;
+            height: 100%;
+            width: 100%;
+            background: transparentize($theme-color, 0.8);
+            border-radius: 50px;
+            transition: opacity 500ms ease-in-out;
+        }
+
+        &:hover {
+            .span,
+            &::before {
+                opacity: 1;
+            }
+        }
+    }
+    
+    .partner-account-details {
+        margin-left: 20px;
+
+        .partner-account-name {
+            font-size: 24px;
+        }
+
+        .status {
+            padding: 2px 4px;
+            background: $theme-color;
+            float: left;
+            color: $text-light;
+
+            span {
+                transform: translate(2px);
+                font-size: 10px;
+            }
+        }
+    }
+}
+
+.section-name {
+    font-weight: bold;
+    margin-bottom: 10px; }
+
+.description {
+    opacity: 0.5;
+}
+
+.settings ion-icon {
+    margin-right: 8px;
+    transform: translateY(-2px);
+}
+
+.settings {
+    .setting {
+        padding: 20px 0;
+        border-bottom: 1.2px solid #EEE;
+        
+        &:last-child { border-bottom: none; }
+
+        .label {
+            font-weight: bold;
+        }
+        
+        ion-range { width: 100%;
+            .range-pin {
+                padding: 5px 10px;
+                background: red;
+                --color: #FFF;
+            }
+            .range-slider {
+                height: 0px !important;
+            }
+        }
+
+        .right-side {
+            padding-left: 40px;
+        }
+    }
+}
+
+.buttons {
+    display: flex;
+    width: 300px;
+    margin: 20px 0 40px 0;
+    button {
+        float: left;
+        margin-right: 10px; }
+}
+
+.partner-edit-forms {
+    padding: 20px 20px 100px 90px;
+}
+
+.listed-login-activity {
+    .login-activity {
+        padding: 10px 0;
+
+        &:not(&:first-child) {
+            border-bottom: $border;
+        }
+        &:first-child { border-bottom: none !important; } 
+
+        .country-flag-container {
+            margin-right: 10px;
+            .flag {
+                height: 45px;
+                width: 45px;
+                border: $border;
+                border-radius: 50px;
+            }
+        }
+        
+        .address {  }
+
+        .date,
+        .connecton-details { opacity: 0.7; }
+    }
+}

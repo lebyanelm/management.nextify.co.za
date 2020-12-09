@@ -1,0 +1,60 @@
+<ion-content>
+  <div class="page-header flexbox">
+    <div class="name flexbox">
+      <div class="name flexbox">
+        <span class="name" style="font-weight: bolder;">Your customers</span>
+        <span class="description">View, manage and facilitate your customers, and track who's online</span>
+      </div>
+      <span class="name current-category clickable flexbox" *ngIf="sockets.data && (sockets.data.users.length > 0)"><div class="category-name">Currently active</div> <ion-icon name="arrow-down"></ion-icon></span>
+    </div>
+    <div class="space"></div>
+    <div class="buttons flexbox">
+      <div class="input focus-grow">
+        <ion-icon name="search"></ion-icon>
+        <input type="text" placeholder="Search user accounts" [disabled]="!customers.length" #SearchInput>
+      </div>
+      <button class="flexbox clickable" (click)="getCustomerData()">
+        Reload customers
+      </button>
+    </div>
+  </div>
+  <ion-content *ngIf="customers.length && (SearchInput.value.length && searchList.length) || customers.length && (!SearchInput.value.length && !searchList.length)">
+    <table>
+      <thead>
+        <tr>
+          <td>Avatar</td>
+          <td>Customer</td>
+          <td>ID</td>
+          <td>App-ID</td>
+          <td>Orders</td>
+          <td>Status</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of (SearchInput.value.length ? searchList : customers)">
+          <td><div class="avatar" [style.background-image]="'url(' + customer.avatar + ')'"></div></td>
+          <td class="name">{{customer.name}}</td>
+          <td>{{customer.id.toUpperCase()}}</td>
+          <td>{{customer.appId}}</td>
+          <td>{{customer.orders}}</td>
+          <td [attr.data-isOnline]="customer.isOnline"><b>{{customer.isOnline ? 'Online' : 'Offline'}}</b></td>
+        </tr>
+      </tbody>
+    </table>
+  </ion-content>
+  <div class="error-container ion-text-center" *ngIf="!customers.length">
+    <img src="/assets/images/illustrations/hiker-man-monochrome.svg" class="error-image">
+    <div class="error-details">
+      <div class="error-title">You don't have customers yet</div>
+      <div class="error-message description">As users register for an account on your app they should appear here after refreshing the list.</div>
+    </div>
+  </div>
+
+  <div class="error-container ion-text-center" *ngIf="SearchInput.value.length && !searchList.length">
+    <img src="/assets/images/illustrations/hiker-man-monochrome.svg" class="error-image">
+    <div class="error-details">
+      <div class="error-title">No results found</div>
+      <div class="error-message description">No results were found for the search keyword <b>"{{SearchInput.value}}"</b>.</div>
+    </div>
+  </div>
+</ion-content>

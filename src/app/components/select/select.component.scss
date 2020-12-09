@@ -1,0 +1,15 @@
+// Select menu
+.select {
+    display: flex;
+    align-items: center;
+    padding: 5px 0; 
+    cursor: pointer;
+
+    .placeholder {
+        opacity: 0.5;
+    }
+
+    ion-icon {
+        opacity: 0.8;
+    }
+}

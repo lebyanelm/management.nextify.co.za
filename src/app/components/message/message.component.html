@@ -1,0 +1,18 @@
+<div class="message-container" [attr.isOutbound]="type === 'outbound'" [attr.isShowTime]="isShowTime" [attr.hasReply]="reply !== undefined">
+  <!-- <div class="reply-button-container" *ngIf="type === 'inbound'"><ion-icon name="arrow-redo"></ion-icon></div> -->
+  <div class="time-separator" [attr.time]="timeCreated.day" *ngIf="isShowTime"></div>
+  <div class="message-content-container">
+    <div class="message-image" *ngIf="attachments.length" [style.background-image]="'url(' + attachments[0] + ')'"></div>
+    <div class="message-content">
+      <!-- <div class="message-reply-content" *ngIf="reply">{{reply.message}} {{attachments ? attachments[0] : ''}}</div> -->
+      <span>{{message}}</span>
+    </div>
+  </div>
+  <div class="message-bottom-container">
+    <div class="message-bottom flexbox">
+      <!-- <div class="message-state" *ngIf="true" [attr.messageState]="state"></div> -->
+      <!-- <div class="message-time">{{timeCreated.time}}</div> -->
+    </div>
+  </div>
+  <!-- <div class="reply-button-container" *ngIf="type === 'outbound'"><ion-icon name="arrow-redo"></ion-icon></div> -->
+</div>

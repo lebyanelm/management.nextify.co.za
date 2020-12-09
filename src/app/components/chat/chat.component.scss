@@ -1,0 +1,337 @@
+@import '../../../setup.scss';
+
+.chat-messaging-container {
+    display: flex;
+    height: 80vh;
+    width: 340px;
+    padding: 0 20px;
+    background: transparent;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1000;
+    transform: translateY(calc(100% - 50px));
+    transition: transform 300ms ease-in-out;
+
+    &[isChatOpen=true] {
+        transform: translateY(0%);
+    }
+
+    .chat-list-container,
+    .messages-chat-container {
+        display: block;
+        width: 300px;
+        height: 100%;
+        box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
+        border: $border;
+
+        .header {
+            padding: 12px 10px;
+            background: $theme-color;
+            color: $text-light;
+
+            &,
+            .buttons {
+                display: flex;
+                align-items: center;
+            }
+
+            .buttons {
+                display: flex;
+                .tab-button:first-child {
+                    margin-right: 5px;
+                }
+                
+                .tab-button.chat-state-indication {
+                    & ion-icon { transition: transform 300ms ease-in-out; }
+                    &[isChatOpen=true] ion-icon {
+                        transform: rotate(180deg);
+                    }
+                }
+            }
+            
+            .avatar {
+                height: 25px;
+                width: 25px;
+                border-radius: 50px;
+                background: transparent;
+                margin-right: 8px;
+                position: relative;
+                background-size: cover;
+                background-repeat: no-repeat;
+
+                &::after {
+                    content: "";
+                    display: block;
+                    height: 8px;
+                    width: 8px;
+                    border: 2px solid $background-color;
+                    border-radius: 50px;
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                }
+
+                &[isConnected=true] {
+                    &::after {
+                        background: $success;
+                    }
+                }
+
+                &[isConnected=false] {
+                    &::after {
+                        background: $danger;
+                    }
+                }
+            }
+        }
+    }
+
+    .chat-list-container {
+        background: $background-color;
+
+        .chatlist-search {
+            padding: 10px 10px 0 10px;
+            position: relative;
+
+            input {
+                border: $border;
+                border-radius: 4px;
+                font-size: small;
+                padding-top: 8px;
+                padding-bottom: 8px;
+                text-indent: 30px;
+            }
+
+            .search-icon {
+                position: absolute;
+                top: 50%;
+                left: 20px;
+                transform: translateY(calc(-100% - 1px));
+                opacity: 0.5;
+            }
+
+            .section {
+                margin-top: 5px;
+                border-bottom: $border;
+                padding-bottom: 5px;
+            }
+        }
+
+        // Sections to separate chats
+        .section {
+            display: flex;
+            align-items: center;
+
+            & > * { font-size: small; }
+        }
+
+        .chatlist {
+            padding: 10px 0;
+            .chat {
+                display: flex;
+                align-items: center;
+                transition: background 300ms ease-in-out;
+                padding: 0 10px;
+                overflow: hidden;
+                position: relative;
+
+                .chat-avatar-container {
+                    margin-right: 10px;
+                    .avatar {
+                        display: block;
+                        height: 40px;
+                        width: 40px;
+                        background: transparentize(#EEE, 0.5);
+                        border: $border;
+                        border-radius: 50px;
+                        position: relative;
+                        background-image: url('/assets/images/giphy.gif');
+                        background-size: cover;
+
+                        &[unreadMessageCount]::after {
+                            display: block;
+                            content: attr(unreadMessageCount);
+                            padding: 0 5px;
+                            border-radius: 50px;
+                            background: $secondary-color;
+                            box-shadow: $shadow;
+                            color: $text-light;
+                            font-size: small !important;
+                            position: absolute;
+                            bottom: -2px;
+                            right: -2px;
+                        }
+
+                        &[unreadMessageCount='0']::after {
+                            display: none !important;
+                        }
+                    }
+                }
+
+                .chat-details {
+                    border-bottom: $border;
+                    padding: 8px 0;
+                    flex: 1;
+                    
+                    .chat-name {
+                        font-weight: bold;
+
+                        .previous-time {
+                            font-size: smaller;
+                            opacity: 0.5;
+                        }
+                    }
+
+                    .chat-previous-message {
+                        opacity: 0.5;
+                        font-size: small;
+                    }
+                }
+
+                &:hover {
+                    background: #EEE;
+                }
+            }
+        }
+    }
+
+    .messages-chat-container {
+        display: flex;
+        flex-direction: column;
+        background: $background-color;
+        height: 95%;
+        transform: translateY(-50%);
+        position: absolute;
+        top: 50%;
+        z-index: -1;
+        transition: transform 300ms ease-in-out;
+
+        &[isMessagesOpen=true] {
+            transform: translateY(-50%) translateX(-99%)
+        }
+
+        .chat-header {
+            padding: 10px;
+            border-bottom: $border;
+
+            .avatar-container {
+                margin-right: 10px;
+                .avatar { height: 40px; width: 40px; background: #EEE; border-radius: 50px; }
+            }
+
+            .details {
+                .name {
+                    font-weight: bolder;
+                }
+                .status {
+                    font-size: smaller !important;
+                    opacity: 0.5;
+                    transition: color 300ms ease-in-out;
+
+                    &[isOnline=true] {
+                        color: $success;
+                    }
+                }
+            }
+
+            .buttons {
+                .button {
+                    height: 35px;
+                    width: 35px;
+                    border: $border;
+                    position: relative;
+
+                    &,
+                    ion-ripple-effect {
+                        border-radius: 50px;
+                    }
+                }
+            }
+        }
+
+        // Messages
+        .chat-messages {
+            overflow-y: scroll !important;
+            overflow-x: hidden !important;
+        }
+        
+        .chat-footer {
+            display: flex;
+            flex-direction: column;
+            border-top: 2px solid #EEE;
+            padding: 5px 10px 10px 8px;
+
+            .loader-progress {
+                height: 4px;
+                width: 0;
+                background: $secondary-color;
+            }
+            
+            .selected-reply {
+                padding: 0 10px;
+                border-left: 2px solid $theme-color;
+                margin-bottom: 10px;
+                
+                .reply-to { font-weight: bold; }
+                .reply-content { font-size: smaller; opacity: 0.5; }
+            }
+            
+            .buttons {
+                display: flex;
+                align-items: center;
+                
+                .button {
+                    display: flex;
+                    align-items: center;
+                    opacity: 0.5;
+                    transition: opacity 300ms ease-in-out;
+                    position: relative;
+                    overflow: hidden;
+                    border: 1px solid transparent;
+
+                    &:hover {
+                        border-color: #DDD;
+                    }
+
+                    &,
+                    ion-ripple-effect {
+                        border-radius: 50px;
+                    }
+                    
+                    ion-icon { font-size: small; }
+
+                    &:hover {
+                        opacity: 1;
+                    }
+                }
+
+                app-file-selector {
+                    display: block;
+                    width: 130px;
+                }
+                
+                .send-button {
+                    color: $secondary-color;
+                    transform: translateY(-25%);
+                    background: transparent;
+
+                    ion-icon {
+                        margin-left: 5px;
+                    }
+                }
+            }
+            
+            textarea {
+                border: none;
+                font-size: small;
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+                outline: none;
+            }
+
+            
+        }
+    }
+}

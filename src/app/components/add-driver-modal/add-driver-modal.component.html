@@ -1,0 +1,29 @@
+<ion-content>
+  <div class="modal-header"><div class="name">{{data && data.id ? 'Edit: ' + data.name : 'Add a new Driver'}}</div></div>
+
+  <div class="content product-modal-content ion-padding">
+    <div class="metadata">
+      <div class="split-inputs">
+        <div class="split-input">
+          <!-- Promocode -->
+          <div class="label">Name</div>
+          <input type="text" style="text-transform: capitalize;" placeholder="eg. John Doe" [(ngModel)]="data.name" [disabled]="isLoading"> 
+        </div>
+        <div class="split-input">
+          <!-- Promocode end date -->
+          <div class="label">Username</div>
+          <input type="text" placeholder="eg. driver@email.com" [(ngModel)]="data.username" [disabled]="isLoading">
+        </div>
+      </div>
+      <br>
+      <!-- Driver's Login Password -->
+      <div class="label">Login Password</div>
+      <input type="password" placeholder="eg. secretpassword" [(ngModel)]="data.loginPassword" [disabled]="isLoading">
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer class="buttons">
+  <button class="clickable" (click)="createDriver()" [disabled]="isLoading && !(data && data.name && data.username &&  data.loginPassword)" *ngIf="data && !data.id">Add Driver</button>
+  <button class="clickable" (click)="editDriver()" [disabled]="(isLoading || !isLoading) && !(data && data.name && data.username &&  (data.id ? true : !!data.loginPassword))" *ngIf="data && data.id">Edit Driver</button>
+</ion-footer>

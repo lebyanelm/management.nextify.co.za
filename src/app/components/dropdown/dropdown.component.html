@@ -1,0 +1,9 @@
+<div class="dropdown-button" (click)="toggleDropdownItems()" (mouseleave)="mouseleave()">
+  <div class="container">
+    <div class="name flexbox" *ngIf="title">{{title}} <ion-icon name="chevron-down"></ion-icon></div>
+    <div class="name" *ngIf="!title"><ion-icon name="ellipsis-horizontal"></ion-icon></div>
+  </div>
+  <div class="dropdown-items" *ngIf="isItemsEnabled">
+    <li *ngFor="let option of options" [attr.role]="option.role ? option.role : ''" (click)="handler(option.handler, option.passed, option.this)">{{option.name}}</li>
+  </div>
+</div>

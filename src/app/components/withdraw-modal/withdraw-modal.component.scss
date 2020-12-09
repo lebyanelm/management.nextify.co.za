@@ -1,0 +1,74 @@
+@import '../../../setup.scss';
+
+.modal-header {
+    padding: 10px 0;
+    position: relative !important;
+    margin-bottom: 10px;
+    font-size: small !important;
+    font-weight: bold !important;
+}
+
+.withdraw-destination-account {
+    display: flex;
+    padding: 20px 0;
+    align-items: center;
+    justify-content: center;
+
+    ion-icon {
+        opacity: 0.5;
+    }
+    
+    .account {
+        padding: 5px 8px;
+        background: #EEE;
+        border-radius: 50px;
+
+        &.withdraw-to {
+            background: $secondary-color;
+            color: $text-light;
+        }
+    }
+}
+
+.withdrawal-amount {
+    width: 70%;
+    margin: 0 auto;
+    text-align: center;
+
+    input {
+        border: none !important;
+        font-size: 3rem;
+        font-family: monospace !important;
+        font-weight: lighter !important;
+        text-align: center;
+        transition: color 300ms ease-in-out;
+        color: $success;
+
+        &[isError=true] {
+            color: $danger;
+        }
+    }
+
+    .withdrawal-maximum {
+        opacity: 0.5;
+        font-weight: bold;
+        color: $secondary-color;
+    }
+}
+
+.loader {
+    height: 60px;
+    width: 60px;
+    border: 1.5px solid $theme-color;
+    border-radius: 50px;
+    border-bottom-color: transparent;
+    animation: loader 300ms infinite linear
+}
+
+@keyframes loader {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    } to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}

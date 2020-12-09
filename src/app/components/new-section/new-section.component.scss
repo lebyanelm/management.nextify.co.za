@@ -1,0 +1,88 @@
+@import '../../../setup.scss';
+
+.new-section-modal-header {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    padding: 20px 0;
+    border-bottom: $border;
+}
+
+.section-details {
+    width: 100%;
+    padding: 10px 20px;
+}
+
+input {
+    border: none !important;
+}
+
+input.section-name {
+    font-size: large;
+    font-weight: bold;
+    border: none;
+    border-bottom: 4px solid #EEE;
+    text-indent: 0;
+    
+    &:focus {
+        border-bottom-color: $secondary-color !important;
+    }
+
+    &.small {
+        font-size: smaller !important;
+        font-weight: normal !important;
+    }
+}
+
+.option-input {
+    position: relative;
+    border-bottom: 2px solid #EEE;
+    .add-button {
+        display: block;
+        height: 40px;
+        width: 40px;
+        background: $secondary-color;
+        border-radius: 50px;
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        transform: translateY(-36%) translateX(-85%);
+        cursor: pointer;
+        box-shadow: $shadow;
+
+        ion-icon {
+            color: $text-light;
+        }
+    }
+}
+
+.added-options {
+    margin: 20px 0;
+    .option {
+        display: flex;
+        align-items: center;
+        border-bottom: $border;
+        padding: 10px 0;
+        .value {
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        .remove-button-contain {
+            height: 20px;
+            width: 20px;
+            border-radius: 50px;
+            background: $danger;
+            position: relative;
+            ion-icon { color: $text-light; }
+        }
+    }
+}
+
+.required-section-setting {
+    padding: 10px;
+}
+
+.section-options {
+    padding: 0 20px;
+}

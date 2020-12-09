@@ -1,0 +1,31 @@
+@import '../../../setup.scss';
+
+.container {
+    padding: 20px 50px;
+}
+
+button[isUploading=true] {
+    background: $background-color;
+    border: $border;
+    color: $text-dark;
+}
+
+button {
+    position: relative;
+    .progress {
+        display: block;
+        height: 4px;
+        position: absolute;
+        background: $theme-color;
+        bottom: 0;
+        left: 0;
+        transform: translateY(100%);
+    }
+
+    &[percent='100'] {
+        color: $success;
+        .progress {
+            background: $success;
+        }
+    }
+}

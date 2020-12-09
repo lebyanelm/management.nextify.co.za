@@ -1,0 +1,33 @@
+<ion-content>
+  <div class="accounts-form-container center">
+    <div class="brand-logo"><img class="center" [attr.isUsingAvatar]="!!userAvatar" [src]="userAvatar || '/assets/icons/next.svg'"></div>
+    <div class="form-header ion-text-center"><span>Nextify </span> <b>Partners</b> </div>
+    <ion-slides #Slides>
+      <ion-slide>
+        <div class="form-action-instruction">Enter your email address</div>
+        <input type="text" placeholder="eg. example@email.com" #EmailAddress>
+      </ion-slide>
+      <ion-slide>
+        <div class="form-action-instruction">Enter verification code</div>
+        <input type="number" placeholder="eg. 000-000" #Code>
+      </ion-slide>
+      <ion-slide>
+        <div class="form-action-instruction">Enter your password</div>
+        <input type="password" placeholder="eg. examplepassword" #Password>
+      </ion-slide>
+      <ion-slide>
+        <div class="form-action-instruction">What's your business name?</div>
+        <input type="text" placeholder="eg. Ads Co, Inc." #BusinessName>
+      </ion-slide>
+    </ion-slides>
+    <button class="flexbox clickable" disabled #NextButton>
+      <div class="text">{{ isSignin ? 'Signin' : 'Next step' }}</div>
+      <div class="space"></div>
+      <ion-icon name="arrow-forward"></ion-icon>
+    </button>
+    <br>
+    <div class="description error" [attr.isError]="isError" #SecondaryInstruction>Even if you don't have an account, we'll create one for you.</div>
+  </div>
+  
+  <div class="footer"></div>
+</ion-content>

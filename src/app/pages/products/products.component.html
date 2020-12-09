@@ -1,0 +1,83 @@
+<ion-content>
+  <div class="page-header flexbox">
+    <div class="name flexbox">
+      <div class="name flexbox">
+        <span class="name" style="font-weight: bolder;">Manage Products</span>
+        <span class="description">Represents the menu that'll be shown in the app to your customers</span>
+      </div>
+    </div>
+    <div class="space"></div>
+    <div class="input focus-grow">
+      <ion-icon name="search"></ion-icon>
+      <input type="text" [placeholder]="'Search' + (currentCategory ? ' in ' + currentCategory : 'products')" [disabled]="!categoryProductIndices.length" #SearchInput>
+    </div>
+    <div class="buttons flexbox">
+      <button class="flexbox clickable" (click)="openProductModal()">Create a new product</button>
+    </div>
+  </div>
+  <ion-select [class]="'category-select'" [interfaceOptions]="{header: 'Categories'}" interface="action-sheet" [disabled]="!currentCategory" [placeholder]="currentCategory || 'No categories'" #IonSelect>
+    <ion-select-option [value]="category" *ngFor="let category of categories" (click)="setCurrentFocusedCategory(category)">{{category}}</ion-select-option>
+    <p class="ion-text-center" *ngIf="!currentCategory">No products yet.</p>
+  </ion-select>
+  <ion-content>
+    <div class="products" *ngIf="currentCategory.length > 0 && sockets.data?.products.length > 0 && !isSearch">
+      <app-product
+        *ngFor="let index of categoryProductIndices"
+        [id]=sockets.data.products[index].id
+        [name]=sockets.data.products[index].name
+        [buys]=sockets.data.products[index].buys
+        [views]=sockets.data.products[index].views
+        [price]=sockets.data.products[index].price
+        [category]=sockets.data.products[index].category
+        [description]=sockets.data.products[index].description
+        [extras]=sockets.data.products[index].extras
+        [branches]=sockets.data.products[index].branches
+        [dietary]=sockets.data.products[index].dietary
+        [inStock]=sockets.data.products[index].inStock
+        [expectedPrepareTime]=sockets.data.products[index].expectedPrepareTime
+        [noRequiredSides]=sockets.data.products[index].noRequiredSides
+        [timeCreated]=sockets.data.products[index].expectedPrepareTime
+        [sides]=sockets.data.products[index].sides
+        [sections]="sockets.data.products[index].sections || []"
+        [images]=sockets.data.products[index].images ></app-product>
+    </div>
+
+    <div class="products" *ngIf="currentCategory.length > 0 && sockets.data?.products.length > 0 && isSearch">
+      <app-product
+        *ngFor="let index of searchList"
+        [id]=sockets.data.products[index].id
+        [name]=sockets.data.products[index].name
+        [buys]=sockets.data.products[index].buys
+        [views]=sockets.data.products[index].views
+        [price]=sockets.data.products[index].price
+        [category]=sockets.data.products[index].category
+        [description]=sockets.data.products[index].description
+        [extras]=sockets.data.products[index].extras
+        [branches]=sockets.data.products[index].branches
+        [dietary]=sockets.data.products[index].dietary
+        [inStock]=sockets.data.products[index].inStock
+        [expectedPrepareTime]=sockets.data.products[index].expectedPrepareTime
+        [noRequiredSides]=sockets.data.products[index].noRequiredSides
+        [timeCreated]=sockets.data.products[index].expectedPrepareTime
+        [sides]=sockets.data.products[index].sides
+        [sections]=sockets.data.products[index].sections
+        [images]=sockets.data.products[index].images ></app-product>
+    </div>
+
+    <div class="error-container ion-text-center" *ngIf="!sockets.data?.products.length && !SearchInput.value.length">
+      <img class="error-image" src="/assets/images/illustrations/shipping-package-monochrome.svg">
+      <div class="error-details">
+        <div class="error-title">You don't have products yet</div>
+        <div class="error-message description">Your products should appear here as you add them, they'll be ordered into thier own categories.</div>
+      </div>
+    </div>
+
+    <div class="error-container ion-text-center" *ngIf="SearchInput.value.length && !searchList.length">
+      <img class="error-image" src="/assets/images/illustrations/shipping-package-monochrome.svg">
+      <div class="error-details">
+        <div class="error-title">No results</div>
+        <div class="error-message description">No results were found for search keyword <b>"{{SearchInput.value}}"</b>.</div>
+      </div>
+    </div>
+  </ion-content>
+</ion-content>

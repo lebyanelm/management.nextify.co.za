@@ -6,7 +6,7 @@ export interface Order  {
   id?: string;
   timeCreated?: TimeCreated;
   destination?: {
-      address: string;
+      address: string[];
       coordinates: Coordinates
   };
   extras?: string[];

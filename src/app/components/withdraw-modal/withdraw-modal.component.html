@@ -21,5 +21,5 @@
 </ion-content>
 
 <ion-footer>
-  <button class="clickable" [disabled]="(!isAllowed && isAmountError && isLoading)" (click)="requestWithdrawal()">{{sockets.data?.snapshots.totalEarnings !== 0 ? isLoading ? 'Processing...' : 'Withdraw ' + (this.amount ? 'R' + this.amount.toFixed(2) : 'Funds') : 'Insufficient Balance'}}</button>
+  <button class="clickable" [disabled]="(!isAllowed && isAmountError) || isLoading" (click)="requestWithdrawal()">{{sockets.data?.snapshots.totalEarnings !== 0 ? isLoading ? 'Processing...' : 'Withdraw ' + (this.amount ? 'R' + this.amount.toFixed(2) : 'Funds') : 'Insufficient Balance'}}</button>
 </ion-footer>

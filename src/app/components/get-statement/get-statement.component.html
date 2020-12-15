@@ -1,7 +1,7 @@
 <ion-content>
   <div class="modal-header">Select Statement Date Range</div>
 
-  <div class="date-selector">
+  <div class="date-selector" *ngIf="!isLoading">
     <div>
       <label class="label">Statement from date</label>
       <ion-datetime
@@ -19,7 +19,12 @@
         #IonEndDateInput></ion-datetime>
     </div>
   </div>
+
+  <div class="spinner" *ngIf="isLoading"></div>
 </ion-content>
 <ion-footer>
-  <button [disabled]="!(IonStartDateInput.value && IonEndDateInput.value && isAllowed && !isLoading)" (click)="generateStatement()">{{isLoading ? 'This might take a while' : 'Generate Statement'}}</button>
+  <button [disabled]="!isAllowed || isLoading" (click)="generateStatement()">
+    <b *ngIf="isLoading">This might take a while...</b>
+    <b *ngIf="!isLoading">Generate Statement</b>
+  </button>
 </ion-footer>

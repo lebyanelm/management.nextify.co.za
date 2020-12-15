@@ -56,19 +56,3 @@
     }
 }
 
-.loader {
-    height: 60px;
-    width: 60px;
-    border: 1.5px solid $theme-color;
-    border-radius: 50px;
-    border-bottom-color: transparent;
-    animation: loader 300ms infinite linear
-}
-
-@keyframes loader {
-    from {
-        transform: translate(-50%, -50%) rotate(0deg);
-    } to {
-        transform: translate(-50%, -50%) rotate(360deg);
-    }
-}

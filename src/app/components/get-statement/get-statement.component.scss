@@ -19,3 +19,11 @@
 
     & > * { flex: 1; }
 }
+
+// Showing loader to give users feedback of the statement generating state
+.spinner {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translateX(-50%);
+}

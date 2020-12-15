@@ -184,6 +184,23 @@ app-loader {
     }
 }
 
+.spinner {
+    height: 40px;
+    width: 40px;
+    border: 2px solid $theme-color;
+    border-radius: 50px;
+    border-bottom-color: transparent;
+    animation: loader 300ms infinite linear
+}
+
+@keyframes loader {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    } to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
 /***** IONICONS ******/
 ion-icon {
     font-size: 16px !important;

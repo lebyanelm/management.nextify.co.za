@@ -137,6 +137,32 @@ export class OrdersComponent implements AfterViewInit {
     }
   }
 
+  // Clearing the orders from the stack of the connected branch
+  clearAllOrders() {
+    this.loader.showLoader(true);
+
+    superagent
+      .delete([environment.backendServer, 'orders'].join('/'))
+      .set('Authorization', this.sockets.data.token)
+      .send({ branchId: this.branch.id })
+      .on('progress', (event) => this.loader.pipe(event.percent))
+      .end((_, response) => {
+        this.loader.showLoader(false);
+        if (response) {
+          if (response.status === 200) {
+            // Sync the changes made in the server with the locally loaded data
+            if (this.sockets.data.orders[this.branch.id]) {
+              delete this.sockets.data.orders[this.branch.id];
+            }
+          } else {
+            this.toast.show(response.body.reason || 'ERROR: SOMETHING WENT WRONG.');
+          }
+        } else {
+          this.toast.show('ERROR: NO INTERNET CONNECTION.');
+        }
+      });
+  }
+
   async openTranscript(order) {
     const modalCtrl = await this.modalCtrl.create({
       component: OrderTranscriptComponent,

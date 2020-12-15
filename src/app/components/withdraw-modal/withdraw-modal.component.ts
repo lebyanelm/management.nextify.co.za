@@ -5,6 +5,7 @@ import { ModalController } from '@ionic/angular';
 import { AuthorizationComponent } from '../authorization/authorization.component';
 import * as superagent from 'superagent';
 import { environment } from 'src/environments/environment';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-withdraw-modal',
@@ -22,7 +23,8 @@ export class WithdrawModalComponent implements OnInit, AfterViewInit {
     public sockets: SocketsService,
     private cdr: ChangeDetectorRef,
     private modalCtrl: ModalController,
-    private toast: ToastService
+    private toast: ToastService,
+    private loader: LoaderService
   ) { }
 
   ngOnInit() {}
@@ -43,6 +45,10 @@ export class WithdrawModalComponent implements OnInit, AfterViewInit {
   }
 
   async requestWithdrawal() {
+    // Show the loader
+    this.isLoading = true;
+    this.loader.showLoader(true);
+    
     const authModal = await this.modalCtrl.create({
       component: AuthorizationComponent,
       cssClass: 'modal authorization-modal',
@@ -73,10 +79,20 @@ export class WithdrawModalComponent implements OnInit, AfterViewInit {
                 } else {
                   this.toast.show(response.body.reason || 'ERROR: SOMETHING WENT WRONG.');
                 }
+              } else {
+                this.toast.show('ERROR: NO INTERNET CONNECTION.');
               }
+
+              // Remove the loader state
+              this.isLoading = false;
+              this.loader.showLoader(false);
             })
         } else {
           this.toast.show('ERROR: VERIFICATION FAILED!', {translucent: true, cssClass: 'danger', duration: 20000});
+
+          // Remove the loader states
+          this.isLoading = false;
+          this.loader.showLoader(false);
         }
       }).catch(error => {
         console.log(error);

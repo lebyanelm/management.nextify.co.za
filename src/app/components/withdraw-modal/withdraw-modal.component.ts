@@ -32,7 +32,7 @@ export class WithdrawModalComponent implements OnInit, AfterViewInit {
     this.withdrawalAmount.nativeElement.onkeyup = () => {
       this.withdrawalAmount.nativeElement.value = this.withdrawalAmount.nativeElement.value.indexOf(',') !== -1 ? this.withdrawalAmount.nativeElement.value.replace(',', '.') : this.withdrawalAmount.nativeElement.value;
       this.amount = parseFloat(this.withdrawalAmount.nativeElement.value);
-      if (this.amount !== NaN && this.amount <= this.sockets.data.snapshots.totalEarnings) {
+      if (this.amount !== NaN && this.amount > 0 && this.amount <= this.sockets.data.snapshots.totalEarnings) {
         this.isAllowed = true;
         this.isAmountError = false;
       } else {

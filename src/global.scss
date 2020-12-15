@@ -74,9 +74,9 @@ label,
 
 // Ion Checkboxes
 ion-checkbox {
-    --background: #FFF;
+    --background-color: #FFF;
     --checkmark-color: #000;
-    --background-checked: #000;
+    --background-checked: #FFF;
     --border-color-checked: #000;
     --border-width: 1px;
     --border-radius: 0;
@@ -784,6 +784,10 @@ ion-app[data-isModalLoading=true] {
     column-gap: 4%;
 }
 
+ion-modal {
+    --border-radius: 0;
+}
+
 .modal {
     input {
         margin-top: 5px;
@@ -802,7 +806,6 @@ ion-app[data-isModalLoading=true] {
     .modal-wrapper {
         width: 450px;
         transition: height 300ms ease-in-out;
-        border-radius: 0px;
 
         .content {
             padding-top: 50px;

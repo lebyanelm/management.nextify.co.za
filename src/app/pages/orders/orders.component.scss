@@ -108,7 +108,7 @@ ion-content {
                 padding: 2px 6px;
                 border-radius: 50px;
                 font-weight: bold;
-                background: $theme-color;
+                font-size: small;
                 border: 2px solid $background-color;
                 position: absolute;
                 bottom: 0;
@@ -119,6 +119,24 @@ ion-content {
 
             &[data-customerName]::before {
                 content: attr(data-customerName);
+            }
+
+            &[data-orderStatus="1"] {
+                &[data-customerName]::before {
+                    background: tomato;
+                }
+            }
+
+            &[data-orderStatus="2"] {
+                &[data-customerName]::before {
+                    background: orange;
+                }
+            }
+
+            &[data-orderStatus="3"] {
+                &[data-customerName]::before {
+                    background: lightgreen;
+                }
             }
         }
 

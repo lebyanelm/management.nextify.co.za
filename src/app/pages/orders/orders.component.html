@@ -29,13 +29,14 @@
               <td>Preview & Customer</td>
               <td>Order Number</td>
               <td>Items</td>
-              <td>Special Instructions & Time</td>
+              <td>Special Instructions</td>
+              <td></td>
             </tr>
           </thead>
           <tbody>
             <tr class="order-item" *ngFor="let order of SearchInput.value ? searchResults : sockets.data?.orders[branch?.id]" [style.display]="order.status === 1 ? '' : 'none'" [title]="['Order placed by ', order.customer].join('')" (dblclick)="openTranscript(order)">
               <td>
-                <div class="order-product-previews" [attr.data-customerName]="order.customer">
+                <div class="order-product-previews" [attr.data-customerName]="order.customer" [attr.data-orderStatus]="order.status">
                   <div class="order-product-preview" *ngFor="let snapshot of order.snapshots" [style.background-image]="'url(' + snapshot + ')'"></div>
                 </div>
               </td>
@@ -45,7 +46,7 @@
               </td>
   
               <td class="items">
-                <span *ngFor="let item of order.products">{{item.name}}{{order.products.indexOf(item) === order.products.length-1 ? '' : ','}}</span>
+                <span *ngFor="let item of order.products">{{item.name}}{{order.products.indexOf(item) === order.products.length-1 ? '' : ', '}}</span>
               </td>
   
               <td class="order-time-details">
@@ -73,7 +74,7 @@
           <tbody>
             <tr class="order-item" *ngFor="let order of SearchInput.value ? searchResults : sockets.data?.orders[branch?.id]" [style.display]="order.status === 2 ? '' : 'none'" [title]="['Order placed by ', order.customer].join('')" (dblclick)="openTranscript(order)">
               <td>
-                <div class="order-product-previews" [attr.data-customerName]="order.customer">
+                <div class="order-product-previews" [attr.data-customerName]="order.customer" [attr.data-orderStatus]="order.status">
                   <div class="order-product-preview" *ngFor="let snapshot of order.snapshots" [style.background-image]="'url(' + snapshot + ')'"></div>
                 </div>
               </td>
@@ -83,12 +84,11 @@
               </td>
   
               <td class="items">
-                <span *ngFor="let item of order.products">{{item.name}}{{order.products.indexOf(item) === order.products.length-1 ? '' : ','}}</span>
+                <span *ngFor="let item of order.products">{{item.name}}{{order.products.indexOf(item) === order.products.length-1 ? '' : ', '}}</span>
               </td>
     
               <td class="order-time-details">
                 <div class="expectation-time">{{order.restaurantInstructions || 'No Instructions'}}</div>
-                <div class="order-time">Placed {{order.timeCreated.day.split(',')[0]}} at {{order.timeCreated.time}}</div>
               </td>
     
               <td class="action flexbox">
@@ -114,13 +114,14 @@
               <td>Preview & Driver</td>
               <td>Order Number</td>
               <td>Items</td>
-              <td>Special Instructions & Time</td>
+              <td>Special Instructions</td>
+              <td></td>
             </tr>
           </thead>
           <tbody>
             <tr class="order-item" *ngFor="let order of SearchInput.value ? searchResults : sockets.data?.orders[branch?.id]" [style.display]="order.status === 3 ? '' : 'none'" [attr.isStrikeThrough]="order.status === 3" [title]="['Order placed by ', order.customer].join('')" (dblclick)="openTranscript(order)">
               <td>
-                <div class="order-product-previews" [attr.data-driverName]="order.driver ? order.driver : ''">
+                <div class="order-product-previews" [attr.data-driverName]="order.driver ? order.driver : ''" [attr.data-orderStatus]="order.status">
                   <div class="order-product-preview" *ngFor="let snapshot of order.snapshots" [style.background-image]="'url(' + snapshot + ')'"></div>
                 </div>
               </td>
@@ -130,7 +131,7 @@
               </td>
   
               <td class="items">
-                <span *ngFor="let item of order.products">{{item.name}}{{order.products.indexOf(item) === order.products.length-1 ? '' : ','}}</span>
+                <span *ngFor="let item of order.products">{{item.name}}{{order.products.indexOf(item) === order.products.length-1 ? '' : ', '}}</span>
               </td>
   
               <td class="order-time-details">

@@ -58,17 +58,23 @@ export class OrderStatusService {
                       this.sockets.data.completedOrders[this.branch.id].push(this.sockets.data.orders[this.sockets.data.orders[this.branch.id][index]]);
                       this.sockets.data.orders[this.branch.id].splice(index, 1);
                     }
+                    break;
                   }
                 }
               }
               resolve();
             } else {
               this.toast.show(response.body.reason || 'ERROR: SOMETHING WENT WRONG.');
+              reject();
             }
+          } else {
+            this.toast.show(response.body.reason || 'ERROR: NO INTERNET CONNECTION.');
+            reject();
           }
         });
       } else {
         this.loader.showLoader(false);
+        resolve();
       }
     });
   }

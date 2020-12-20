@@ -16,6 +16,7 @@ export class OrderTranscriptComponent implements OnInit {
   sectionsSelected: any = {};
   products: string[] = [];
   orderStatus: string;
+  isLoading = false;
   constructor(
     private sockets: SocketsService,
     public orderStatusService: OrderStatusService,
@@ -88,7 +89,20 @@ export class OrderTranscriptComponent implements OnInit {
   }
 
   updateOrderStatus(orderStatus: number): void {
+    this.isLoading = true;
     this.orderStatusService.update([this.order.id], orderStatus)
-      .then(() => this.modalCtrl.dismiss());
+      .then(() => {
+        this.isLoading = false;
+        this.modalCtrl.dismiss();
+      }).catch(_ => this.isLoading = false);
+  }
+
+  cancelOrder(): void {
+    this.isLoading = true;
+    this.orderStatusService.cancelOrder(this.order.id)
+      .then(() => {
+        this.isLoading = false;
+        this.modalCtrl.dismiss();
+      }).catch((_) => this.isLoading = false);
   }
 }

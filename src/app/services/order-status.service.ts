@@ -5,6 +5,7 @@ import { LoaderService } from './loader.service';
 import { SocketsService } from './sockets.service';
 import * as superagent from 'superagent';
 import { ToastService } from './toast.service';
+import { Http2ServerResponse } from 'http2';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class OrderStatusService {
     private loader: LoaderService,
     private sockets: SocketsService,
     private branch: BranchService,
-    private toast: ToastService,
+    private toast: ToastService
   ) { }
 
   update(orderIds: string[], status: number = 2, isStepBack = true) {
@@ -96,5 +97,34 @@ export class OrderStatusService {
           this.toast.show('ERROR: NO INTERNET CONNECTION.');
         }
       });
+  }
+
+  // Remove a single order from the stack, also notify the customer about cancelation of the order
+  cancelOrder(orderId: string): Promise<superagent.Response> {
+    return new Promise((resolve, reject) => {
+      this.loader.showLoader(true);
+
+      superagent
+        .delete([environment.backendServer, 'order'].join('/'))
+        .set('Authorization', this.sockets.data.token)
+        .send({ orderId, branchId: this.branch.id })
+        .on('progress', (event) => this.loader.pipe(event.percent))
+        .end((_, response) => {
+          if (response) {
+            if (response.status === 200) {
+              const orderIndex = this.sockets.data.orders[this.branch.id].findIndex((o) => o.id === orderId);
+              this.sockets.data.orders[this.branch.id].splice(orderIndex);
+
+              resolve(response);
+            } else {
+              this.toast.show(response.body.reason || 'ERROR: SOMETHING WENT WRONG.');
+              reject(response);
+            }
+          } else {
+            this.toast.show('ERROR: NO INTERNET CONNECTION');
+          }
+          this.loader.showLoader(false);
+        });
+    });
   }
 }

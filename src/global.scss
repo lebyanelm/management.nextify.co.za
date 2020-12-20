@@ -600,6 +600,14 @@ button {
         }
     }
 
+    &.danger-text {
+        color: $danger;
+        &:active {
+            background: $danger;
+            color: $text-light;
+        }
+    }
+
     &.no-border {
         border: none;
         color: $text-dark;

@@ -1,13 +1,18 @@
 <ion-content class="ion-padding" *ngIf="order">
   <div class="order-transcript-header">
     <div class="order-number">Order {{order.id}} - {{orderStatus}}</div>
-    <div class="order-customer-name">Placed by {{order.customer}}, {{getTimeElapsed(order.timeCreated.timestamp).hours}} hours and {{getTimeElapsed(order.timeCreated.timestamp).minutes}} minutes ago</div>
+    <div class="order-customer-name">Placed {{getTimeElapsed(order.timeCreated.timestamp).hours}} hours and {{getTimeElapsed(order.timeCreated.timestamp).minutes}} minutes ago</div>
   </div>
 
   <br>
   <div class="section">
     <table>
       <tbody>
+        <tr>
+          <td class="name">Customer</td>
+          <td>{{order.customer}}</td>
+        </tr>
+
         <tr>
           <td class="name">Items</td>
           <td><span *ngFor="let item of order.products">{{order.products.length > 1 && order.products.indexOf(item) !== 0 ? ', ' : ''}} {{item.quantity}} x {{item.name}}</span></td>
@@ -24,6 +29,11 @@
         </tr>
 
         <tr>
+          <td class="name">Instructions</td>
+          <td>{{order.restaurantInstructions ? order.restaurantInstructions : 'No comments'}}</td>
+        </tr>
+
+        <tr>
           <td class="name">Payment</td>
           <td>{{order.paymentMethodId === 'cash' ? 'Cash' : 'Credit Card'}}</td>
         </tr>
@@ -31,11 +41,6 @@
         <tr>
           <td class="name">Paid</td>
           <td><b>ZAR</b> {{order.totalPrice}}</td>
-        </tr>
-
-        <tr>
-          <td class="name">Instructions</td>
-          <td>{{order.restaurantInstructions ? order.restaurantInstructions : 'No comments'}}</td>
         </tr>
 
         <tr *ngFor="let section of sectionsSelected">
@@ -61,7 +66,7 @@
           </tr>
 
           <tr>
-            <td class="name">Is aded as side?</td>
+            <td class="name">Is added as side?</td>
             <td>{{item.isSide ? 'Yes (for ' + getProductName(item.mainProduct) + ')' : 'No'}}</td>
           </tr>
           
@@ -78,10 +83,9 @@
       </table>
     </div>
 
-    <button>
-      <span *ngIf="order.status === 1">Mark as in Progress</span>
-      <span *ngIf="order.status === 2">Mark as Completed</span>
-      <span *ngIf="order.status === 3">Remove</span>
-    </button>
+    <button *ngIf="order.status === 1" (click)="updateOrderStatus(2)">Mark as in Progress</button>
+    <button *ngIf="order.status === 2" (click)="updateOrderStatus(3)">Mark as Completed</button>
+    <button *ngIf="order.status === 3" (click)="updateOrderStatus(4)">Remove this order</button>
+    <button class="light danger-text">Cancel this order</button>
   </div>
 </ion-content>

@@ -20,7 +20,7 @@
       <div class="orders-section">
         <div class="section-name">
           <b class="name">NEW (Unprocessed)</b>
-          <div class="quick-action" (click)="changeOrdersStatus([], 2)">MARK ALL IN PROGRESS <ion-icon name="arrow-forward"></ion-icon></div>
+          <div class="quick-action" (click)="orderStatus.update([], 2)">MARK ALL IN PROGRESS <ion-icon name="arrow-forward"></ion-icon></div>
         </div>
   
         <table class="orders-section-list">
@@ -56,7 +56,7 @@
               <td class="action flexbox">
                 <div class="height-adgustment"></div>
                 <div class="space"></div>
-                <button class="button" (click)="changeOrdersStatus([order.id], 2)">Mark as in Progress</button>
+                <button class="button" (click)="orderStatus.update([order.id], 2)">Mark as in Progress</button>
               </td>
             </tr>
           </tbody>
@@ -67,7 +67,7 @@
       <div class="orders-section">
         <div class="section-name">
           <b class="name">IN PROGRESS</b>
-          <div class="quick-action" (click)="changeOrdersStatus([], 3)">MARK ALL READY <ion-icon name="arrow-forward"></ion-icon></div>
+          <div class="quick-action" (click)="orderStatus.update([], 3)">MARK ALL READY <ion-icon name="arrow-forward"></ion-icon></div>
         </div>
   
         <table class="orders-section-list">
@@ -94,7 +94,7 @@
               <td class="action flexbox">
                 <div class="height-adgustment"></div>
                 <div class="space"></div>
-                <button class="button" (click)="changeOrdersStatus([order.id], 3)">Mark as Completed</button>
+                <button class="button" (click)="orderStatus.update([order.id], 3)">Mark as Completed</button>
               </td>
             </tr>
           </tbody>
@@ -105,7 +105,7 @@
       <div class="orders-section">
         <div class="section-name">
           <b class="name">CURRENTY IN DELIVERY</b>
-          <div class="quick-action" (click)="changeOrdersStatus([], 4)">SET ALL AS BACK IN PROGRESS <ion-icon name="arrow-forward"></ion-icon></div>
+          <div class="quick-action" (click)="orderStatus.update([], 4)">SET ALL AS BACK IN PROGRESS <ion-icon name="arrow-forward"></ion-icon></div>
         </div>
   
         <table class="orders-section-list">
@@ -142,7 +142,7 @@
               <td class="action flexbox">
                 <div class="height-adgustment"></div>
                 <div class="space"></div>
-                <button class="button" (click)="changeOrdersStatus([order.id], 4)">Remove this order</button>
+                <button class="button" (click)="orderStatus.update([order.id], 4)">Remove this order</button>
               </td>
             </tr>
           </tbody>

@@ -2,6 +2,8 @@ import { SocketsService } from 'src/app/services/sockets.service';
 import { Order } from './../../interfaces/Order';
 import { Component, OnInit } from '@angular/core';
 import { time } from 'console';
+import { OrderStatusService } from 'src/app/services/order-status.service';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-order-transcript',
@@ -15,7 +17,9 @@ export class OrderTranscriptComponent implements OnInit {
   products: string[] = [];
   orderStatus: string;
   constructor(
-    private sockets: SocketsService
+    private sockets: SocketsService,
+    public orderStatusService: OrderStatusService,
+    private modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
@@ -81,5 +85,10 @@ export class OrderTranscriptComponent implements OnInit {
     }
     
     return array;
+  }
+
+  updateOrderStatus(orderStatus: number): void {
+    this.orderStatusService.update([this.order.id], orderStatus)
+      .then(() => this.modalCtrl.dismiss());
   }
 }

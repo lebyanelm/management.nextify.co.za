@@ -13,6 +13,7 @@ import { SocketsService } from './services/sockets.service';
 import { SlideshowModule } from 'ng-simple-slideshow';
 import { CategoriesService } from './services/categories.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OrderStatusService } from './services/order-status.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,6 +32,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BranchService,
     ToastService,
     StatusService,
+    OrderStatusService,
 
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

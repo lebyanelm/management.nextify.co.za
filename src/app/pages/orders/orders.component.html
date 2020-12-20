@@ -10,7 +10,7 @@
         <ion-icon name="search"></ion-icon>
         <input type="text" placeholder="Search orders" [disabled]="!branch.id && sockets.data?.orders[branch.id] && !sockets.data?.orders[branch.id].length" #SearchInput>
       </div>
-      <button title="It is recomended that you clear orders that are no longer to be unattended to make searches faster." (click)="clearAllOrders()">Clear all orders</button>
+      <button title="It is recomended that you clear orders that are no longer to be unattended to make searches faster." (click)="orderStatus.clearAllOrders()">Clear all orders</button>
     </div>
   </div>
 

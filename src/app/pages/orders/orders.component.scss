@@ -39,14 +39,20 @@ ion-content {
         }
         
         .section-name {
+            align-items: center;
+            display: flex;
             width: 100%;
             padding: 10px 0;
 
-            &,
-            .name,
             .quick-action {
-                display: flex;
                 align-items: center;
+                display: flex;
+                transform: translateY(20px);   
+            }
+
+            .name {
+                font-size: large;
+                font-weight: 500;
             }
 
             .quick-action {
@@ -80,6 +86,8 @@ ion-content {
         }
         
         td { padding: 5px 0 !important; }
+
+        thead td { font-weight: normal !important; }
         
         .order-product-previews {
             width: 80px;

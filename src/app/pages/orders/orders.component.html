@@ -19,8 +19,8 @@
       <!-- Order Status: 1 -->
       <div class="orders-section">
         <div class="section-name">
-          <b class="name">NEW (Unprocessed)</b>
-          <div class="quick-action" (click)="orderStatus.update([], 2)">MARK ALL IN PROGRESS <ion-icon name="arrow-forward"></ion-icon></div>
+          <span class="name">Unprocessed</span>
+          <b class="quick-action" (click)="orderStatus.update([], 2)">MARK ALL IN PROGRESS <ion-icon name="arrow-forward"></ion-icon></b>
         </div>
   
         <table class="orders-section-list">
@@ -66,8 +66,8 @@
       <!-- Order Status: 2 -->
       <div class="orders-section">
         <div class="section-name">
-          <b class="name">IN PROGRESS</b>
-          <div class="quick-action" (click)="orderStatus.update([], 3)">MARK ALL READY <ion-icon name="arrow-forward"></ion-icon></div>
+          <span class="name">In Progress</span>
+          <b class="quick-action" (click)="orderStatus.update([], 3)">MARK ALL READY <ion-icon name="arrow-forward"></ion-icon></b>
         </div>
   
         <table class="orders-section-list">
@@ -104,8 +104,8 @@
       <!-- Order Status: 3 -->
       <div class="orders-section">
         <div class="section-name">
-          <b class="name">CURRENTY IN DELIVERY</b>
-          <div class="quick-action" (click)="orderStatus.update([], 4)">SET ALL AS BACK IN PROGRESS <ion-icon name="arrow-forward"></ion-icon></div>
+          <span class="name">In Delivery</span>
+          <b class="quick-action" (click)="orderStatus.update([], 4)">SET ALL AS BACK IN PROGRESS <ion-icon name="arrow-forward"></ion-icon></b>
         </div>
   
         <table class="orders-section-list">

@@ -90,6 +90,14 @@ export class SocketsService {
             // Register an event listner to dispatch when the customers place an order
             io.on('order', (order: Order) => {
               if (this.isAuthenticated) {
+                if (!this.data.orders) {
+                  this.data.orders = {};
+                }
+
+                if (!this.data.orders[this.branchId]) {
+                  this.data.orders[this.branchId] = [];
+                }
+                
                 this.data.orders[this.branchId].push(order);
                 this.notifications.emit();
 

@@ -71,6 +71,15 @@
         </div>
   
         <table class="orders-section-list">
+          <thead>
+            <tr>
+              <td>Preview & Driver</td>
+              <td>Order Number</td>
+              <td>Items</td>
+              <td>Special Instructions</td>
+              <td></td>
+            </tr>
+          </thead>
           <tbody>
             <tr class="order-item" *ngFor="let order of SearchInput.value ? searchResults : sockets.data?.orders[branch?.id]" [style.display]="order.status === 2 ? '' : 'none'" [title]="['Order placed by ', order.customer].join('')" (dblclick)="openTranscript(order)">
               <td>

@@ -26,10 +26,10 @@ export class BranchService {
   }
 
   set index(index) {
-    this.onChange.next();
     this._index = index;
     this._id = this.sockets.data.branches[index].id;
     this.sockets.branchId = this._id;
+    this.onChange.next();
 
     // Send the selected branch to the backend server along with the connection ID.
     this.sockets.connection.emit('set branch', {

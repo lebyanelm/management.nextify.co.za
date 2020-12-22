@@ -119,14 +119,9 @@ export class SocketsService {
 
             // Counts how many drivers are connected to the currently connected branch
             io.on('driver_count', (count: number) => {
-              alert([count, 'drivers connected'].join(' '));
               if (this.isAuthenticated) {
                 this.notifications.driverConnected(count);
               }
-            });
-
-            io.on('dispatch', (dispatch) => {
-              console.log(dispatch);
             });
 
             io.on('processed', (orderId) => {

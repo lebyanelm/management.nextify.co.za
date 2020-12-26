@@ -34,7 +34,7 @@
 </div>
 
 <div class="attachments-right-button">
-  <div class="attachments clickable" (click)="openPreviewImages(images, id)" *ngIf="images.length > 0">
+  <div class="attachments clickable" (click)="openPreviewImages(images, id, description)" *ngIf="images.length > 0">
     <ion-icon name="image"></ion-icon>
     <div class="title attachment-text" *ngIf="images[0].split">{{images[0].split('/').pop()}}</div>
     <span class="unmentioned-attachments attachment-text">{{images.length > 1 ? '+' + (images.length - 1) : ''}}</span>

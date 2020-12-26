@@ -127,13 +127,14 @@ export class ProductComponent implements OnInit {
     modal.present();
   }
 
-  async openPreviewImages(images: string[], id) {
+  async openPreviewImages(images: string[], id: string, description: string) {
     this.loader.showLoader(true);
     const modal = await this.modalCtrl.create({
       component: ImageViewComponent,
       componentProps: {
         images,
-        productId: id
+        productId: id,
+        productDescription: description
       }
     });
     modal.present();

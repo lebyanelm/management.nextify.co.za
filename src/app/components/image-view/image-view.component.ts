@@ -12,6 +12,7 @@ export class ImageViewComponent implements AfterViewInit {
   @ViewChild('Slideshow', {static: false}) slideshow;
 
   @Input() images: string[];
+  @Input() productDescription: string;
   @Input() id: string;
   index = 0;
   currentImage;

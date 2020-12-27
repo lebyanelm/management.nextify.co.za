@@ -15,7 +15,7 @@ $font-size: 13px;
 $shadow: 1px 1px 40px transparentize($theme-color, 0.9);
 $border: 1px solid transparentize($theme-color, 0.9);
 $border-secondary: 1px solid $secondary-color;
-$font-family: 'Uber Move Text';
+$font-family: 'Uber Move Text', sans-serif;
 
 // Polyfills
 .ion-activatable {

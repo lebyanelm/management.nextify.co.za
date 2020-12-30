@@ -5,18 +5,22 @@
 
   <div class="section-options">
     <label for="option-name">Section Options</label>
-    <div class="option-input">
-      <input class="section-name small" type="text" placeholder="Option name (eg. Peri-Peri Hot)" #OptionInput>
-      <div class="add-button ion-activatable" (click)="addOption(OptionInput.value); OptionInput.value = '';OptionInput.focus();">
+    <div class="options">
+      <div>
+        <input class="section-name option-input small" type="text" placeholder="Option name (eg. Peri-Peri Hot)" #OptionInput>
+        <input class="section-price small" type="text" placeholder="Adjusted price (No currency) [Optional]" #OptionPrice>
+      </div>
+      <button class="add-button option-input ion-activatable" (click)="addOption(OptionInput.value, OptionPrice.value || null); OptionInput.value = ''; OptionPrice.value = ''; OptionInput.focus();">
         <ion-ripple-effect></ion-ripple-effect>
-        <ion-icon class="center" name=add></ion-icon></div>
+        <ion-icon class="center" name=add></ion-icon></button>
     </div>
 
     <div class="added-options">
       <div class="option" *ngFor="let option of options">
         <div class="index">{{options.indexOf(option) + 1}}.</div>
-        <div class="value">{{option}}</div>
+        <div class="value">{{option.name}}</div>
         <div class="space"></div>
+        <div class="price" *ngIf="option.price">ZAR {{option.price}}</div>
         <div class="remove-button-contain">
           <div class="remove-button" (click)="removeOption(option)"><ion-icon class="center" name="close"></ion-icon></div>
         </div>

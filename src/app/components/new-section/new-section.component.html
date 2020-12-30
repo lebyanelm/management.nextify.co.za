@@ -31,7 +31,8 @@
 </ion-content>
 <ion-footer>
   <div class="required-section-setting">
-    <app-setting [isChecked]="data ? data.isRequired : false" description="Let's the app know whether to allow adding the product to the basket without specifying an option in this field" name="Required?" #IsRequiredSetting></app-setting>
+    <app-setting [isChecked]="data ? data.isMultiSelect : false" description="Allows customers to select more than one option." name="Multiple Selections?" #IsMultpleSelections></app-setting>
+    <app-setting [isChecked]="data ? data.isRequired : false" description="Product can not be added to the basket without an option being specified." name="Required?" #IsRequiredSetting></app-setting>
   </div>
   <button [disabled]="!(SectionName.value.length && options.length)" (click)="exportOptions(SectionName.value)">{{data ? 'Save section changes' : 'Add new section'}}</button>
   

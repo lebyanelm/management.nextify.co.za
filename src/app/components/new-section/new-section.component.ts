@@ -11,6 +11,7 @@ import { ModalController } from '@ionic/angular';
 })
 export class NewSectionComponent implements OnInit {
   @ViewChild('IsRequiredSetting', { static: false }) isRequired: SettingComponent;
+  @ViewChild('IsMultpleSelections', { static: false }) isMultiSelect: SettingComponent;
   @Input() data: Section;
   options: SectionOption[] = [];
   constructor(

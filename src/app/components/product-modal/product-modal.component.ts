@@ -416,4 +416,15 @@ export class ProductModalComponent implements AfterViewInit, OnInit {
       return {size, isMbUnit: false};
     }
   }
+
+  getOptions(section: Section): string {
+    // Initiialise an empty array to place option names within them
+    const options = [];
+
+    // Look through every single option available in the section
+    section.options.forEach((option) => options.push(option.name));
+
+    // Return a single string of options joined together
+    return options.join(', ');
+  }
 }

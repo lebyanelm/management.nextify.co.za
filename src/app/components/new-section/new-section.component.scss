@@ -4,6 +4,7 @@
     width: 100%;
     text-align: center;
     font-weight: bold;
+    font-size: larger;
     padding: 20px 0;
     border-bottom: $border;
 }
@@ -18,8 +19,8 @@ input {
 }
 
 input.section-name {
-    font-size: large;
     font-weight: bold;
+    font-size: larger;
     border: none;
     border-bottom: 4px solid #EEE;
     text-indent: 0;
@@ -29,35 +30,48 @@ input.section-name {
     }
 
     &.small {
-        font-size: smaller !important;
-        font-weight: normal !important;
+        font-size: normal !important;
+        font-weight: normal;
     }
 }
 
-.option-input {
-    position: relative;
-    border-bottom: 2px solid #EEE;
-    .add-button {
-        display: block;
-        height: 40px;
-        width: 40px;
-        background: $secondary-color;
-        border-radius: 50px;
-        position: absolute;
-        top: 50%;
-        left: 100%;
-        transform: translateY(-36%) translateX(-85%);
-        cursor: pointer;
-        box-shadow: $shadow;
+input.section-price {
+    text-indent: 0;
+    border-bottom: 4px solid #EEE;
+    font-size: smaller !important;
+    font-weight: normal !important;
+    transform: translateY(-15px);
+    background: transparent;
+}
 
-        ion-icon {
-            color: $text-light;
-        }
+.option-input {
+    border-bottom: 4px solid #EEE;
+}
+
+.options {
+    position: relative;
+}
+
+.add-button {
+    display: block;
+    height: 40px;
+    width: 40px;
+    background: $secondary-color;
+    border-radius: 50px;
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%) translateX(-85%);
+    cursor: pointer;
+    box-shadow: $shadow;
+
+    ion-icon {
+        color: $text-light;
     }
 }
 
 .added-options {
-    margin: 20px 0;
+    margin: 20px 0 0 10px;
     .option {
         display: flex;
         align-items: center;

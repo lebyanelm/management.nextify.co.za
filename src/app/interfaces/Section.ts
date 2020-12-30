@@ -1,5 +1,6 @@
+import { SectionOption } from './SectionOption';
 export interface Section {
     name: string;
-    options: string[];
+    options: SectionOption[];
     isRequired: boolean;
 }

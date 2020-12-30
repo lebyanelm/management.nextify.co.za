@@ -125,7 +125,7 @@
       <div class="added-section flexbox" *ngFor="let section of data.sections" (click)="editSection(section)">
         <div>
           <label class="section-name">{{section.name}}</label>
-          <div class="section-options">{{section.options.join(', ')}}
+          <div class="section-options">{{getOptions(section)}}
         </div>
         </div>
         <div class="space"></div>

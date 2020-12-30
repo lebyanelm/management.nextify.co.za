@@ -231,11 +231,15 @@ export class ProductModalComponent implements AfterViewInit, OnInit {
 
     // Reformat the image as URLs only before creating the product
     // Only if product is not being duplicated
-    if (!this.isDuplicate) {
-      const images = this.data.images;
-      this.data.images = [];
-      images.forEach((image) => this.data.images.push(image.url));
-    }
+    const images = this.data.images;
+    this.data.images = [];
+    images.forEach((image) => {
+      if (typeof image === 'string') {
+        this.data.images.push(image);
+      } else {
+        this.data.images.push(image.url);
+      }
+    });
 
     // Send an API Request to the partners backend and create the product
     superagent
@@ -260,11 +264,23 @@ export class ProductModalComponent implements AfterViewInit, OnInit {
   }
 
   editProduct() {
+    const changes = this.getChanges();
+    const images = this.data.images;
+    
     this.loader.showLoader(true);
     this.isLoading = true;
     this.getSelectValues();
-    const changes = this.getChanges();
-    console.log('changes', changes)
+    
+    // Parse the image to a required format
+    this.data.images = [];
+    images.forEach((image) => {
+      if (typeof image === 'string') {
+        this.data.images.push(image);
+      } else {
+        this.data.images.push(image.url);
+      }
+    });
+    changes.images = this.data.images;
 
     if (changes.expectedPrepareTime && changes.expectedPrepareTime.upper && changes.expectedPrepareTime.lower === undefined) {
       if (this.initialData.expectedPrepareTime && this.initialData.expectedPrepareTime.lower !== undefined) {

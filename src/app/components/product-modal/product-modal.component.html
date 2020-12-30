@@ -1,4 +1,8 @@
-<div class="product-modal-header">{{data.id ? 'Edit: ' + data.name : 'Create a new product'}}</div>
+<div class="product-modal-header">
+  {{isDuplicate ? 'Duplicate a product' : (data.id ? 'Edit: ' + data.name : 'Create a new product')}}
+
+  <div class="right-side-button clickable" (click)="duplicate()" *ngIf="!isDuplicate">DUPLICATE PRODUCT</div>
+</div>
 
 <div class="product-modal-contents">
   <div class="basic-metadata">

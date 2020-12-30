@@ -29,6 +29,7 @@ export class ProductModalComponent implements AfterViewInit, OnInit {
   isLoading = false;
   isLoaderComplete = false;
   isReady = false;
+  isDuplicate = false;
 
   extrasOptions: Extra[] = [];
   sidesOptions: Product[] = [];
@@ -229,9 +230,12 @@ export class ProductModalComponent implements AfterViewInit, OnInit {
     this.getSelectValues();
 
     // Reformat the image as URLs only before creating the product
-    const images = this.data.images;
-    this.data.images = [];
-    images.forEach((image) => this.data.images.push(image.url));
+    // Only if product is not being duplicated
+    if (!this.isDuplicate) {
+      const images = this.data.images;
+      this.data.images = [];
+      images.forEach((image) => this.data.images.push(image.url));
+    }
 
     // Send an API Request to the partners backend and create the product
     superagent
@@ -426,5 +430,15 @@ export class ProductModalComponent implements AfterViewInit, OnInit {
 
     // Return a single string of options joined together
     return options.join(', ');
+  }
+
+  duplicate() {
+    this.isDuplicate = true;
+
+    // Remove automatically assigned parameters
+    delete this.data.id;
+    delete this.data.buys;
+    delete this.data.views;
+    delete this.data.timeCreated;
   }
 }

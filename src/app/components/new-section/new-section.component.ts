@@ -38,6 +38,6 @@ export class NewSectionComponent implements OnInit {
   }
 
   exportOptions(name: string): void {
-    this.modalCtrl.dismiss({ name, options: this.options, isRequired: this.isRequired.isChecked });
+    this.modalCtrl.dismiss({ name, options: this.options, isRequired: this.isRequired.isChecked, isMultiSelect: this.isMultiSelect.isChecked });
   }
 }

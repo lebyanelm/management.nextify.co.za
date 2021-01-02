@@ -251,8 +251,9 @@ export class ProductModalComponent implements AfterViewInit, OnInit {
         if (response) {
           if (response.status === 201) {
             this.loader.showLoader(false);
-            this.toast.show('PRODUCT CREATED.', {duration: 3000});
+            this.toast.show('SUCCESS: PRODUCT CREATED.', {duration: 3000});
             this.sockets.data.products.push(response.body);
+            this.sockets.change.next();
             this.modalCtrl.dismiss();
           } else if (response.status === 500) {
             this.toast.show('Unexpected error occured.', {buttons: [{text: 'Report'}]});

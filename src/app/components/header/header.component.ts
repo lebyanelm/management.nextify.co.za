@@ -57,11 +57,6 @@ export class HeaderComponent implements OnInit {
           awaiter.unsubscribe();
         }
       });
-    this.sockets.change.subscribe(() => {
-      this.sales = this.sockets.data.sales;
-      this.isOnline = false;
-      this.status.status = this.isOnline;
-    });
 
     // Register a listener to count how many drivers are connected
     this.notifications.driver_connected.subscribe((count) => {

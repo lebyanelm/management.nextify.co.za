@@ -78,34 +78,29 @@ export class ProductComponent implements OnInit {
       .send({id: this.id, token: this.sockets.data.token})
       .on('progress', (event) => this.loader.pipe(event.percent))
       .end((error, response) => {
-        console.log(response);
+        // Hide the loader
+        this.loader.showLoader(false);
         if (response) {
-          if (response.status === 200) {
-            this.sockets.data.products.forEach((product, index) => {
-              if (product.id === this.id) {
+          if (response.status === 200 || response.status === 404) {
+            for (let index = 0; index < this.sockets.data.products.length; index++) {
+              if (this.sockets.data.products[index].id === this.id) {
                 this.sockets.data.products.splice(index, 1);
-                this.toast.show('Product deleted.', {duration: 3000});
-                this.loader.showLoader(false);
-                this.sockets.change.next();
+                break;
               }
-            });
-          } else if (response.status === 404) {
-            this.loader.showLoader(false);
-            this.toast.showAlert({
-              header: 'Error',
-              message: `The product "${this.name}" you are trying to delete, doesn't exist.`,
-              buttons: [{text: 'Okay'}, {text: 'Report problem'}]
-            });
+            }
 
-            this.sockets.data.products.forEach((product, index) => {
-              if (product.id === this.id) {
-                this.sockets.data.products.splice(index, 1);
-                this.sockets.change.next();
-                this.sockets.change.next();
-              }
-            });
+            // Show an error for an 404 response code
+            if (response.status === 404) {
+              this.toast.showAlert({
+                header: 'Error',
+                message: `The product "${this.name}" you are trying to delete, doesn't exist.`,
+                buttons: [{text: 'Okay'}, {text: 'Report problem'}]
+              });
+            }
+
+            // Let the changes be sent over to event listeners
+            this.sockets.change.next();
           } else if (response.status === 500) {
-            this.loader.showLoader(false);
             this.toast.showAlert({
               header: 'Internal server error',
               message: `Something unexpected happened. Please report the problem if it persists.`,

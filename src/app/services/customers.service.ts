@@ -45,6 +45,7 @@ export class CustomersService {
       this.getCustomerData()
         .then((data: Customer[]) => {
           for (const customer of data) {
+            console.log(customer)
             if (customer.id === customerId) {
               resolve(customer);
               break;

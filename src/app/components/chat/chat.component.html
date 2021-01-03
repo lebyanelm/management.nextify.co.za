@@ -79,7 +79,7 @@
 
         <br>
         <div class="section">
-          <div class="name"></div>
+          <div class="name">Your chats</div>
           <div class="space"></div>
           <div class="button link flexbox" (click)="openMessages(true)"><ion-icon name="add"></ion-icon> New Chat</div>
         </div>
@@ -98,9 +98,9 @@
           </div>
           <div class="chat-details">
             <div class="chat-name flexbox">
-              {{recipientDetails[chat].name}}
+              {{recipientDetails[chat]?.name}}
               <div class="space"></div>
-              <div class="previous-time">{{socketsService.data.messages[branchService.id][chat][socketsService.data.messages[branchService.id][chat].length ? socketsService.data.messages[branchService.id][chat].length - 1 : socketsService.data.messages[branchService.id][chat][0]].timeCreated.time}}</div>
+              <div class="previous-time">{{socketsService.data.messages[branchService.id][chat][socketsService.data.messages[branchService.id][chat]?.length ? socketsService.data.messages[branchService.id][chat].length - 1 : socketsService.data.messages[branchService.id][chat][0]].timeCreated.time}}</div>
             </div>
             <div class="chat-previous-message" [attr.isUnread]="true">{{socketsService.data.messages[branchService.id][chat][socketsService.data.messages[branchService.id][chat].length ? socketsService.data.messages[branchService.id][chat].length - 1 : socketsService.data.messages[branchService.id][chat][0]].body}}</div>
           </div>

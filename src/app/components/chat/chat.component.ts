@@ -50,6 +50,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
       if (this.socketsService.data && this.branchService.id) {
         clearInterval(awaiter);
         this.getChatlist();
+        console.log('Awaiter ended...')
         this.noTotalUnreadMessages = this.getTotalUnreadMessages();
       }
     }, 200);
@@ -58,13 +59,17 @@ export class ChatComponent implements OnInit, AfterViewInit {
     this.socketsService.onMessage.subscribe((message) => {
       // Only show the toast if the message chat is not open
       if (!this.activeCustomerId || (this.activeCustomerId && this.activeCustomerId !== message.from)) {
-        this.toast.show(`New message (${this.recipientDetails[message.from].name}): ${message.body}`);
+        if (this.recipientDetails[message.from]) {
+          this.toast.show(`New message (${this.recipientDetails[message.from].name}): ${message.body}`);
+        }
       }
 
       if (this.isMessagesOpen) {
-        scrollIntroView(this.chatMessages.nativeElement, {time: 500});
+        scrollIntroView(this.chatMessages.nativeElement, { time: 500 });
       }
 
+      // Re-process the messaging data
+      this.getChatlist();
       this.noTotalUnreadMessages = this.getTotalUnreadMessages();
     });
   }
@@ -76,6 +81,9 @@ export class ChatComponent implements OnInit, AfterViewInit {
     // Since messages are specific to thier branches, close the previously opened chat if any
     this.branchService.onChange.subscribe(() => {
       this.closeMessages();
+      this.getChatlist();
+      this.noTotalUnreadMessages = this.getTotalUnreadMessages();
+      console.log('Reloading the messages...');
     });
   }
 
@@ -224,11 +232,12 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
   getChatlist() {
     this.recipientList = [];
-    console.log('messages', this.socketsService.data.messages, console.log(this.branchService.id))
     // tslint:disable-next-line: forin
     for (const chat in this.socketsService.data.messages[this.branchService.id]) {
+      console.log(chat);
       this.customersService.getCustomer(chat)
         .then((customer) => {
+          console.log(customer);
           this.recipientDetails[chat] = customer;
           this.recipientList.push(chat);
         });

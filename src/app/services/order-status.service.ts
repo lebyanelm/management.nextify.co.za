@@ -119,7 +119,7 @@ export class OrderStatusService {
           if (response) {
             if (response.status === 200) {
               const orderIndex = this.sockets.data.orders[this.branch.id].findIndex((o) => o.id === orderId);
-              this.sockets.data.orders[this.branch.id].splice(orderIndex);
+              this.sockets.data.orders[this.branch.id].splice(orderIndex, 1);
 
               resolve(response);
             } else {

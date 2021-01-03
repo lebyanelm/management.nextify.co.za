@@ -157,6 +157,14 @@ export class SocketsService {
               }
             });
 
+            // When updates are made by another connected device
+            io.on('data update', (data) => {
+              if (this.isAuthenticated) {
+                // Replace the older data with the new one
+                this.data = { ...data, token: this.data.token };
+              }
+            });
+
             io.on('disconnect', () => {
               this.hasDisconnectedBefore = true;
               this.status.status = false;

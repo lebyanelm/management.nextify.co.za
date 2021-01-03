@@ -60,7 +60,15 @@ export class ChatComponent implements OnInit, AfterViewInit {
       // Only show the toast if the message chat is not open
       if (!this.activeCustomerId || (this.activeCustomerId && this.activeCustomerId !== message.from)) {
         if (this.recipientDetails[message.from]) {
-          this.toast.show(`New message (${this.recipientDetails[message.from].name}): ${message.body}`);
+          this.toast.show(`New message (${this.recipientDetails[message.from].name}): ${message.body}`,
+                          { buttons: [
+                            {
+                              text: 'Reply',
+                              handler: () => {
+                                this.toggleChatOpenState();
+                                timer(300).subscribe(() => this.openMessages(false, message.from));
+                              }
+                            }]});
         }
       }
 

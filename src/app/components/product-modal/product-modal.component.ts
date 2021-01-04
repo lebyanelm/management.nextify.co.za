@@ -452,6 +452,9 @@ export class ProductModalComponent implements AfterViewInit, OnInit {
   duplicate() {
     this.isDuplicate = true;
 
+    // Change the name to show it is a duplicate of something
+    this.data.name = ['Copy of', this.data.name].join(' ');
+
     // Remove automatically assigned parameters
     delete this.data.id;
     delete this.data.buys;

@@ -24,7 +24,7 @@ export class UserAccountsComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     const awaiter = setInterval(() => {
       if (this.sockets.data) {
-        this.getCustomerData();
+        // this.getCustomerData();
         clearInterval(awaiter);
       }
     });

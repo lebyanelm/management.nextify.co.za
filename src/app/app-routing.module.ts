@@ -14,6 +14,14 @@ const routes: Routes = [
     path: 'device-not-supported-yet',
     loadChildren: () => import('./pages/device-not-supported-yet/device-not-supported-yet.module').then( m => m.DeviceNotSupportedYetPageModule)
   },
+  {
+    path: 'signin',
+    loadChildren: () => import('./pages/signin/signin.module').then( m => m.SigninPageModule)
+  },
+  {
+    path: 'get-started',
+    loadChildren: () => import('./pages/get-started/get-started.module').then( m => m.GetStartedPageModule)
+  },
 ];
 
 @NgModule({

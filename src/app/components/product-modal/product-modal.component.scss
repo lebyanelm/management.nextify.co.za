@@ -239,16 +239,6 @@ input,
     margin-bottom: 8px;
 }
 
-input {
-    border: none !important;
-    border-bottom: 3px solid #EEE !important;
-    text-indent: 0;
-
-    &:focus {
-        border-bottom-color: $secondary-color !important;
-    }
-}
-
 label {
     font-size: small;
 }

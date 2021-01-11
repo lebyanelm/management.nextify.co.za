@@ -76,9 +76,9 @@ label,
 ion-checkbox {
     --background-color: #FFF;
     --checkmark-color: #000;
-    --background-checked: #FFF;
+    --background-checked: #000;
     --border-color-checked: #000;
-    --border-width: 1px;
+    --border-width: 3px;
     --border-radius: 0;
 }
 
@@ -87,6 +87,12 @@ ion-checkbox {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.horizontal-center {
+    display: block;
+    margin-left: 50%;
+    transform: translateX(-50%);
 }
 
 .link {
@@ -544,6 +550,183 @@ table {
     }
 }
 
+// Signin and Signup pages container
+.accounts-page-container {
+    display: flex;
+    overflow: hidden !important;
+
+    // Brand logo of the platform
+    .brand-logo {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        top: 20px;
+        left: 40px;
+        z-index: 100;
+
+        img {
+            width: 40px;
+            border-radius: 50px;
+        }
+
+        span  {
+            font-size: smaller;
+            font-weight: bolder !important;
+            letter-spacing: 5px;
+            text-shadow: $shadow;
+            color: #FFF;
+            margin-left: 20px;
+        }
+    }
+
+    .image {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        filter: grayscale(10)
+    }
+
+    .account-types {
+        display: flex;
+        justify-content: space-between;
+        
+        app-setting {
+            display: block;
+            margin-top: 10px;
+        }
+    }
+    
+    // For entering verification codes and pins
+    .verification-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+        .verification-input {
+            display: flex;
+            
+            input {
+                width: 60px;
+                border: none !important;
+                border-bottom: 4px solid $theme-color-light !important;
+                text-align: center;
+                text-indent: 0;
+                font-size: xx-large;
+                font-weight: normal;
+                font-family: 'Uber Move Text';
+    
+                &:focus {
+                    border-bottom-color: $secondary-color !important;
+                }
+            }
+        }
+    }
+    
+
+    ion-slides {
+        flex: 3;
+
+        ion-slide {
+            width: 100%;
+            height: 100vh;
+            background-blend-mode: screen;
+            text-align: left !important;
+
+            .testimonial {
+                display: block;
+                color: #FFF;
+                width: 100%;
+                padding: 40px;
+                background: linear-gradient(0deg, #000000, transparentize(#000, 0.5), transparent);
+                position: absolute;
+                bottom: 0;
+                left: 0;
+
+                .message {
+                    font-family: 'Uber Move Text' !important;
+                    font-size: x-large;
+                    font-weight: bolder;
+                    text-shadow: $shadow;
+                }
+
+                .testimonee {
+                    margin-top: 20px;
+                    font-weight: bolder;
+                    color: $secondary-color
+                }
+
+                .testimonee,
+                .testimonee-role {
+                    font-size: smaller;
+                    letter-spacing: 2.5px;
+                }
+
+                .testimonee-role {
+                    opacity: 0.7;
+                }
+            }
+        }
+    }
+
+    ion-slides.side-slideshow {
+        position: static;
+
+        ion-slide {
+            background: #EEE;
+        }
+    }
+
+    ion-slides.form-container {
+        flex: 4;
+
+        ion-slide {
+            padding: 10px 150px;
+        }
+
+        .topright-link {
+            position: absolute;
+            top: 20px;
+            right: 150px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: bold;
+            z-index: 10000;
+        }
+
+        .form-header {
+            font-family: 'Uber Move Text' !important;
+            font-size: x-large;
+            font-weight: bolder;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 5px;
+        }
+
+        input {
+            border-width: 1px;
+            border-color: $theme-color-light !important;
+        }
+
+        input:focus {
+            border-color: #000000 !important;
+        }
+
+        .error {
+            font-weight: bold;
+            margin-top: 10px;
+            color: $danger;
+        }
+
+        button {
+            margin-top: 20px;
+        }
+    }
+}
+
 /****** BUTTONS ********/
 ion-footer {
     button {
@@ -611,6 +794,10 @@ button {
     &.no-border {
         border: none;
         color: $text-dark;
+    }
+
+    &[isLoading=true] {
+        background: transparent;
     }
 }
 
@@ -967,12 +1154,16 @@ input {
 input {
     padding: 13px 0;
     text-indent: 15px;
-    border: 2.5px solid $theme-color !important;
+    border: 3px solid $theme-color-light !important;
     font-weight: 400;
     font-size: 14.5px;
 
     &[disabled] {
         opacity: 0.5 !important;
+    }
+
+    &:focus {
+        border-color: $theme-color !important;
     }
 }
 

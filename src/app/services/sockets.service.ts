@@ -25,9 +25,11 @@ export class SocketsService {
   hasDisconnectedBefore = false;
   branchId: string;
   onMessage: Subject<Message> = new Subject<Message>();
-  isAuthenticated = false;
   disconnectedToast;
 
+  isAuthenticated = false;
+  isSignedOut = false;
+  
   constructor(
       private storage: StorageService,
       private router: Router,
@@ -50,6 +52,7 @@ export class SocketsService {
 
             io.on('authenticated', (data) => {
               this.isAuthenticated = true;
+              this.isSignedOut = false;
               this.connection = io;
               this.data = {...data, token};
               document.title = 'Nextify for Partners | ' + this.data.businessName;
@@ -169,10 +172,14 @@ export class SocketsService {
               this.hasDisconnectedBefore = true;
               this.status.status = false;
               this.status.stateChange.next(this.status.status);
-              this.toast.show('Connection lost, automatically reconnecting...', { buttons: [ {text: 'Okay'} ] })
-                .then((toast) => {
-                  this.disconnectedToast = toast;
-                });
+              
+              // Only show connection error message if partner is still signed in
+              if (!this.isSignedOut) {
+                this.toast.show('Connection lost, automatically reconnecting...', { buttons: [ {text: 'Okay'} ] })
+                  .then((toast) => {
+                    this.disconnectedToast = toast;
+                  });
+              }
             });
 
             io.on('unauthenticated', (statusCode: number) => {
@@ -211,6 +218,7 @@ export class SocketsService {
   }
 
   disconnect() {
+    this.isSignedOut = true;
     if (this.connection) {
       this.connection.disconnect();
     }

@@ -30,10 +30,10 @@ export class SignupPage implements OnInit, AfterViewInit {
   isLoading = false;
 
   data = {
-    emailAddress: 'wasovaj410@maksap.com',
-    businessName: 'Rouaco Restaurant',
-    password: 'password2',
-    accountType: 'startup' }
+    emailAddress: '',
+    businessName: '',
+    password: '',
+    accountType: '' }
   
   constructor(
     private title: Title,
@@ -42,13 +42,13 @@ export class SignupPage implements OnInit, AfterViewInit {
     private storage: StorageService,
     private sockets: SocketsService,
     private toast: ToastService) {
-    this.title.setTitle('Nextify for Partners | Get Started');
   }
 
   ngOnInit() {
   }
 
   ngAfterViewInit() {
+    this.title.setTitle('Nextify for Partners | Get Started');
     this.initialiseSlideshow();
 
     // Set the steps slideshow to be locked to prevent jumping to other steps
@@ -166,7 +166,7 @@ export class SignupPage implements OnInit, AfterViewInit {
     // Remove error messages
     this.error.nativeElement.innerHTML = '';
     this.verificationError.nativeElement.innerHTML = '';
-    
+
     // Disable the other inputs leaving the first input
     this.firstCode.nativeElement.disabled = false;
     this.secondCode.nativeElement.disabled = true;
@@ -177,6 +177,15 @@ export class SignupPage implements OnInit, AfterViewInit {
     this.stepSlideshow.lockSwipes(false);
     this.stepSlideshow.slidePrev();
     this.stepSlideshow.lockSwipes(true);
+  }
+
+  resetSignupInputs() {
+    this.data = {
+      emailAddress: '',
+      businessName: '',
+      accountType: '',
+      password: ''
+    };
   }
 
   // Sends the data to the nextify backend server to create an account
@@ -220,7 +229,6 @@ export class SignupPage implements OnInit, AfterViewInit {
         action: 'signup',
         emailAddress: this.data.emailAddress })
       .end((_, response) => {
-        this.isLoading = false;
         if (response) {
           console.log(response)
           if (response.status === 200) {
@@ -231,18 +239,29 @@ export class SignupPage implements OnInit, AfterViewInit {
             // Create a Socket.IO connection and redirect to dashboard if connection is sucessful
             this.sockets.createConnection()
               .then(() => {
+                this.isLoading = false;
                 this.router.navigate(['dashboard']);
+
+                // Reset the verification form
+                this.resetVerification();
+
+                // Reset the signup form
+                this.resetSignupInputs();
               }).catch(() => {
+                this.isLoading = false;
                 this.toast.show('ERROR: A CONNECTION COULD NOT BE MADE')
               })
           } else if (response.status === 403) {
+            this.isLoading = false;
             this.fourthCode.nativeElement.disabled = false;
             this.verificationError.nativeElement.innerHTML = 'Error, code you entered is invalid. Please check for mistyped numbers and try again.'
           } else {
+            this.isLoading = false;
             this.fourthCode.nativeElement.disabled = false;
             this.verificationError.nativeElement.innerHTML = 'Something went wrong, please try again. If problem persists contact us.'
           }
         } else {
+          this.isLoading = false;
           this.fourthCode.nativeElement.disabled = false;
           this.error.nativeElement.innerHTML = 'No internet connection. Please check your connection.'
         }

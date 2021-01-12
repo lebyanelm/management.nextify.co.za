@@ -30,8 +30,8 @@ export class SigninPage implements OnInit, AfterViewInit {
   isLoading = false;
 
   data = {
-    emailAddress: 'lebyane.lm@gmail.com',
-    password: 'password2' }
+    emailAddress: '',
+    password: '' }
   
   constructor(
     private title: Title,

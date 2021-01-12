@@ -5,7 +5,9 @@ import { BranchCreatorComponent } from './../components/branch-creator/branch-cr
 import { RouterService } from './../services/router.service';
 import { Component, ViewChild, AfterViewInit, HostBinding } from '@angular/core';
 import { IonSlides, ModalController } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { StorageService } from '../services/storage.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +22,9 @@ export class HomePage implements AfterViewInit {
     private sockets: SocketsService,
     private modalCtrl: ModalController,
     private branch: BranchService,
-    private activatedRoute: ActivatedRoute ) {}
+    private activatedRoute: ActivatedRoute,
+    private storage: StorageService,
+    private router: Router ) {}
 
   ngAfterViewInit() {
     this.ionSlider.lockSwipes(true);
@@ -51,6 +55,19 @@ export class HomePage implements AfterViewInit {
       }
     });
 
+    this.storage.getItem(environment.PARTNER_DATA_REF, false)
+      .then((token) => {
+        if (token) {
+          this.sockets.createConnection()
+            .then(() => {
+              this.activatedRoute.queryParamMap.subscribe((query) => {
+                console.log(query)
+              });
+            }).catch(() => { this.router.navigateByUrl('/signin'); console.log('error')});
+        } else {
+          this.router.navigateByUrl('/signin');
+        }
+      });
 
     const watchId = timer(100, 500)
       .subscribe((s) => {

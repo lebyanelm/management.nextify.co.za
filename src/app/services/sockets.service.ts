@@ -187,14 +187,14 @@ export class SocketsService {
                 this.toast.showAlert({
                   header: 'Authentication error',
                   message: 'Your connection is not trusted. Please sign in again.',
-                  buttons: [{text: 'Sign in again', handler: () => { this.router.navigateByUrl('/accounts'); }}],
+                  buttons: [{text: 'Sign in again', handler: () => { this.router.navigateByUrl('/signin'); }}],
                   backdropDismiss: false
                 });
               } else if (statusCode === 403) {
                 this.toast.showAlert({
                   header: 'Authentication error',
                   message: 'You connection signature seems to be invalid or expired. Sign in again to resolve the problem.',
-                  buttons: [{text: 'Sign in again', handler: () => { this.router.navigateByUrl('/accounts'); }}],
+                  buttons: [{text: 'Sign in again', handler: () => { this.router.navigateByUrl('/signin'); }}],
                   backdropDismiss: false
                 });
               } else if (statusCode === 404) {

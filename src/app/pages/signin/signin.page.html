@@ -1,9 +1,110 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>signin</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content scrollY=false>
+  <!-- Main container to wrap the contents -->
+  <div class="accounts-page-container">
+    <!-- The logo of the company -->
+    <div class="brand-logo">
+      <img src="/assets/icons/favicon.svg" alt="">
+      <span>NEXTIFY TECHNOLOGIES</span>
+    </div>
+    <!-- Slides to show Testimony and Messages from founders -->
+    <ion-slides class="side-slideshow" #Slideshow>
+      <ion-slide>
+        <div class=image style="background-image: url(https://images.pexels.com/photos/2095486/pexels-photo-2095486.jpeg?cs=srgb&dl=pexels-matheus-henrin-2095486.jpg&fm=jpg)"></div>
+        <div class="testimonial">
+          <div class="tesitomy-container">
+            <div class="message">"Have the ability to expand your business to the world of click to deliver, online industry."</div>
+            <div class="testimonee">LIBBY LEBYANE</div>
+            <div class="testimonee-role">CHIEF EXECUTIVE OFFICER</div>
+          </div>
+        </div>
+      </ion-slide>
 
-<ion-content>
+      <ion-slide>
+        <div class=image style="background-image: url(https://images.pexels.com/photos/4473504/pexels-photo-4473504.jpeg?cs=srgb&dl=pexels-ketut-subiyanto-4473504.jpg&fm=jpg)"></div>
+        <div class="testimonial">
+          <div class="tesitomy-container">
+            <div class="message">"Manage your menu with ease, anywhere, at anytime and make it custom to your liking."</div>
+            <div class="testimonee">VINCENT SIBANYONI</div>
+            <div class="testimonee-role">CHIEF OPERATIONS OFFICER</div>
+          </div>
+        </div>
+      </ion-slide>
 
+      <ion-slide>
+        <div class=image style="background-image: url(https://images.pexels.com/photos/4940719/pexels-photo-4940719.jpeg?cs=srgb&dl=pexels-maria-orlova-4940719.jpg&fm=jpg)"></div>
+        <div class="testimonial">
+          <div class="tesitomy-container">
+            <div class="message">"Great products deserve a good looking and easy to use online delivery platform."</div>
+            <div class="testimonee">BONGANI DUMA</div>
+            <div class="testimonee-role">CHIEF TECHNOLOGY OFFICER</div>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+    
+    <ion-slides class="form-container" #StepsSlideshow>
+      <a href="/onboarding" class="topright-link">Don't have an account?</a>
+      <ion-slide>
+        <div>
+          <div class="form-header">Sign In</div>
+          <span class="description">Welcome back, we have missed you already. Feel free to get back into your account.</span>
+
+          <label for="username">Your email address</label>
+          <input
+            type="text"
+            class="accounts-input"
+            placeholder="eg. youremail@site.com"
+            [(ngModel)]="data.emailAddress"
+            (keyup)="validateEmailAddress()"
+            [disabled]="isLoading">
+          <div class="error"
+            *ngIf="!isEmailValid">The email you entered is invalid.</div>
+
+          <label for="username">Password</label>
+          <input
+            type="password"
+            class="accounts-input" 
+            placeholder="eg. examplepassword"
+            [(ngModel)]="data.password"
+            (keyup)="this.error.nativeElement.innerHTML = ''"
+            [disabled]=isLoading>
+          <div class="error" #Error></div>
+          
+          <div class="horizontal-center">
+          </div>
+          <button (click)="signIn()" [disabled]="!(data.emailAddress && data.password)" [attr.isLoading]="isLoading">
+            <span *ngIf="!isLoading">Sign In</span>
+            <ion-spinner name="crescent" *ngIf="isLoading" color=dark></ion-spinner>
+          </button>
+
+          <br>
+          <br>
+          <a href="/reset-password"><b>FORGOT YOUR PASSWORD?</b></a>
+        </div>
+      </ion-slide>
+
+      <ion-slide class="form-container">
+        <a class="topright-link flexbox" (click)="resetVerification()"><ion-icon name=arrow-back></ion-icon> Go Back & Edit Email Address</a>
+        <div class="verification-step">
+          <div class="form-header">Two-Factor Authentication Required</div>
+          <span class="description">A verification email has been sent to email address <b>"{{data.emailAddress}}"</b>, enter the code below.</span>
+
+          <div class="verification-input">
+            <input type="text" placeholder="-" #FirstCode>
+            <input type="text" placeholder="-" #SecondCode disabled>
+            <input type="text" placeholder="-" #ThirdCode disabled>
+            <input type="text" placeholder="-" #FourthCode disabled>
+          </div>
+
+          <br>
+          <div class="error" #VerificationError></div>
+
+          <button [disabled]="!(FirstCode.length && SecondCode.length && ThirdCode.length && FourthCode.length) && isLoading" [attr.isLoading]="isLoading" (click)="verifyCode()">
+            <span *ngIf="!isLoading">Verify</span>
+            <ion-spinner name="crescent" *ngIf="isLoading" color=dark></ion-spinner>
+          </button>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </div>
 </ion-content>

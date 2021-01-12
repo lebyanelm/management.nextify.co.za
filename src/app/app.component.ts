@@ -55,19 +55,6 @@ export class AppComponent {
             }
           }
         });
-        this.storage.getItem(environment.PARTNER_DATA_REF, false)
-          .then((token) => {
-            if (token) {
-              this.sockets.createConnection()
-                .then(() => {
-                  this.activatedRoute.queryParamMap.subscribe((query) => {
-                    console.log(query)
-                  });
-                }).catch(() => { this.router.navigateByUrl('/accounts'); console.log('error')});
-            } else {
-              this.router.navigateByUrl('/accounts');
-            }
-          });
   
         // Register notifications listner
         this.notifications.state.subscribe((count) => {

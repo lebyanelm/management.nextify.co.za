@@ -52,6 +52,6 @@ export class SidebarComponent implements OnInit {
     this.sockets.disconnect();
 
     // Route away from the dashboard page, and clear back routes
-    this.router.navigate(['/accounts']);
+    this.router.navigate(['/signin']);
   }
 }

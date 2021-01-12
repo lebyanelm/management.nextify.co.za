@@ -43,6 +43,10 @@ body {
     }
 }
 
+a {
+    font-weight: bolder;
+}
+
 .flexbox {
     display: flex;
     align-items: center;
@@ -107,7 +111,7 @@ ion-checkbox {
 }
 
 .description {
-    opacity: 0.5;
+    color: gray;
 }
 
 // Errors on pages
@@ -602,6 +606,7 @@ table {
         display: flex;
         flex-direction: column;
         align-items: center;
+        text-align: center;
         
         .verification-input {
             display: flex;

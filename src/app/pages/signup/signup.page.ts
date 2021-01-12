@@ -48,7 +48,7 @@ export class SignupPage implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.title.setTitle('Nextify for Partners | Get Started');
+    this.title.setTitle('Nextify for Partners | Outlet Onboarding');
     this.initialiseSlideshow();
 
     // Set the steps slideshow to be locked to prevent jumping to other steps

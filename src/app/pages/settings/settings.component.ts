@@ -143,7 +143,7 @@ export class SettingsComponent implements OnInit {
         if (response) {
           if (response.status === 200) {
             this.storage.remove(environment.PARTNER_DATA_REF);
-            this.router.navigateByUrl('/accounts');
+            this.router.navigateByUrl('/signin');
             this.sockets.disconnect();
           } else {
             this.toast.show(response.body.reason || 'ERROR: SOMETHING WENT WRONG.');

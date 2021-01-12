@@ -208,6 +208,7 @@ export class SigninPage implements OnInit, AfterViewInit {
                 .then((connection) => {
                   // Route the partner to thier dashboard
                   this.router.navigate(['dashboard']);
+                  this.resetSignInInputs();
                 }).catch(() => {
                   this.error.nativeElement.innerHTML = 'An error occured while trying to sync with the server. Please try again, if the error persists let us know at <a href="mailto:helpdesk@nextify.co.za">helpdesk@nextify.co.za.</a>'
                 })

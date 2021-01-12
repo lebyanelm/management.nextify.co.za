@@ -195,7 +195,7 @@ export class SignupPage implements OnInit, AfterViewInit {
     this.error.nativeElement.innerHTML = '';
 
     superagent
-      .post([environment.backendServer].join(''))
+      .post([ environment.backendServer, '' ].join('/'))
       .on('progress', (event) => this.loader.pipe(event.percent))
       .send(this.data)
       .end((_, response) => {

@@ -218,6 +218,8 @@ export class SigninPage implements OnInit, AfterViewInit {
             }
           } else if (response.status === 403) {
             this.error.nativeElement.innerHTML = 'Incorrect email address or password. Please check for any mistyped details and try again.';
+          } else if (response.status === 404) {
+            this.error.nativeElement.innerHTML = 'An account with that email address is not found, please consider <a href="/onboarding">creating an account.</a>';
           } else {
             this.error.nativeElement.innerHTML = 'Something went wrong. Please try again if problem perists contact us at <a href="mailto:helpdesk@nextify.co.za">helpdesk@nextify.co.za.</a>';
           }

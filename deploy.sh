@@ -1,1 +1,1 @@
-ionic build --production --aot
+ionic build --prod --aot

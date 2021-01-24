@@ -21,7 +21,7 @@
   </div>
   <div class="metadata" *ngIf="extras && extras.length">
     <div class="name">Extras</div>
-    <div class="value"><span *ngFor="let extra of extras">{{extras.indexOf(extra) !== 0 ? ',' : ''}} {{extra.name}}</span></div>
+    <div class="value"><span *ngFor="let extra of extras">{{extras.indexOf(extra) !== 0 ? ',' : ''}} {{extra.name || extra}}</span></div>
   </div>
   <div class="metadata" *ngIf="dietary">
     <div class="name">Diatary</div>

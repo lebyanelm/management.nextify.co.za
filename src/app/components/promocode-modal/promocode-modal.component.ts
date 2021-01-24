@@ -134,5 +134,4 @@ export class PromocodeModalComponent implements OnInit, AfterViewInit {
         modal.backdropDismiss = state;
       });
   }
-
 }

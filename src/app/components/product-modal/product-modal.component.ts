@@ -8,7 +8,7 @@ import { SocketsService } from './../../services/sockets.service';
 import { ModalController, IonRange } from '@ionic/angular';
 import { LoaderService } from './../../services/loader.service';
 import { Product } from '../../interfaces/Product';
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Input, ChangeDetectorRef } from '@angular/core';
 import { timer } from 'rxjs';
 import * as superagent from 'superagent';
 import { environment } from 'src/environments/environment';
@@ -67,7 +67,6 @@ export class ProductModalComponent implements AfterViewInit, OnInit {
     this.sidesOptions = this.sockets.data.products;
     this.branchOptions = this.sockets.data.branches;
     this.extrasOptions = this.sockets.data.extras;
-
   }
 
   ngAfterViewInit() {
@@ -125,7 +124,6 @@ export class ProductModalComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
-    console.log(this.data)
     if (this.data.id) {
       // Make copies of the data passed
       this.data = { ...this.data };
@@ -183,15 +181,18 @@ export class ProductModalComponent implements AfterViewInit, OnInit {
 
   async openSectionAdder() {
     this.loader.showLoader(true);
+
     const sectionAdderModal = await this.modalCtrl.create({
       component: NewSectionComponent,
       cssClass: ['modal', 'new-section-modal'] });
+
     sectionAdderModal.onDidDismiss()
       .then((data) => {
         if (data.data) {
           this.data.sections.push(data.data);
         }
       });
+      
     sectionAdderModal.present().then(() => this.loader.showLoader(false));
   }
 
@@ -270,7 +271,6 @@ export class ProductModalComponent implements AfterViewInit, OnInit {
     
     this.loader.showLoader(true);
     this.isLoading = true;
-    this.getSelectValues();
     
     // Parse the image to a required format
     this.data.images = [];
@@ -295,7 +295,6 @@ export class ProductModalComponent implements AfterViewInit, OnInit {
       } else {
         // Add 5 min to the upper expected time
         changes.expectedPrepareTime.upper = changes.expectedPrepareTime.lower + 5;
-        alert('Added 5');
       }
     } 
 
@@ -316,9 +315,8 @@ export class ProductModalComponent implements AfterViewInit, OnInit {
                   this.sockets.data.products[index][change] = changes[change];
                   if (typeof changes[change] === 'string' || typeof changes[change] === 'boolean' || typeof changes[change] === 'number') {
                     this.sockets.data.products[index][change] = changes[change];
-                  } else if (typeof this.sockets.data.products[index][change] === 'object') {
+                  } else if (changes[change] !== null) {
                     if (changes[change].constructor === Object) {
-                      // tslint:disable-next-line: forin
                       for (let property in changes[change]) {
                         this.sockets.data.products[index][change][property] = changes[change][property];
                       }
@@ -333,10 +331,17 @@ export class ProductModalComponent implements AfterViewInit, OnInit {
               }
             }
 
+            // Let the user know changes have been sucessfully made
             this.toast.show('CHANGES SAVED.');
+
+            // Remove the loader
             this.loader.showLoader(false);
+
+            // Remove Extra and Side IDs to show thier real names
             this.resolveSides();
             this.resolveExtras();
+
+            // Dismiss the modal
             this.modalCtrl.dismiss();
           } else {
             this.toast.show(response.body.reason);
@@ -349,32 +354,30 @@ export class ProductModalComponent implements AfterViewInit, OnInit {
 
   getChanges() {
     const changes: any = {};
-    for (const change in this.data) {
-      console.log(this.data[change], change, this.data.timeCreated)
-      if (typeof this.data[change] === 'string' || typeof this.data[change] === 'number' || typeof this.data[change] === 'boolean') {
+
+    // Get values from the select elements
+    this.getSelectValues();
+
+    // Inspect every single data item within the product
+    for (let change in this.data) {
+      if (typeof this.data[change] === 'string' || typeof this.data[change] === 'boolean' || typeof this.data[change] === 'number') {
         if (this.data[change] !== this.initialData[change]) {
           changes[change] = this.data[change];
         }
-      } else if (typeof this.data[change] === 'object') {
-        if (this.data[change] && this.data[change].constructor === Object) {
-          for (let property in this.data[change]) {
-            if (this.data[change][property] !== this.initialData[change][property]) {
-              if (!changes[change]) {
-                changes[change] = {};
+      } else {
+        if (this.data[change] !== null) {
+          if (this.data[change].constructor === Array || this.data[change].constructor === Object) {
+            for (let innerChangeIndex in this.data[change]) {
+              if (!this.initialData[change][innerChangeIndex] || this.initialData[change][innerChangeIndex] !== this.data[change][innerChangeIndex]) {
+                changes[change] = this.data[change];
+                break;
               }
-
-              changes[change][property] = this.data[change][property];
-              break;
             }
           }
-        } else if (this.data[change] && this.data[change].constructor === Array) {
-          changes[change] = this.data[change];
         }
       }
     }
 
-
-    console.log(changes, this.data)
     return changes;
   }
 
@@ -383,6 +386,7 @@ export class ProductModalComponent implements AfterViewInit, OnInit {
     if (typeof value === 'object') {
       isObject = true;
     }
+    return isObject;
   }
 
   getSelectValues() {

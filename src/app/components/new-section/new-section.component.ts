@@ -30,8 +30,8 @@ export class NewSectionComponent implements OnInit {
     }
   }
 
-  removeOption(value: string): void {
-    const index = this.options.findIndex((o) => o.name === value);
+  removeOption(value: any): void {
+    const index = this.options.findIndex((o) => o.name === (typeof value === 'string' ? value : value.name));
     if (index !== -1) {
       this.options.splice(index, 1);
     }

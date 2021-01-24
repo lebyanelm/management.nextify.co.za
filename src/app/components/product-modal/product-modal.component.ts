@@ -126,18 +126,14 @@ export class ProductModalComponent implements AfterViewInit, OnInit {
   ngOnInit() {
     if (this.data.id) {
       // Make copies of the data passed
-      this.data = { ...this.data };
-      this.initialData = { ...this.data };
-      
+      this.data = { ... this.data };
       delete this.data.sockets;
-      delete this.initialData.sockets;
       delete this.data.loader;
-      delete this.initialData.loader;
       delete this.data.modalCtrl;
-      delete this.initialData.modalCtrl;
       delete this.data.toast;
-      delete this.initialData.toast;
+      this.initialData = { ... this.data };
 
+      
       // Resolve the product and extras names
       this.resolveSides();
       this.resolveExtras();
@@ -215,6 +211,7 @@ export class ProductModalComponent implements AfterViewInit, OnInit {
 
     newSectionModal.onDidDismiss()
       .then((data) => {
+        console.log(sectionIndex);
         if (data.data) {
           this.data.sections[sectionIndex] = data.data;
         }
@@ -368,16 +365,15 @@ export class ProductModalComponent implements AfterViewInit, OnInit {
         if (this.data[change] !== null) {
           if (this.data[change].constructor === Array || this.data[change].constructor === Object) {
             for (let innerChangeIndex in this.data[change]) {
-              if (!this.initialData[change][innerChangeIndex] || this.initialData[change][innerChangeIndex] !== this.data[change][innerChangeIndex]) {
-                changes[change] = this.data[change];
-                break;
-              }
+              changes[change] = this.data[change];
+              break;
             }
           }
         }
       }
     }
 
+    console.log(changes);
     return changes;
   }
 

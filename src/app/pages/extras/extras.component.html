@@ -21,7 +21,7 @@
       <button class="flexbox clickable" (click)="openExtrasModal()">Add new</button>
     </div>
   </div>
-  <ion-content *ngIf="sockets.data?.extras.length">
+  <ion-content *ngIf="(sockets.data?.extras.length && !SearchInput.value.length) || (SearchInput.value.length && searchResults.length)">
     <table>
       <thead>
         <tr>
@@ -32,7 +32,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let extra of (SearchInput.length ? searchResults : sockets.data.extras)" [attr.data-isRetainState]=isSelectionMode [attr.data-isSelected]="this.selectedExtras.indexOf(extra.id) !== -1">
+        <tr *ngFor="let extra of (SearchInput.value.length ? searchResults : sockets.data.extras)" [attr.data-isRetainState]=isSelectionMode [attr.data-isSelected]="this.selectedExtras.indexOf(extra.id) !== -1">
           <td class="name">
             <div class="checkbox-container">
               <ion-checkbox mode="ios" (click)="selectExtra(extra.id)" #Checkbox></ion-checkbox>

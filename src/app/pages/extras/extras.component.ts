@@ -30,7 +30,7 @@ export class ExtrasComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.searchInput.nativeElement.onkeyup = () => {
       this.searchResults = [];
-      const keyword = this.searchInput.nativeElement.value.toString();
+      const keyword = this.searchInput.nativeElement.value.toString().toLowerCase();
       if (keyword) {
         const scan = (object, original: Extra) => {
           for (let property in object) {
@@ -68,6 +68,7 @@ export class ExtrasComponent implements OnInit, AfterViewInit {
 
   confirmExtraDelete(extraIds: string[]): void {
     const names = [];
+
     extraIds.forEach(extraId => {
       const extra = this.sockets.data.extras.find((extra) => extra.id === extraId);
       names.push(extra.name);
@@ -84,16 +85,18 @@ export class ExtrasComponent implements OnInit, AfterViewInit {
   }
 
   deleteExtras(extraIds: string[]): void {
-    const usedExtras = [];
+    const extrasAlreadyInUse = [];
     extraIds.forEach((extraId) => {
       this.sockets.data.extras.forEach((extra) => {
-        this.sockets.data.products.forEach((product) => {
-          if (product.extras.includes(extra.id)) {
-            if (!usedExtras.includes(extra.name)) {
-              usedExtras.push(extra.name);
+        if (extra.id === extraId) {
+          this.sockets.data.products.forEach((product) => {
+            if (product.extras.includes(extra.id)) {
+              if (!extrasAlreadyInUse.includes(extra.name)) {
+                extrasAlreadyInUse.push(extra.name);
+              }
             }
-          }
-        })
+          })
+        }
       });
     });
 
@@ -106,30 +109,30 @@ export class ExtrasComponent implements OnInit, AfterViewInit {
         .send({ extraIds })
         .end((_, response) => {
           this.loader.showLoader(false);
+          this.isSelectionMode = false;
           if (response) {
-          console.log(response)
-          if (response.status === 200) {
-            extraIds.forEach((extraId) => {
-              this.sockets.data.extras.forEach((extra, index) => {
-                if (extra.id === extraId) {
-                  this.sockets.data.extras.splice(index, 1);
-                }
+            if (response.status === 200) {
+              extraIds.forEach((extraId) => {
+                this.sockets.data.extras.forEach((extra, index) => {
+                  if (extra.id === extraId) {
+                    this.sockets.data.extras.splice(index, 1);
+                  }
+                });
               });
-            });
+            } else {
+              this.loader.showLoader(false, true);
+              this.toast.show(response.body.reason || 'ERROR: SOMETHING WENT WRONG.');
+            }
           } else {
-            this.loader.showLoader(false, true);
-            this.toast.show(response.body.reason || 'ERROR: SOMETHING WENT WRONG.');
+            this.toast.show('You\'re not connected to the internet.');
           }
-        } else {
-          this.toast.show('You\'re not connected to the internet.');
-        }
       });
     }
     
-    if (usedExtras.length) {
+    if (extrasAlreadyInUse.length) {
       this.toast.showAlert({
         header: 'Deleting affecting products',
-        message: ['Some of the selected extras to be deleted "', usedExtras.join(', '), '" are being used in a product, deleting these extras will remove it from the product also.', ].join(''),
+        message: ['Some of the selected extras to be deleted "', extrasAlreadyInUse.join(', '), '" are being used in a product, deleting these extras will remove it from the product also.', ].join(''),
         buttons: [
           { text: 'Yes, I\'m aware', handler: finalizeDelete },
           { text: 'No, Cancel' }

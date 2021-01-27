@@ -1,5 +1,5 @@
-<ion-app [attr.data-isLoading]=isLoading [attr.data-isModalLoading]="isModalLoading">
-  <app-loader *ngIf="isLoading"></app-loader>
+<ion-app [attr.data-isLoading]=isSecondaryLoading [attr.data-isModalLoading]="isModalLoading">
+  <app-loader *ngIf="isLoading" [isLoaderComplete]=isLoaderComplete></app-loader>
   <ion-router-outlet></ion-router-outlet>
 
   <!-- Bell sound license https://creativecommons.org/licenses/by/4.0/ from http://www.orangefreesounds.com/desk-bell-sound/ -->

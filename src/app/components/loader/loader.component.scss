@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background: #FFF;
+}
+
+.container .logo img {
+    height: 50px;
+    border-radius: 50px;
+}
+
+.container .platform-name {
+    font-size: small;
+    letter-spacing: 3px;
+    font-weight: bolder;
+    color: gray;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.container ion-spinner {
+    color: royalblue;
+}
+
+.container[isLoaderComplete=true] {
+    transition: opacity 500ms ease-in-out;
+    opacity: 0;
+}

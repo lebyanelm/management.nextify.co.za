@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./loader.component.scss'],
 })
 export class LoaderComponent implements OnInit {
+  @Input() isLoaderComplete = false;
   progress: number;
   constructor(
     private loader: LoaderService

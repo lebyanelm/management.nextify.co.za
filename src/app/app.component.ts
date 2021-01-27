@@ -17,7 +17,9 @@ export class AppComponent {
   @ViewChild('AudioRoute', {static: false}) audio: ElementRef<HTMLAudioElement>;
 
   isLoaderComplete = false;
-  isLoading = false;
+  isLoading = true;
+  isLoaderAlreadyShown = false;
+  isSecondaryLoading = false;
   isModalLoading = false;
 
   constructor(
@@ -36,24 +38,42 @@ export class AppComponent {
     this.platform.ready().then(() => {
       // Check if the device viewing the page is a mobile device or a normal tablat or laptop
       if (this.platform.width() >= 1030) {
+
+        // Listen for loader state changes
         this.loader.state.subscribe((s) => {
           if (!s.state) {
             if (!s.isModal) {
+              // Delay the change to the next 500 milliseconds for the animation to finish
               this.isLoaderComplete = !s.state;
               timer(500)
-                .subscribe(() => { this.isLoading = s.state; this.isLoaderComplete = false; });
+                .subscribe(() => {
+                  if (this.isLoaderAlreadyShown)
+                    this.isSecondaryLoading = s.state;
+                  else 
+                    this.isLoading = s.state;
+                    this.isLoaderAlreadyShown = true;
+                  this.isLoaderComplete = false;
+                });
             } else {
+              // Delay the change to the next 500 milliseconds for the animation to finish
               this.isLoaderComplete = !s.state;
               timer(500)
                 .subscribe(() => { this.isModalLoading = s.state; this.isLoaderComplete = false; });
             }
           } else {
             if (!s.isModal) {
-              this.isLoading = s.state;
+              // The primary loader only shows up when app initialises, other loads blur the screen
+              if (this.isLoaderAlreadyShown) {
+                this.isSecondaryLoading = s.state;
+              } else {
+                this.isLoading = true;
+              }
             } else {
               this.isModalLoading = s.state;
             }
           }
+
+          console.log(this)
         });
   
         // Register notifications listner

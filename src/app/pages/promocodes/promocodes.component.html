@@ -18,7 +18,7 @@
       <button class="clickable" (click)="openPromocodeModal()">Create new</button>
     </div>
   </div>
-  <ion-content *ngIf="(sockets.data && sockets.data.promocodes.length > 0 && SearchInput.value.length > 0 && searchResults.length !== 0) || (sockets.data && sockets.data.promocodes.length > 0 && SearchInput.value.length === 0)">
+  <ion-content *ngIf="(sockets.data && sockets.data.promocodes.length > 0 && SearchInput.value.length > 0 && searchResults.length !== 0) || (sockets.data && sockets.data.promocodes.length > 0 && !SearchInput.value.length)">
     <table>
       <thead>
         <tr>

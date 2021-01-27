@@ -24,7 +24,7 @@ import { OrderStatusService } from './services/order-status.service';
     IonicModule.forRoot(),
     AppRoutingModule,
     FormsModule,
-    SlideshowModule
+    SlideshowModule,
   ],
   providers: [
     CategoriesService,

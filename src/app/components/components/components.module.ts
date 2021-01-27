@@ -46,7 +46,7 @@ import { BannerModalComponent } from '../banner-modal/banner-modal.component';
 import { MessageComponent } from '../message/message.component';
 import { WithdrawModalComponent } from '../withdraw-modal/withdraw-modal.component';
 import { SetWithdrawAccountComponent } from '../set-withdraw-account/set-withdraw-account.component';
-
+import { HighchartsChartModule } from 'highcharts-angular';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -125,7 +125,8 @@ import { SetWithdrawAccountComponent } from '../set-withdraw-account/set-withdra
     FormsModule,
     IonicModule,
     SlideshowModule,
-    NgxChartsModule
+    NgxChartsModule,
+    HighchartsChartModule
   ],
   exports: [
     HeaderComponent,

@@ -97,13 +97,17 @@ export class DriversComponent implements OnInit {
   search(keyword: string): void {
     this.searchResults = [];
     keyword = keyword.toLowerCase();
-    this.sockets.data.drivers.forEach((driver) => {
-      for (let property in driver) {
-        if (driver[property].toString().toLowerCase().includes(keyword)) {
-          this.searchResults.push(driver);
+    if (keyword.length) {
+      this.sockets.data.drivers.forEach((driver) => {
+        for (let property in driver) {
+          const driverKeyword = driver[property].toString().toLowerCase(),
+                indexInResults = this.searchResults.findIndex((result) => result[property] === driver[property]);
+          if (driverKeyword.includes(keyword) && indexInResults === -1) {
+            this.searchResults.push(driver);
+          }
         }
-      }
-    });
+      });
+    }
   }
 
   selectDriver(id: string) {

@@ -54,6 +54,8 @@ export class SignupPage implements OnInit, AfterViewInit {
     // Set the steps slideshow to be locked to prevent jumping to other steps
     this.stepSlideshow.lockSwipes(true);
 
+    this.loader.showLoader(false);
+
     // Setup the keyboard events for verification code input
     this.firstCode.nativeElement.onkeyup = (ev: KeyboardEvent) => {
       const key = parseInt(ev.key);

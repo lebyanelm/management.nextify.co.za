@@ -8,6 +8,7 @@ import { Title } from '@angular/platform-browser';
 import * as superagent from 'superagent';
 import { environment } from 'src/environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-password-reset',
@@ -37,6 +38,7 @@ export class PasswordResetPage implements OnInit, AfterViewInit {
   constructor(
     private title: Title,
     private router: Router,
+    private loader: LoaderService,
     private activatedRoute: ActivatedRoute) {
   }
 
@@ -78,6 +80,7 @@ export class PasswordResetPage implements OnInit, AfterViewInit {
 
     // Set the steps slideshow to be locked to prevent jumping to other steps
     this.stepSlideshow.lockSwipes(true);
+    this.loader.showLoader(false);
   }
 
   initialiseSlideshow() {

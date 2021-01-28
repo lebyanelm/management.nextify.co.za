@@ -8,6 +8,7 @@ import { IonSlides, ModalController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StorageService } from '../services/storage.service';
 import { environment } from 'src/environments/environment';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
   selector: 'app-home',
@@ -23,6 +24,7 @@ export class HomePage implements AfterViewInit {
     private modalCtrl: ModalController,
     private branch: BranchService,
     private activatedRoute: ActivatedRoute,
+    private loader: LoaderService,
     private storage: StorageService,
     private router: Router ) {}
 

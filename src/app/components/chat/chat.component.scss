@@ -1,17 +1,9 @@
 @import '../../../setup.scss';
 
 .chat-messaging-container {
-    display: flex;
-    height: 80vh;
-    width: 340px;
-    padding: 0 20px;
-    background: transparent;
     position: absolute;
     bottom: 0;
-    right: 0;
-    z-index: 1000;
-    transform: translateY(calc(100% - 50px));
-    transition: transform 300ms ease-in-out;
+    left: 20px;
 
     &[isChatOpen=true] {
         transform: translateY(0%);

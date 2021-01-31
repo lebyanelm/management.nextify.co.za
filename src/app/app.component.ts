@@ -72,8 +72,6 @@ export class AppComponent {
               this.isModalLoading = s.state;
             }
           }
-
-          console.log(this)
         });
   
         // Register notifications listner

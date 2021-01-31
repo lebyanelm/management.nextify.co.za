@@ -22,7 +22,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
   @ViewChild('RecipientsSelect', {static: false}) recipientSelect: SelectComponent;
   @ViewChild('FileSelect', {static: false}) fileSelect: FileSelectorComponent;
   @ViewChild('ChatMessages', {static: false}) chatMessages: ElementRef<HTMLElement>;
-  isChatOpen = true;
+  isChatOpen = false;
   isMessagesOpen = false;
   isMessageOpenTemp = false;
   isNewChat = false;
@@ -61,14 +61,13 @@ export class ChatComponent implements OnInit, AfterViewInit {
       if (!this.activeCustomerId || (this.activeCustomerId && this.activeCustomerId !== message.from)) {
         if (this.recipientDetails[message.from]) {
           this.toast.show(`New message (${this.recipientDetails[message.from].name}): ${message.body}`,
-                          { buttons: [
-                            {
-                              text: 'Reply',
-                              handler: () => {
-                                this.toggleChatOpenState();
-                                timer(300).subscribe(() => this.openMessages(false, message.from));
-                              }
-                            }]});
+          { buttons: [{
+            text: 'Reply',
+            handler: () => {
+              this.toggleChatOpenState();
+              timer(300).subscribe(() => this.openMessages(false, message.from));
+            }
+          }]});
         }
       }
 
@@ -84,8 +83,6 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {}
   ngAfterViewInit() {
-    this.toggleChatOpenState();
-
     // Since messages are specific to thier branches, close the previously opened chat if any
     this.branchService.onChange.subscribe(() => {
       this.closeMessages();
@@ -96,23 +93,28 @@ export class ChatComponent implements OnInit, AfterViewInit {
   }
 
   toggleChatOpenState() {
-    if (!!this.isChatOpen && this.isMessagesOpen) {
-      this.isMessageOpenTemp = false;
-      timer(300)
-        .subscribe(() => {
-          this.isChatOpen = false;
-        });
-    } else {
-      if (!this.isMessageOpenTemp && this.isMessagesOpen) {
-        this.isChatOpen = !this.isChatOpen;
+    return new Promise((resolve, _) => {
+      if (!!this.isChatOpen && this.isMessagesOpen) {
+        this.isMessageOpenTemp = false;
         timer(300)
           .subscribe(() => {
-            this.isMessageOpenTemp = true;
+            this.isChatOpen = false;
+            resolve(null);
           });
       } else {
-        this.isChatOpen = !this.isChatOpen;
+        if (!this.isMessageOpenTemp && this.isMessagesOpen) {
+          this.isChatOpen = !this.isChatOpen;
+          timer(300)
+            .subscribe(() => {
+              this.isMessageOpenTemp = true;
+              resolve(null);
+            });
+        } else {
+          this.isChatOpen = !this.isChatOpen;
+          resolve(null);
+        }
       }
-    }
+    });
   }
 
   openMessages(isNewChat?: boolean | any, activeCustomerId?: string | any) {

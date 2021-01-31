@@ -36,23 +36,27 @@ export class HomePage implements AfterViewInit {
       this.ionSlider.lockSwipes(true);
     });
 
-    this.activatedRoute.queryParams.subscribe((params) => {
+    this.activatedRoute.params.subscribe((params) => {
       if (params.page) {
-        let page = 0;
-        if (params.page === 'products') {
+        let pageName = params.page.toLowerCase(),
+            page = 0;
+        if (pageName === 'products') {
           page = 1;
-        } else if (params.page === 'extras') {
+        } else if (pageName === 'extras') {
           page = 2;
-        } else if (params.page === 'promocodes') {
+        } else if (pageName === 'banners') {
           page = 3;
-        } else if (params.page === 'customers') {
+        } else if (pageName === 'promocodes') {
           page = 4;
-        } else if (params.page === 'snapshots') {
+        } else if (pageName === 'customers') {
           page = 5;
-        } else if (params.page === 'account') {
+        } else if (pageName === 'drivers') {
           page = 6;
+        } else if (pageName === 'reports') {
+          page = 7;
+        } else {
+          page = 8;
         }
-
         this.routerService.routeToSlide(page);
       }
     });

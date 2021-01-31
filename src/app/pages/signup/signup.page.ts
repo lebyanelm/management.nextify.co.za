@@ -8,7 +8,7 @@ import { Title } from '@angular/platform-browser';
 import * as superagent from 'superagent';
 import { environment } from 'src/environments/environment';
 import { LoaderService } from 'src/app/services/loader.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -41,6 +41,7 @@ export class SignupPage implements OnInit, AfterViewInit {
     private loader: LoaderService,
     private storage: StorageService,
     private sockets: SocketsService,
+    private activatedRoute: ActivatedRoute,
     private toast: ToastService) {
   }
 
@@ -122,6 +123,19 @@ export class SignupPage implements OnInit, AfterViewInit {
       }
       this.verificationError.nativeElement.innerHTML = '';
     }
+
+    // If the the link already has a pricing select option
+    this.activatedRoute.queryParamMap.subscribe((queryParamMap) => {
+      if (queryParamMap.get('selected-plan')) {
+        if (queryParamMap.get('selected-plan') === '1') {
+          this.data.accountType = 'startup';
+        } else if (queryParamMap.get('selected-plan') === '2') {
+          this.data.accountType = 'entreprise';
+        } else {
+          this.data.accountType = 'establishment';
+        }
+      }
+    });
   }
 
   validateEmailAddress() {

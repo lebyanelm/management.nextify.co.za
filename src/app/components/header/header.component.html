@@ -2,7 +2,7 @@
   <div class="business-profile-dropdown-button flexbox clickable" (click)="openBranchCreatorModal()">
     <div class="avatar-container"><div class="avatar background-image" *ngIf="sockets.data" [style.background-image]="'url(' + sockets.data.media[sockets.data.media.length-1] + ')'"></div></div>
     <div class="business-details" *ngIf="sockets.data">
-      <div class="name">{{ sockets.data.businessName }}</div>
+      <div class="name">{{ sockets.data.businessName }} <div class="status" [attr.accountType]="sockets.data.accountType">{{ sockets.data.accountType }}</div></div>
       <div class="partner-id">{{ sockets.data.id.toUpperCase() }} {{sockets.data.branches[branch.index] ? '|' + sockets.data.branches[branch.index].name : '' }}</div>
     </div>
     <ion-icon name=arrow-forward></ion-icon>

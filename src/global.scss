@@ -255,12 +255,6 @@ input {
     outline: none;
 }
 
-button.flexbox {
-    span {
-        transform: translateY(2px);
-    }
-}
-
 /*** Styling the ionic elements ****/
 ion-toast {
     --max-width: 25%;
@@ -431,7 +425,7 @@ table {
 /** TABLES **/
 table {
     thead {
-        td { font-weight: bold; }
+        // td { font-weight: bold; }
     }
     
     td {
@@ -545,7 +539,7 @@ table {
     }
     
     .right-pane-content {
-        grid-template-rows: 14% 86%;
+        grid-template-rows: 95px calc(100% - 95px);
         height: 100vh;
 
         app-header {
@@ -804,6 +798,10 @@ button {
 
     &[isLoading=true] {
         background: transparent;
+    }
+
+    .button-content {
+        width: 100%;
     }
 }
 
@@ -1144,11 +1142,15 @@ ion-modal {
 // Toaster Message
 ion-toast.base-toast {
     --border-radius: 0;
-    --background: #000030;
+    --background: #16151d;
     --color: #FFF;
-    .toast-wrapper {
-        border-bottom: $secondary-color 2px solid;
-    }
+    --font-weight: bolder;
+    --font-size: smaller;
+    --padding: 8px 10px;
+    line-height: 1px;
+    font-size: smaller !important;
+    font-weight: bolder !important;
+    padding: 0 !important;
 }
 
 button,

@@ -52,7 +52,7 @@ ion-content {
 
             .name {
                 font-size: large;
-                font-weight: 500;
+                font-weight: bolder;
             }
 
             .quick-action {
@@ -205,4 +205,18 @@ ion-content {
             .button { opacity: 1 !important; }
         }
     }
+}
+
+// Custom button
+.icon-button {
+    width: 40px;
+    padding: 8px 0;
+    background: transparent;
+    color: $text-dark;
+    margin-right: 8px;
+}
+
+.icon-button:hover {
+    transition: color 300ms ease-in-out;
+    color: $success;
 }

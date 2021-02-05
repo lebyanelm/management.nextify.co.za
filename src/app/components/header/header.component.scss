@@ -15,8 +15,34 @@
         margin-left: 20px;
         
         .name {
+            display: flex;
+            align-items: center;
             font-size: 15px;
-            font-family: 'Paytone One' !important;
+            font-weight: bolder;
+            margin-bottom: 2px;
+        }
+
+        .status {
+            padding: 2px 10px;
+            margin-left: 5px;
+            background: transparentize($theme-color, 0.5);
+            border: 2px solid $theme-color;
+            float: left;
+            color: $text-light;
+            text-transform: capitalize;
+            font-weight: bolder;
+            border-radius: 50px;
+            font-size: smaller;
+        }
+
+        .status[accountType="entreprise"] {
+            background: transparentize($secondary-color, 0.5);
+            border: 2px solid $secondary-color;
+        }
+
+        .status[accountType="establishment"] {
+            background: transparentize($success, 0.5);
+            border: 2px solid $success;
         }
 
         .partner-id {

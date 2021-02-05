@@ -1,3 +1,4 @@
+import { CustomersService } from './../../services/customers.service';
 import { ModalController } from '@ionic/angular';
 import { Component, OnInit, Input } from '@angular/core';
 import * as superagent from 'superagent';
@@ -21,14 +22,15 @@ export class SendMessageModalComponent implements OnInit {
 
   constructor(
     private toast: ToastService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private customers: CustomersService
   ) { }
 
   ngOnInit() {}
 
-  sendMessage() {
+  async sendMessage() {
     // Format the recipeints in a format accepted by ther serve
-    let recipients;
+    let recipients = [];
     if (this.message.recipients) {
       if (this.message.recipients.includes(', ')) {
         recipients = this.message.recipients.split(', ');
@@ -38,7 +40,10 @@ export class SendMessageModalComponent implements OnInit {
         recipients = [ this.message.recipients ];
       }
     } else {
-      recipients = [];
+      await this.customers.getCustomerData()
+        .then((customers) => {
+          customers.forEach((customer) => recipients.push(customer.id));
+        });
     }
     
     if (this.message.text) {
@@ -55,6 +60,8 @@ export class SendMessageModalComponent implements OnInit {
               } else {
                 this.toast.show(response.body.reason);
               }
+            } else {
+              this.toast.show(response.body.reason);
             }
           }
         });

@@ -175,7 +175,7 @@ export class SocketsService {
               
               // Only show connection error message if partner is still signed in
               if (!this.isSignedOut) {
-                this.toast.show('Connection lost, automatically reconnecting...', { buttons: [ {text: 'Okay'} ] })
+                this.toast.show('Connection lost, reconnecting...', { buttons: [ {text: 'Okay'} ] })
                   .then((toast) => {
                     this.disconnectedToast = toast;
                   });

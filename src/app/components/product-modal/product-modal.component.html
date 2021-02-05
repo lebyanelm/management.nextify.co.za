@@ -146,21 +146,30 @@
     <div class="buttons">
       <button
         class="add-button flexbox"
+        [attr.isLoading]="isLoading"
         [disabled]="isLoading && !(data.name && data.category && data.price && data.images.length)"
         (click)="createProduct()"
         *ngIf="!data.id">
-          <span>Create Product</span>
-          <div class="space"></div>
-          <ion-icon name="arrow-forward"></ion-icon>
+          <div class="button-content flexbox" *ngIf="!isLoading">
+            <span>Create Product</span>
+            <div class="space"></div>
+            <ion-icon name="arrow-forward"></ion-icon>
+          </div>
+
+          <ion-spinner name=crescent color=royalblue *ngIf="isLoading"></ion-spinner>
         </button>
       <button
         class="save-button flexbox"
         [disabled]="isLoading && !(data.name && data.category && data.price && data.images.length)"
         (click)="editProduct()"
         *ngIf="data.id">
+        <div class="non-loading-content flexbox" *ngIf="!isLoading">
           <span>Save Changes</span>
           <div class="space"></div>
-          <ion-icon name="checkmark"></ion-icon>
+          <ion-icon name="arrow-forward"></ion-icon>
+        </div>
+
+        <ion-spinner name=crescent *ngIf="isLoading"></ion-spinner>
       </button>
     </div>
   </div>

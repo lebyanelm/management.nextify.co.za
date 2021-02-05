@@ -73,7 +73,7 @@ export class BranchCreatorComponent implements AfterViewInit {
       // For showing a heatmap of voted areas, to help the partner to know where to expand branches to.
       superagent
         .get(environment.backendServer + '/area/votes?token=' + this.token)
-        .end((error, response) => {
+        .end((_, response) => {
           if (response) {
             if (response.status === 200) {
               this.map.addSource('voted-areas', {
@@ -164,9 +164,7 @@ export class BranchCreatorComponent implements AfterViewInit {
               localStorage.removeItem('branch');
             }
           } else {
-            if (response.status === 403) {
-              this.toast.show('Unauthorized action!');
-            }
+            this.toast.show(response.body.reason || 'ERROR: SOMETHING WENT WRONG.');
           }
         } else {
           this.toast.show('Not connected to the internet!');
@@ -179,8 +177,7 @@ export class BranchCreatorComponent implements AfterViewInit {
     if (!this.isSelectBranch) {
       this.confirmBranch();
     } else {
-      const branch = this.sockets.data.branches[index],
-        lastZoom = this.map.getZoom();
+      const branch = this.sockets.data.branches[index];;
       this.map.panTo([branch.coordinates.lng, branch.coordinates.lat]);
     }
   }

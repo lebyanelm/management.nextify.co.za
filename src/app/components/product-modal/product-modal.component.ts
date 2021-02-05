@@ -246,15 +246,17 @@ export class ProductModalComponent implements AfterViewInit, OnInit {
       .set('Authorization', this.sockets.data.token)
       .on('progress', (event) => this.loader.pipe(event.percent))
       .end((_, response) => {
+        this.isLoading = false;
+        this.loader.showLoader(false);
+        this.backdropDismiss(true);
         if (response) {
           if (response.status === 201) {
-            this.loader.showLoader(false);
             this.toast.show('SUCCESS: PRODUCT CREATED.', {duration: 3000});
-            this.sockets.data.products.push(response.body);
+            this.sockets.data.products.push(response.body.product);
             this.sockets.change.next();
             this.modalCtrl.dismiss();
-          } else if (response.status === 500) {
-            this.toast.show('Unexpected error occured.', {buttons: [{text: 'Report'}]});
+          } else {
+            this.toast.show(response.body.reason || 'ERROR: SOMETHING WENT WRONG.');
           }
         } else {
           this.toast.show('You\'re not connected to the internet');

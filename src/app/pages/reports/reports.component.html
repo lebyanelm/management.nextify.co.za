@@ -20,7 +20,7 @@
                 <thead>
                     <tr>
                         <!-- Partner Balance -->
-                        <td class="balance-value">R{{sockets.data?.snapshots.totalEarnings.toFixed(2)}}</td>
+                        <td class="balance-value" [attr.isPositive]="sockets.data?.snapshots.totalEarnings > 0">R{{sockets.data?.snapshots.totalEarnings.toFixed(2)}}</td>
                         <!-- Quantities Sold in total -->
                         <td>{{sockets.data?.snapshots.quantitiesSold}}</td>
                         <!-- Total orders made in total -->
@@ -31,7 +31,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="balance-title">Your Balance</td>
+                        <td class="balance-title" [attr.isPositive]="sockets.data?.snapshots.totalEarnings > 0">Your Balance</td>
                         <td>Quantities Sold</td>
                         <td>Total Orders</td>
                         <td>Total Customers</td>

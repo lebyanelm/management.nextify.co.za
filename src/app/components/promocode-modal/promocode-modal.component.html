@@ -1,29 +1,26 @@
 <ion-content>
-  <div class="app-loader" *ngIf="isLoading" [attr.data-isComplete]=isLoadingComplete></div>
   <div class="modal-header"><div class="name">{{data.id ? 'Edit: ' + data.code : 'Create a new Promocode'}}</div></div>
 
   <div class="content product-modal-content ion-padding">
-    <p *ngIf="isLoading && !isLoadingComplete" class="link ion-text-center">Creating promocode...</p>
-    <p *ngIf="isLoadingComplete && !isError" class="link ion-text-center">Promocode created!</p>
-    <div class="metadata" *ngIf="!isLoading">
+    <div class="metadata">
       <p class="text-danger ion-text-center" *ngIf="isError && !isLoading">{{error}}</p>
       <div class="split-inputs">
         <div class="split-input">
           <!-- Promocode -->
           <div class="label">Promocode</div>
-          <input type="text" style="text-transform: uppercase;" placeholder="eg. FRIDAY50" [(ngModel)]="data.code"> 
+          <input type="text" style="text-transform: uppercase;" placeholder="eg. FRIDAY50" [(ngModel)]="data.code" [disabled]=isLoading> 
         </div>
         <div class="split-input">
           <!-- Promocode end date -->
           <div class="label">Discount</div>
-          <input type="text" placeholder="eg. 50" [(ngModel)]="data.discount">
+          <input type="text" placeholder="eg. 50" [(ngModel)]="data.discount" [disabled]=isLoading>
         </div>
       </div>
     </div>
   </div>
 </ion-content>
 
-<ion-footer class="buttons">
-  <button class="clickable" (click)="createPromocode()" [disabled]="(isLoading || !isLoading) && !(data.code && data.discount)" *ngIf="!data.id">Create Promocode</button>
-  <button class="clickable" (click)="editPromocode()" [disabled]="(isLoading || !isLoading) && !(data.code && data.discount)" *ngIf="data.id">Edit Promocode</button>
+<ion-footer>
+  <button class="clickable" (click)="createPromocode()" [disabled]="isLoading || !(data.code && data.discount)" *ngIf="!data.id" [attr.isLoading]=isLoading>Create Promocode</button>
+  <button class="clickable" (click)="editPromocode()" [disabled]="isLoading || !(data.code && data.discount)" *ngIf="data.id">Edit Promocode</button>
 </ion-footer>

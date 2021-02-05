@@ -38,6 +38,11 @@
             background: $theme-color;
             color: $text-light;
         }
+
+        td.balance-value[isPositive=false],
+        td.balance-title[isPositive=false] {
+            background: $danger;
+        }
     
         thead {
             border: none !important;

@@ -38,6 +38,8 @@ export interface Partner {
   banners: Banner[];
   drivers: Driver[];
   messages: any;
+  accountType: string;
+  orderPercentage: number;
   snapshots: {
     totalEarnings: number,
     quantitiesSold: number,

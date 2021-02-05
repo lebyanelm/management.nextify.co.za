@@ -69,13 +69,13 @@ export class BannerModalComponent implements AfterViewInit {
           this.sockets.data.banners.push(response.body.banner);
           this.modalCtrl.dismiss();
         } else if (response.status === 500) {
-          this.toast.show('Error while creating banner. Code 500');
+          this.toast.show(response.body.reason || 'ERROR: SOMETHING WENT WRONG.');
         }
       } else {
         if (response) {
-          this.toast.show('Error while creating banner. Code ' + response.status);
+          this.toast.show(response.body.reason || 'ERROR: SOMETHING WENT WRONG.');
         } else {
-          this.toast.show('Not connected to the internet.');
+          this.toast.show('ERROR: YOU ARE NOT CONNECTED TO THE INTERNET.');
         }
       }
     });

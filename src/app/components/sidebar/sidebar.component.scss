@@ -15,22 +15,21 @@
     transform: translateX(-15px);
     .brand-logo img {
         height: 35px;
-        transform: translateY(5px);
+        transform: translateY(10px);
         margin-left: 20px;
         border-radius: 50px;
     }
 
-    .app-name {
-        margin-left: 15px;
-        .name { font-size: 18px; }
-        .bottom-app-name { 
-            font-weight: bold;
-            padding: 4px 5px 4px 5px;
-            background-color: transparentize($secondary-color, .5);
-            color: $text-light;
-            font-size: 10px !important;
-            border-radius: $radius; }
-    }
+    .bottom-app-name { 
+        font-weight: bold;
+        padding: 4px 5px 4px 5px;
+        transform: translateY(8px);
+        margin-left: 10px;
+        // background-color: transparentize($secondary-color, .25);
+        color: $text-light;
+        letter-spacing: 2px;
+        font-size: 10px !important;
+        border-radius: $radius; }
 }
 
 // Sidemenu links
@@ -45,15 +44,21 @@
             cursor: pointer;
             transition: all 300ms ease-in-out;
             position: relative;
+            border-radius: 8px;
+
+            ion-icon {
+                display: none;
+            }
             
             .name {
-                margin-left: 44px;
-                font-weight: 600;
+                margin-left: 20px;
+                font-weight: bolder;
             }
 
             &.active {
                 opacity: 1;
                 color: $text-light;
+                background: transparentize(#EEE, 0.8);
 
                 ion-icon {
                     color: $text-light !important;
@@ -65,18 +70,6 @@
 
                 ion-icon.filled {
                     opacity: 1 !important;
-                }
-
-                &::after {
-                    content: "";
-                    display: block;
-                    height: 20px;
-                    width: 20px;
-                    background: #FFF;
-                    position: absolute;
-                    right: -1px;
-                    top: 50%;
-                    transform: translateY(-50%) translateX(150%) rotate(45deg);
                 }
             }
 

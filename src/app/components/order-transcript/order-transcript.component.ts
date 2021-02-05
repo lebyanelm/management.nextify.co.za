@@ -18,7 +18,7 @@ export class OrderTranscriptComponent implements OnInit {
   orderStatus: string;
   isLoading = false;
   constructor(
-    private sockets: SocketsService,
+    public sockets: SocketsService,
     public orderStatusService: OrderStatusService,
     private modalCtrl: ModalController
   ) { }

@@ -65,31 +65,25 @@ export class PromocodeModalComponent implements OnInit, AfterViewInit {
   }
   
   createPromocode() {
-    this.loader.showModalLoader(!this.isLoading);
+    this.isLoading = true;
     superagent
       .post(environment.backendServer + '/promocode?partnerId=' + this.sockets.data.id)
       .send({...this.data, token: this.sockets.data.token})
       .on('progress', (event) => this.loader.pipe(event.percent))
       .end((error, response) => {
+        this.isLoading = false;
         if (response) {
           if (response.status === 208) {
-            this.isError = true;
-            this.toast.show('Promocode already exists.');
-            this.loader.showModalLoader(false, true);
-          } else if (response.status === 201) {
-            this.sockets.data.promocodes.push(response.body);
-            this.loader.showModalLoader(false);
-            this.toast.show('Promocode created.', {position: 'bottom', buttons: [{text: 'OKAY'}]});
-          } else if (response.status === 500) {
-            this.isError = true;
-            this.toast.showAlert({
-              header: 'Unexpected error',
-              // tslint:disable-next-line: max-line-length
-              message: 'Something went wrong while creating your promocode, we might not know about this error, but you can help us fix it by reporting the problem.',
-              buttons: [{text: 'Cancel'}, {text: 'Report Problem', handler: () => { console.log('Reporting problem'); }}]
-            });
-            this.loader.showModalLoader(false, true);
+            this.toast.show('ERROR: PROMOCODE ALREADY EXISTS.');
+          } else if (response.status === 200) {
+            this.modalCtrl.dismiss();
+            this.sockets.data.promocodes.push(response.body.promocode);
+            this.toast.show('SUCCESS: PROMOCODE CREATED.');
+          } else {
+            this.toast.show(response.body.reason || 'ERROR: SOMETHING WENT WRONG.');
           }
+        } else {
+          this.toast.show('ERROR: NO INTERNET CONNECTION.');
         }
       });
   }

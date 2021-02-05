@@ -86,6 +86,15 @@ ion-checkbox {
     --border-radius: 0;
 }
 
+// LOADER
+ion-spinner[dark] {
+    color: $theme-color;
+}
+
+ion-spinner[secondary] {
+    color: $secondary-color;
+}
+
 .center {
     position: absolute;
     top: 50%;
@@ -729,6 +738,7 @@ table {
 
 /****** BUTTONS ********/
 ion-footer {
+    border: none !important;
     button {
         padding: 18px 0;
     }

@@ -1,0 +1,7 @@
+<div class="toast-container">
+  <div class="toast-message">{{message}}</div>
+  <div class="toast-buttons">
+    <div class="toast-button" *ngIf="button" (click)="button.handler ? button.handler() : toastService.close(index)">{{button.text}}</div>
+    <div class="toast-button close" (click)="toastService.close(index)"><ion-icon name=close></ion-icon></div>
+  </div>
+</div>

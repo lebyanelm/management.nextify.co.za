@@ -1,3 +1,5 @@
+import { ToastMessage } from './../interfaces/ToastMessage';
+import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ToastController, AlertController } from '@ionic/angular';
 import { ToastOptions, AlertOptions } from '@ionic/core';
@@ -7,24 +9,18 @@ import { ToastOptions, AlertOptions } from '@ionic/core';
 })
 
 export class ToastService {
+  public onToastMessage: Subject<any> = new Subject<any>();
+  public onToastRemove: Subject<number> = new Subject<number>();
   constructor(private toastCtrl: ToastController, private alertCtrl: AlertController) { }
 
   async show(message: string, options: ToastOptions = {}, isRemovable = true) {
-    options = {
-      ...options,
-      message,
-      cssClass: 'base-toast',
-      position: 'top'
-    };
-
-    if (!options.buttons && !options.duration) {
-      options.duration = 3000;
-    }
-
-    const toast = await this.toastCtrl.create(options);
-    toast.present();
-
-    return toast;
+    return new Promise((resolve, reject) => {
+      const toastMessage: any = {
+        message,
+        button: options.buttons ? options.buttons[0] : null,
+        timeout: options.duration || 0 };
+      this.onToastMessage.next({ toastMessage, callback: (index) => { resolve(index); } });
+    });
   }
 
   async showAlert(options: AlertOptions) {
@@ -32,5 +28,9 @@ export class ToastService {
     alert.present();
 
     return alert;
+  }
+
+  close(index: number) {
+    this.onToastRemove.next(index || 0);
   }
 }

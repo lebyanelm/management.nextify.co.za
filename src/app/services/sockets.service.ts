@@ -25,7 +25,7 @@ export class SocketsService {
   hasDisconnectedBefore = false;
   branchId: string;
   onMessage: Subject<Message> = new Subject<Message>();
-  disconnectedToast;
+  disconnectedToast = null;
 
   isAuthenticated = false;
   isSignedOut = false;
@@ -36,7 +36,15 @@ export class SocketsService {
       private toast: ToastService,
       private notifications: NotificationService,
       private status: StatusService
-  ) { }
+  ) {
+    this.toast.onToastRemove.subscribe((index) => {
+      if (this.disconnectedToast) {
+        if (index > this.disconnectedToast) {
+          this.disconnectedToast -= 1;
+        }
+      }
+    });
+  }
   createConnection() {
     return new Promise((resolve, reject) => {
         this.storage.getItem(environment.PARTNER_DATA_REF, false)
@@ -57,8 +65,8 @@ export class SocketsService {
               this.data = {...data, token};
               document.title = 'Nextify for Partners | ' + this.data.businessName;
               
-              if (this.disconnectedToast) {
-                this.disconnectedToast.dismiss();
+              if (this.disconnectedToast !== null) {
+                this.toast.close(this.disconnectedToast);
                 this.disconnectedToast = null;
               }
 

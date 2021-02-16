@@ -1,0 +1,19 @@
+.toast-messages {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 0;
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    z-index: 100000000000000000000;
+}
+
+.toast-messages app-toast {
+    display: block;
+    margin: 0 0 5px 0;
+}
+
+.toast-messages app-toast:last-child {
+    margin: 0 0 20px 0 !important;
+}

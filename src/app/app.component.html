@@ -1,5 +1,11 @@
 <ion-app [attr.data-isLoading]=isSecondaryLoading [attr.data-isModalLoading]="isModalLoading">
   <app-loader *ngIf="isLoading" [isLoaderComplete]=isLoaderComplete></app-loader>
+
+  <!-- Toast messages -->
+  <div class="toast-messages" #ToastMessages>
+    <app-toast *ngFor="let toastMessage of toastMessages" [message]=toastMessage.message [button]=toastMessage.button [index]=toastMessage.index></app-toast>
+  </div>
+  
   <ion-router-outlet></ion-router-outlet>
 
   <!-- Bell sound license https://creativecommons.org/licenses/by/4.0/ from http://www.orangefreesounds.com/desk-bell-sound/ -->

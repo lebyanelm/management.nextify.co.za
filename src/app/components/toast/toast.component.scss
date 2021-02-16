@@ -1,0 +1,46 @@
+@import '../../../setup.scss';
+
+.toast-container {
+    padding: 0 0 0 20px;
+    background: transparentize($theme-color, 0.1);
+    align-items: center;
+    gap: 8px;
+    float: left;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    font-size: large !important;
+    font-weight: bolder !important;
+}
+
+.toast-container,
+.toast-container .toast-buttons {
+    display: flex;
+}
+
+.toast-container .toast-message,
+.toast-container .toast-buttons {
+    color: $text-light;
+}
+
+.toast-container .toast-message {
+    text-transform: capitalize;
+}
+
+.toast-container .toast-buttons {
+    transform: translateY(1px);
+}
+
+.toast-container .toast-buttons .toast-button {
+    padding: 10px;
+    border-left: 1px solid transparentize($text-light, .5);
+    cursor: pointer;
+    transition: background 300ms ease-in-out;
+}
+
+.toast-container .toast-buttons .toast-button.close {
+    border-radius: 0 5px 5px 0;
+}
+
+.toast-container .toast-buttons .toast-button:hover {
+    background: $theme-color;
+}

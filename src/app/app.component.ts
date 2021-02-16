@@ -1,3 +1,4 @@
+import { ToastService } from 'src/app/services/toast.service';
 import { StorageService } from './services/storage.service';
 import { LoaderService } from './services/loader.service';
 import { Component, ViewChild, ElementRef } from '@angular/core';
@@ -7,6 +8,7 @@ import { SocketsService } from './services/sockets.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { timer } from 'rxjs';
 import { NotificationService } from './services/notification.service';
+import { ToastMessage } from './interfaces/ToastMessage';
 
 @Component({
   selector: 'app-root',
@@ -21,13 +23,12 @@ export class AppComponent {
   isLoaderAlreadyShown = false;
   isSecondaryLoading = false;
   isModalLoading = false;
+  toastMessages = [];
 
   constructor(
     private platform: Platform,
     public loader: LoaderService,
-    private storage: StorageService,
-    private sockets: SocketsService,
-    private activatedRoute: ActivatedRoute,
+    private toastService: ToastService,
     private router: Router,
     private notifications: NotificationService
   ) {
@@ -81,6 +82,31 @@ export class AppComponent {
             this.audio.nativeElement.play();
           };
           this.audio.nativeElement.src = ['/assets/sounds', tones[count]].join('/');
+        });
+
+        // Register toast message updates
+        this.toastService.onToastMessage.subscribe((toastMessage) => {
+          const index = this.toastMessages.push({ ...toastMessage.toastMessage, index: this.toastMessages.length });
+          toastMessage.callback(index - 1);
+          if (toastMessage.toastMessage.timeout !== 0) {
+            timer(toastMessage.toastMessage.timeout)
+              .subscribe(() => {
+                this.toastMessages.splice(index - 1, 1);
+              });
+          }
+        });
+
+        this.toastService.onToastRemove.subscribe((index: number) => {
+          console.log(this.toastMessages)
+          if (this.toastMessages[index]) {
+            this.toastMessages.splice(index, 1);
+
+            // Update the other remaining up toasts
+            console.log(index)
+            for (let i = index; i < this.toastMessages.length; i++) {
+              this.toastMessages[i].index -= 1;
+            }
+          }
         });
       } else {
         // Navigate the user to a page showing them the device is not supported

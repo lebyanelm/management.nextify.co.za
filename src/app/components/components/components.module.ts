@@ -1,3 +1,4 @@
+import { ToastComponent } from './../toast/toast.component';
 import { OrderTranscriptComponent } from './../order-transcript/order-transcript.component';
 import { FeedbackModalComponent } from './../feedback-modal/feedback-modal.component';
 import { AddDriverModalComponent } from './../add-driver-modal/add-driver-modal.component';
@@ -95,7 +96,9 @@ import { SetWithdrawAccountComponent } from '../set-withdraw-account/set-withdra
     // For sending a feedback
     FeedbackModalComponent,
     // For viewing order details
-    OrderTranscriptComponent
+    OrderTranscriptComponent,
+    // Toast messages
+    ToastComponent
   ],
   entryComponents: [
     ProductModalComponent,
@@ -168,7 +171,8 @@ import { SetWithdrawAccountComponent } from '../set-withdraw-account/set-withdra
     GetStatementComponent,
     AddDriverModalComponent,
     FeedbackModalComponent,
-    OrderTranscriptComponent
+    OrderTranscriptComponent,
+    ToastComponent
   ]
 })
 export class ComponentsModule { }

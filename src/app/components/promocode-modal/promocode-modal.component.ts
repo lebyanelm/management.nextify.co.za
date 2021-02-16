@@ -74,16 +74,16 @@ export class PromocodeModalComponent implements OnInit, AfterViewInit {
         this.isLoading = false;
         if (response) {
           if (response.status === 208) {
-            this.toast.show('ERROR: PROMOCODE ALREADY EXISTS.');
+            this.toast.show('Promocode already exists.');
           } else if (response.status === 200) {
             this.modalCtrl.dismiss();
             this.sockets.data.promocodes.push(response.body.promocode);
-            this.toast.show('SUCCESS: PROMOCODE CREATED.');
+            this.toast.show('Promocode created.');
           } else {
-            this.toast.show(response.body.reason || 'ERROR: SOMETHING WENT WRONG.');
+            this.toast.show(response.body.reason || 'Something went wrong.');
           }
         } else {
-          this.toast.show('ERROR: NO INTERNET CONNECTION.');
+          this.toast.show('You\'re not connected.');
         }
       });
   }

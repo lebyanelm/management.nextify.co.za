@@ -45,7 +45,10 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Convert the number to a comma seperated string to certain locales(countries)
     this.buys = this.buys ? this.buys.toLocaleString() : 0;
+    this.views = this.views ? this.views.toLocaleString() : 0;
+    
     this.extras.forEach((extraId: any, index: number) => {
       const extra = this.sockets.data.extras.find((e) => e.id === extraId);
       if (extra) {

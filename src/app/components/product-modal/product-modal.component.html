@@ -36,7 +36,6 @@
       </div>
     </div>
 
-
     <!-- Product Meta data fields -->
     <div class="split-inputs">
       <div>
@@ -163,7 +162,7 @@
         [disabled]="isLoading && !(data.name && data.category && data.price && data.images.length)"
         (click)="editProduct()"
         *ngIf="data.id">
-        <div class="non-loading-content flexbox" *ngIf="!isLoading">
+        <div class="button-content flexbox" *ngIf="!isLoading">
           <span>Save Changes</span>
           <div class="space"></div>
           <ion-icon name="arrow-forward"></ion-icon>

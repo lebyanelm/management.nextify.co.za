@@ -54,7 +54,7 @@ export class HomePage implements AfterViewInit {
           page = 6;
         } else if (pageName === 'reports') {
           page = 7;
-        } else {
+        } else if (pageName === 'profile')  {
           page = 8;
         }
         this.routerService.routeToSlide(page);

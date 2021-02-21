@@ -67,8 +67,8 @@ export class HeaderComponent implements OnInit {
   changeBranchStatus(requestedState) {
     superagent
       .post(environment.backendServer + '/status/')
+      .set('Authorization', this.sockets.data.token)
       .send({ state: requestedState,
-          token: this.sockets.data.token,
           branchId: this.sockets.data.branches[this.branch.index].id,
           socketId: this.sockets.connection.id })
       .on('progress', (e) => this.loader.pipe(e.percent))

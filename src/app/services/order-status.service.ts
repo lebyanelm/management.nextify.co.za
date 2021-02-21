@@ -45,6 +45,7 @@ export class OrderStatusService {
                 for (let index = 0; index < this.sockets.data.orders[this.branch.id].length; index++) {
                   if (this.sockets.data.orders[this.branch.id][index].id === orderId) {
                     this.sockets.data.orders[this.branch.id][index].status = status;
+                    this.sockets.data.orders[this.branch.id][index].driverName = response.body.driverName;
                     if (status === 4) {
                       if (!this.sockets.data.completedOrders) {
                         this.sockets.data.completedOrders = {};

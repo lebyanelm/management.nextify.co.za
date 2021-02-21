@@ -827,7 +827,7 @@ button {
     app-product,
     app-order {
         padding: 20px;
-        border-radius: $radius + 2px;
+        border-radius: 8px;
         font-family: "Sailec";
         position: relative;
         background: $text-light;
@@ -896,6 +896,10 @@ button {
 
             .action-button  {
                 opacity: 0;
+            }
+
+            .action-button:last-child {
+                border: $border;
             }
 
             .attachments {

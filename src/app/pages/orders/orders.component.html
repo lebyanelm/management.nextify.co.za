@@ -10,12 +10,13 @@
         <ion-icon name="search"></ion-icon>
         <input type="text" placeholder="Search orders" [disabled]="!branch.id && sockets.data?.orders[branch.id] && !sockets.data?.orders[branch.id].length" #SearchInput>
       </div>
-      <button title="It is recomended that you clear orders that are no longer to be unattended to make searches faster." (click)="orderStatus.clearAllOrders()">Clear all orders</button>
+      <button style="width: 130px" [disabled]="!(sockets.data && branch.id && sockets.data.orders[branch.id] && sockets.data.orders[branch.id].length === 0)" title="It is recomended that you clear orders that are no longer to be unattended to make searches faster." (click)="orderStatus.clearAllOrders()">Clean orders</button>
+      <button style="width: 110px" title="Toggle views of your orders to one which you prefer." (click)="isGridView = !isGridView">{{ isGridView ? 'List' : 'Grid' }} view</button>
     </div>
   </div>
 
   <ion-content *ngIf="sockets.data && branch.id">
-    <div #OrdersContentContainer *ngIf="sockets.data?.orders[branch?.id] && sockets.data?.orders[branch?.id].length">
+    <div #OrdersContentContainer *ngIf="sockets.data?.orders[branch?.id] && sockets.data?.orders[branch?.id].length && !isGridView">
       <!-- Order Status: 1 -->
       <div class="orders-section">
         <div class="section-name">
@@ -159,6 +160,40 @@
 
       <!-- Order Status: 4, Moved to completed order, not seen on the platform. -->
     </div>
+
+    <!-- When the partner decides to switch to grid view -->
+    <div *ngIf="sockets.data?.orders[branch?.id] && sockets.data?.orders[branch?.id].length && isGridView">
+      <div class="orders-section">
+        <div class="section-name">
+          <span class="name">Awaiting</span>
+        </div>
+
+        <div class="section-grid-items">
+          <div class="grid-order-item" [style.display]="order.status === 1 ? '' : 'none'" *ngFor="let order of SearchInput.value ? searchResults : sockets.data?.orders[branch?.id]" [attr.orderStatus]="order.status" (click)="openTranscript(order)"><span>{{ order.id }}</span></div>
+        </div>
+      </div>
+
+      <div class="orders-section">
+        <div class="section-name">
+          <span class="name">Preparing</span>
+        </div>
+
+        <div class="section-grid-items">
+          <div class="grid-order-item" [style.display]="order.status === 2 ? '' : 'none'" *ngFor="let order of SearchInput.value ? searchResults : sockets.data?.orders[branch?.id]" [attr.orderStatus]="order.status" (click)="openTranscript(order)"><span>{{ order.id }}</span></div>
+        </div>
+      </div>
+
+      <div class="orders-section">
+        <div class="section-name">
+          <span class="name">Delivering</span>
+        </div>
+
+        <div class="section-grid-items">
+          <div class="grid-order-item" [style.display]="order.status === 3 ? '' : 'none'" *ngFor="let order of SearchInput.value ? searchResults : sockets.data?.orders[branch?.id]" [attr.orderStatus]="order.status" (click)="openTranscript(order)"><span>{{ order.id }}</span></div>
+        </div>
+      </div>
+    </div>
+    
     <!-- If there aren't any orders in total at all statuses -->
     <div class="error-container ion-text-center" *ngIf="!sockets.data?.orders[branch?.id] || (sockets.data.orders[branch?.id] && !sockets.data?.orders[branch?.id].length)">
       <img class="error-image" src="/assets/images/illustrations/food-delivery-monochrome.svg">

@@ -15,7 +15,7 @@
 
         <tr>
           <td class="name">Items</td>
-          <td><span *ngFor="let item of order.products">{{order.products.length > 1 && order.products.indexOf(item) !== 0 ? ', ' : ''}} {{item.quantity}} x {{item.name}}</span></td>
+          <!-- <td><span *ngFor="let item of order.products">{{order.products.length > 1 && order.products.indexOf(item) !== 0 ? ', ' : ''}} {{item.quantity}} x {{item.name}}</span></td> -->
         </tr>
 
         <tr>
@@ -43,10 +43,10 @@
           <td><b>ZAR</b> {{order.totalPrice}} (-{{sockets.data.orderPercentage * 100}}% Service Fee)</td>
         </tr>
 
-        <tr *ngFor="let section of sectionsSelected">
+        <!-- <tr *ngFor="let section of sectionsSelected">
           <td class="name">{{section.name}}</td>
           <td>{{section.value}}</td>
-        </tr>
+        </tr> -->
 
       </tbody>
     </table>

@@ -18,9 +18,18 @@ app-sidebar {
     background: $theme-color;
 }
 
+// APP CHAT BOX
 app-chat {
     display: block;
     position: absolute;
+    height: 80vh;
+    width: 600px;
+    right: 20px;
     bottom: 0;
-    right: 0;
+    z-index: 10000;
+    transition: transform 300ms ease-in-out;
+}
+
+app-chat[isChatOpen=false] {
+    transform: translateY(calc(100% - 50px));
 }

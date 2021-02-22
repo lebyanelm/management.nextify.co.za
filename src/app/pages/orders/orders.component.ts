@@ -20,6 +20,7 @@ export class OrdersComponent implements AfterViewInit {
   data: Partner;
   isProcessedFocused = false;
   isFullscreen = false;
+  isGridView = false;
   searchResults = [];
 
   constructor(

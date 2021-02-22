@@ -1015,7 +1015,7 @@ ion-app[data-isModalLoading=true] {
 }
 
 ion-modal {
-    --border-radius: 0;
+    --border-radius: 10px;
 }
 
 .modal {
@@ -1036,6 +1036,7 @@ ion-modal {
     .modal-wrapper {
         width: 450px;
         transition: height 300ms ease-in-out;
+        border-radius: 10px;
 
         .content {
             padding-top: 50px;

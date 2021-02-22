@@ -1,3 +1,5 @@
+import { ModalController } from '@ionic/angular';
+import { LoaderService } from './../../services/loader.service';
 import { StatusService } from './../../services/status.service';
 import { ToastService } from './../../services/toast.service';
 import { FileSelectorComponent } from './../file-selector/file-selector.component';
@@ -12,6 +14,7 @@ import { timer } from 'rxjs';
 import { Customer } from 'src/app/interfaces/Customer';
 import * as scrollIntroView from 'scroll-into-view';
 import * as superagent from 'superagent';
+import { ImageViewComponent } from '../image-view/image-view.component';
 
 @Component({
   selector: 'app-chat',
@@ -19,8 +22,8 @@ import * as superagent from 'superagent';
   styleUrls: ['./chat.component.scss'],
 })
 export class ChatComponent implements OnInit, AfterViewInit {
-  @ViewChild('RecipientsSelect', {static: false}) recipientSelect: SelectComponent;
   @ViewChild('FileSelect', {static: false}) fileSelect: FileSelectorComponent;
+  @ViewChild('CustomersSelector', {static: false}) customersSelector: SelectComponent;
   @ViewChild('ChatMessages', {static: false}) chatMessages: ElementRef<HTMLElement>;
   isChatOpen = false;
   isMessagesOpen = false;
@@ -39,24 +42,25 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
   constructor(
     public customersService: CustomersService,
-    public socketsService: SocketsService,
+    public sockets: SocketsService,
     public branchService: BranchService,
     private toast: ToastService,
-    public status: StatusService
+    private loader: LoaderService,
+    public status: StatusService,
+    private modalCtrl: ModalController
   ) {
 
     // Wait for the data to be available to load the chats
     const awaiter = setInterval(() => {
-      if (this.socketsService.data && this.branchService.id) {
+      if (this.sockets.data && this.branchService.id) {
         clearInterval(awaiter);
         this.getChatlist();
-        console.log('Awaiter ended...')
         this.noTotalUnreadMessages = this.getTotalUnreadMessages();
       }
     }, 200);
 
     // Listen to inbound messages
-    this.socketsService.onMessage.subscribe((message) => {
+    this.sockets.onMessage.subscribe((message) => {
       // Only show the toast if the message chat is not open
       if (!this.activeCustomerId || (this.activeCustomerId && this.activeCustomerId !== message.from)) {
         if (this.recipientDetails[message.from]) {
@@ -88,7 +92,6 @@ export class ChatComponent implements OnInit, AfterViewInit {
       this.closeMessages();
       this.getChatlist();
       this.noTotalUnreadMessages = this.getTotalUnreadMessages();
-      console.log('Reloading the messages...');
     });
   }
 
@@ -117,6 +120,15 @@ export class ChatComponent implements OnInit, AfterViewInit {
     });
   }
 
+  chooseCustomer() {
+    this.customersSelector.open();
+    this.customersSelector.changes.subscribe(() => {
+      if (!this.recipientDetails[this.customersSelector.selected[0].id])
+        this.recipientDetails[this.customersSelector.selected[0].id] = this.customersSelector.selected[0];
+      this.openMessages(this.customersSelector.selected[0].id);
+    });
+  }
+
   openMessages(isNewChat?: boolean | any, activeCustomerId?: string | any) {
     this.isMessagesOpen = true;
     this.isMessageOpenTemp = true;
@@ -133,12 +145,11 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
       // Scroll to the latest message
       setTimeout(() => {
-        console.log(this.chatMessages)
-        scrollIntroView(this.chatMessages.nativeElement, {time: 500});
+        scrollIntroView(this.chatMessages.nativeElement.children[this.chatMessages.nativeElement.children.length - 1]);
       }, 500);
     } else {
       this.activeCustomerId = null;
-      delete this.message.t0;
+      delete this.message.to;
     }
   }
 
@@ -172,7 +183,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
     return new Promise((resolve, reject) => {
       superagent
         // tslint:disable-next-line: max-line-length
-        .post(environment.backendServer + '/assets/upload?token=' + this.socketsService.data.token + '&isAvatar=false&isPartner=true')
+        .post(environment.backendServer + '/assets/upload?token=' + this.sockets.data.token + '&isAvatar=false&isPartner=true')
         .attach('file', this.fileSelect.file)
         .on('progress', (e) => {
           this.isUpload = true;
@@ -193,44 +204,21 @@ export class ChatComponent implements OnInit, AfterViewInit {
   }
 
   finalizeMessageSend(imageUrl?: string) {
-    this.message.from = this.socketsService.data.id;
+    this.message.from = this.sockets.data.id;
     this.message.branchId = this.branchService.id;
-
-    if (this.isNewChat && this.recipientSelect.selected.length) {
-      this.message.to = this.recipientSelect.selected[0].id;
-    }
 
     // After the message has been processed send it to the server
     superagent
       .post(environment.backendServer + '/messaging/message?isPartner=true')
-      .set('Authorization', this.socketsService.data.token)
+      .set('Authorization', this.sockets.data.token)
       .send(this.message)
       .end((error, response) => {
+        console.log('Message send response:', response)
         if (response) {
           if (response.status === 200) {
-            console.log(response.body.message)
-            let isInMessagesBefore = false;
-            if (!this.socketsService.data.messages) {
-              this.socketsService.data.messages = {};
-            }
-
-            if (!this.socketsService.data.messages[this.branchService.id]) {
-              this.socketsService.data.messages[this.branchService.id] = {};
-            }
-
-            if (!this.socketsService.data.messages[this.branchService.id][this.message.to]) {
-              this.socketsService.data.messages[this.branchService.id][this.message.to] = [];
-              isInMessagesBefore = false;
-            }
-
-            this.getChatlist();
-            this.openMessages(false, this.message.to);
-            this.socketsService.data.messages[this.branchService.id][this.message.to].push(response.body.message);
-            this.message.body = '';
+            this.message = { from: this.sockets.data.id, body: '' };
             this.fileSelect.reset();
-            setTimeout(() => {
-              scrollIntroView(this.chatMessages.nativeElement, {time: 500});
-            }, 500);
+            scrollIntroView(this.chatMessages.nativeElement.children[this.chatMessages.nativeElement.children.length - 1]);
           } else {
             this.toast.show('Message was not sent.');
           }
@@ -243,7 +231,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
   getChatlist() {
     this.recipientList = [];
     // tslint:disable-next-line: forin
-    for (const chat in this.socketsService.data.messages[this.branchService.id]) {
+    for (const chat in this.sockets.data.messages[this.branchService.id]) {
       console.log(chat);
       this.customersService.getCustomer(chat)
         .then((customer) => {
@@ -252,6 +240,8 @@ export class ChatComponent implements OnInit, AfterViewInit {
           this.recipientList.push(chat);
         });
     }
+
+    console.log(this.recipientDetails, this.recipientList)
   }
 
   loadCustomers(cb: (customers) => Customer[]) {
@@ -285,11 +275,11 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
   getTotalUnreadMessages() {
     let count = 0;
-    if (this.socketsService.data.messages && this.branchService.id && this.socketsService.data.messages[this.branchService.id]) {
+    if (this.sockets.data.messages && this.branchService.id && this.sockets.data.messages[this.branchService.id]) {
       // tslint:disable-next-line: forin
-      for (const chat in this.socketsService.data.messages[this.branchService.id]) {
+      for (const chat in this.sockets.data.messages[this.branchService.id]) {
         // tslint:disable: prefer-for-of
-        for (const message of this.socketsService.data.messages[this.branchService.id][chat]) {
+        for (const message of this.sockets.data.messages[this.branchService.id][chat]) {
           if (message.type === 'inbound') {
             if (message.state === 1) {
               count++;
@@ -307,13 +297,13 @@ export class ChatComponent implements OnInit, AfterViewInit {
     superagent
       .delete(environment.backendServer + '/messaging/chats')
       .send({ customerId, branchId: this.branchService.id, isPartner: true })
-      .set('Authorization', this.socketsService.data.token)
+      .set('Authorization', this.sockets.data.token)
       .end((error, response) => {
         if (response) {
           if (response.status === 200) {
-            if (this.socketsService.data.messages[this.branchService.id]) {
-              if (this.socketsService.data.messages[this.branchService.id][customerId]) {
-                delete this.socketsService.data.messages[this.branchService.id][customerId];
+            if (this.sockets.data.messages[this.branchService.id]) {
+              if (this.sockets.data.messages[this.branchService.id][customerId]) {
+                delete this.sockets.data.messages[this.branchService.id][customerId];
                 this.getChatlist();
               }
             }
@@ -348,5 +338,60 @@ export class ChatComponent implements OnInit, AfterViewInit {
         }
       }
     }
+  }
+
+  openFileSelector(){
+    this.fileSelect.openFileSelector();
+  }
+
+  addReply(message) {
+    this.message.reply = {
+      messageId: message.id,
+      messageBody: message.body,
+      messageType: message.type,
+      messageSender: message.from };
+  }
+
+  removeReply() {
+    this.message.reply = null;
+  }
+
+  async openMessageImage(images: string, description: string) {
+    this.loader.showLoader(true);
+    const modal = await this.modalCtrl.create({
+      component: ImageViewComponent,
+      componentProps: {
+        images: [images],
+        productDescription: description
+      }
+    });
+    modal.present();
+  }
+
+  scrollToMessage(messageId) {
+    const message = document.getElementById(messageId);
+    if (message) {
+      scrollIntroView(message);
+      message.classList.add('blink');
+
+      setTimeout(() => {
+        message.classList.remove('blink');
+      }, 400);
+    }
+  }
+
+  deleteMessage(id: string): void {
+    superagent
+      .delete([environment.backendServer, 'messaging', 'message'].join('/'))
+      .set('Authorization', this.sockets.data.token)
+      .send({ messageId: id, customerId: this.activeCustomerId, branchId: this.branchService.id })
+      .end((_, response) => {
+        console.log(response);
+        if (response) {
+          console.log(response);
+        } else {
+          this.toast.show('You\'re not connected to the internet.');
+        }
+      });
   }
 }

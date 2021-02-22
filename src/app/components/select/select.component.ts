@@ -32,11 +32,7 @@ export class SelectComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.selectContainer.nativeElement.onclick = async () => {
-      if (this.runBeforeOnClick && this.runBeforeOnClick.handler) {
-        this.options = await this.runBeforeOnClick.handler.bind(this.runBeforeOnClick.self)();
-      }
-
-      this.initializeSelect();
+      this.open();
     };
   }
 
@@ -61,5 +57,13 @@ export class SelectComponent implements AfterViewInit {
       });
 
     selectOptionsModal.present();
+  }
+
+  async open() {
+    if (this.runBeforeOnClick && this.runBeforeOnClick.handler) {
+      this.options = await this.runBeforeOnClick.handler.bind(this.runBeforeOnClick.self)();
+    }
+
+    this.initializeSelect();
   }
 }

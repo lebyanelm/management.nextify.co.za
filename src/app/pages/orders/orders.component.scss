@@ -78,6 +78,59 @@ ion-content {
         }
     }
 
+    .section-grid-items {
+        display: grid;
+        grid-template-columns: 20% 20% 20% 20% 20%;
+        gap: 10px;
+        padding: 20px 0;
+        border-top: 4px solid #EEE;
+    }
+
+    .section-grid-items .grid-order-item {
+        height: 200px;
+        background: transparentize(tomato, 0.5);
+        color: $text-light;
+        text-align: center;
+        position: relative;
+        transition: background 300ms ease-in-out;
+        cursor: pointer;
+        border-radius: 10px;
+    }
+
+    .section-grid-items .grid-order-item:hover {
+        background: tomato;
+        color: $text-light;
+    }
+
+    // Orders in Prepation
+    .section-grid-items .grid-order-item[orderStatus="2"] {
+        background: transparentize(orange, 0.5);
+    }
+
+    .section-grid-items .grid-order-item[orderStatus="2"]:hover {
+        background: orange;
+        color: $text-light;
+    }
+
+    // Orders in Delivery
+    .section-grid-items .grid-order-item[orderStatus="3"] {
+        background: transparentize($success, 0.5);
+    }
+    
+    .section-grid-items .grid-order-item[orderStatus="3"]:hover {
+        background: $success;
+        color: $text-light;
+    }
+
+    .section-grid-items .grid-order-item span {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: x-large;
+        font-weight: bolder;
+    }
+
     .order-item {
         background: transparent !important;
 

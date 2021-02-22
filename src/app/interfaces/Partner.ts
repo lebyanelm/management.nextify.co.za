@@ -15,7 +15,7 @@ export interface Partner {
   emailAddress: string;
   businessName: string;
   address: string;
-  media: Media[];
+  media: string[] | Media[];
   locations: any[];
   phoneNumber: string;
   gender: number;

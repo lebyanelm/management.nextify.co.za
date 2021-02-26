@@ -62,8 +62,10 @@ export class ChatComponent implements OnInit, AfterViewInit {
     // Listen to inbound messages
     this.sockets.onMessage.subscribe((message) => {
       // Only show the toast if the message chat is not open
-      if (!this.activeCustomerId || (this.activeCustomerId && this.activeCustomerId !== message.from)) {
+      if (!this.activeCustomerId || (this.activeCustomerId && this.activeCustomerId !== message.from)) {        
         if (this.recipientDetails[message.from]) {
+          if (this.recipientList.includes(message.from) === false)
+            this.recipientList.push(message.from);
           this.toast.show(`New message (${this.recipientDetails[message.from].name}): ${message.body}`,
           { buttons: [{
             text: 'Reply',
@@ -232,25 +234,16 @@ export class ChatComponent implements OnInit, AfterViewInit {
     this.recipientList = [];
     // tslint:disable-next-line: forin
     for (const chat in this.sockets.data.messages[this.branchService.id]) {
-      console.log(chat);
-      this.customersService.getCustomer(chat)
-        .then((customer) => {
-          console.log(customer);
-          this.recipientDetails[chat] = customer;
-          this.recipientList.push(chat);
-        });
-    }
-
-    console.log(this.recipientDetails, this.recipientList)
-  }
-
-  loadCustomers(cb: (customers) => Customer[]) {
-    return new Promise(async (resolve) => {
       this.customersService.getCustomerData()
         .then((customers) => {
-          resolve(customers);
-        }).catch((er) => console.error(er));
-    });
+          customers.forEach((customer) => {
+            this.recipientDetails[customer.id] = customer;
+          });
+
+          if (this.recipientList.includes(chat) === false)
+            this.recipientList.push(chat);
+        });
+    }
   }
 
   recipientSelectChange(selected: Customer[]) {

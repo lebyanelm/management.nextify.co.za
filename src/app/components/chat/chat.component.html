@@ -11,23 +11,23 @@
     <div class="chatlist-search-box"><input type="text" placeholder="Search messages..."></div>
 
     <div class="chatlisting">
-        <div class="chat" *ngFor="let chat of recipientList" (click)="openMessages(false, chat)" [attr.isActive]="chat === activeCustomerId">
-            <div class="flex" *ngIf="recipientDetails[chat]">
-                <div class="chat-avatar-container"><div class="chat-avatar" [style.background-image]="'url(' + recipientDetails[chat].avatar + ')'"></div></div>
+        <div *ngFor="let chat of recipientList" (click)="openMessages(false, chat)" [attr.isActive]="chat === activeCustomerId">
+            <div class="chat" *ngIf="recipientDetails[chat]">
+                <div class="chat-avatar-container"><div class="chat-avatar" [attr.isOnline]="recipientDetails[chat].isOnline" [style.background-image]="'url(' + recipientDetails[chat].avatar + ')'"></div></div>
                 <div class="chat-details">
                     <div class="chat-name">{{ recipientDetails[chat].name }}</div>
                     <div class="chat-last-message">{{ sockets.data.messages[branchService.id][chat][sockets.data.messages[branchService.id][chat].length ? sockets.data.messages[branchService.id][chat].length - 1 : sockets.data.messages[branchService.id][chat][0]].body }}</div>
                 </div>
                 <div class="space"></div>
-                <div class="chat-unread-message-count">3</div>
+                <!-- <div class="chat-unread-message-count"></div> -->
             </div>
         </div>
 
-        <div class="new-chat-button" (click)="chooseCustomer()"><ion-icon class="center" name=create-sharp></ion-icon></div>
-    </div>
+        <div class="new-chat-button" (click)="chooseCustomer()"><ion-icon class="center" name=chatbubble-sharp></ion-icon></div>
+        <app-select [options]="[]" [okText]="'Select Customer'" [header]="'Choose a customer to start a chat'" [runBeforeOnClick]="{handler: customersService.getCustomerData, self: this}" #CustomersSelector></app-select>
+</div>
 </div>
 <div class="current-chat-messages-container" [attr.isMessagesOpen]="isMessageOpenTemp" *ngIf="activeCustomerId">
-    <app-select [options]="[]" [okText]="'Select Customer'" [header]="'Choose a customer to start a chat'" [runBeforeOnClick]="{handler: customersService.getCustomerData, self: this}" #CustomersSelector></app-select>
     <div class="current-chat-message-header" *ngIf="activeCustomerId">
         <div class="chat-status" [attr.isOnline]=recipientDetails[activeCustomerId].isOnline></div>
         <div class="current-active-chat-name" *ngIf="recipientDetails[activeCustomerId]">
@@ -35,7 +35,7 @@
         </div>
         <div class="space"></div>
         <div class="close-button ion-activatable" (click)="closeMessages()">
-            <ion-icon class="center" name="close"></ion-icon>
+            <ion-icon class="center" name="arrow-forward"></ion-icon>
             <ion-ripple-effect></ion-ripple-effect>
         </div>
 
@@ -46,8 +46,8 @@
             <div class="message-sender-avatar" *ngIf="message.type !== 'inbound'"><div class="avatar" [style.background-image]="'url(' + sockets.data.media[sockets.data.media.length - 1] + ')'"></div></div>
             <div class="message-details">
                 <div class="message-sender-name-time">
-                    <div class="message-sender-name">{{ message.type === 'inbound' ? recipientDetails[message.from].name : 'You' }}</div>
-                    <div class="message-status"><ion-icon name=checkmark-done-sharp></ion-icon></div>
+                    <div class="message-sender-name">{{ message.type === 'inbound' ? recipientDetails[message.from].name.split(' ')[0] : 'You' }}</div>
+                    <div class="message-status" *ngIf="message.type === 'outbound'"><ion-icon name=checkmark-done-sharp></ion-icon></div>
                     <div class="message-time">{{ message.timeCreated.time }}</div>
                     <div class="message-buttons">
                         <div class="message-button" (click)="addReply(message)">Reply</div>

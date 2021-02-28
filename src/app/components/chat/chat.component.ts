@@ -77,8 +77,8 @@ export class ChatComponent implements OnInit, AfterViewInit {
         }
       }
 
-      if (this.isMessagesOpen) {
-        scrollIntroView(this.chatMessages.nativeElement, { time: 500 });
+      if (this.isMessagesOpen && this.activeCustomerId === message.from) {
+        scrollIntroView(this.chatMessages.nativeElement.children[this.chatMessages.nativeElement.children.length - 1], { time: 500 });
       }
 
       // Re-process the messaging data
@@ -144,6 +144,8 @@ export class ChatComponent implements OnInit, AfterViewInit {
     if (activeCustomerId) {
       this.activeCustomerId = activeCustomerId;
       this.message.to = activeCustomerId;
+
+      this.setMessageToRead();
 
       // Scroll to the latest message
       setTimeout(() => {
@@ -218,9 +220,11 @@ export class ChatComponent implements OnInit, AfterViewInit {
         console.log('Message send response:', response)
         if (response) {
           if (response.status === 200) {
-            this.message = { from: this.sockets.data.id, body: '' };
             this.fileSelect.reset();
             scrollIntroView(this.chatMessages.nativeElement.children[this.chatMessages.nativeElement.children.length - 1]);
+            if (this.recipientList.indexOf(this.message.to) === -1)
+              this.recipientList.push(this.message.to);
+            this.message = { from: this.sockets.data.id, body: '' };
           } else {
             this.toast.show('Message was not sent.');
           }
@@ -242,12 +246,24 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
           if (this.recipientList.includes(chat) === false)
             this.recipientList.push(chat);
+          console.log(this.recipientList, this.recipientDetails)
         });
     }
+
   }
 
   recipientSelectChange(selected: Customer[]) {
     this.message.to = selected[0].id;
+  }
+
+  setMessageToRead() {
+    superagent
+      .post([environment.backendServer, 'messaging/message/status'].join('/'))
+      .set('Authorization', this.sockets.data.token)
+      .send({ branchId: this.branchService.id, customerId: this.activeCustomerId, partnerId: this.sockets.data.id, isPartner: true, status: 2 })
+      .end((_, response) => {
+        console.log(response);
+      })
   }
 
   // Getting number of messages that are unread
@@ -379,10 +395,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
       .set('Authorization', this.sockets.data.token)
       .send({ messageId: id, customerId: this.activeCustomerId, branchId: this.branchService.id })
       .end((_, response) => {
-        console.log(response);
-        if (response) {
-          console.log(response);
-        } else {
+        if (!response) {
           this.toast.show('You\'re not connected to the internet.');
         }
       });

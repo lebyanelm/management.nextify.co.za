@@ -70,6 +70,11 @@ ion-content.main {
     .branches-list {
         padding: 20px 0;
         text-align: left !important;
+        background: red;
+        // Branches Modal has a fixed height
+        height: 325px;
+        max-height: 325px;
+        overflow-y: scroll;
 
         .separator {
             padding: 20px 0;

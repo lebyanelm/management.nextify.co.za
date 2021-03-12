@@ -1,3 +1,4 @@
+import { Coordinates } from './Coordinates';
 import { Location } from './Location';
 import { Promocode } from './Promocode';
 import { TimeCreated } from './TimeCreated';
@@ -7,7 +8,7 @@ export interface Order  {
   timeCreated?: TimeCreated;
   destination?: {
       address: string[];
-      coordinates: Coordinates
+      coordinates: Coordinates;
   };
   extras?: string[];
   status?: number;

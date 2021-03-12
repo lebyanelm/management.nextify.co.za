@@ -6,6 +6,7 @@ import { Component, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { ChartColor, ChartOptions } from 'chart.js';
 import { WithdrawModalComponent } from 'src/app/components/withdraw-modal/withdraw-modal.component';
 import { ModalController } from '@ionic/angular';
+import * as d3 from "d3";
 
 @Component({
   selector: 'app-reports',
@@ -17,12 +18,13 @@ export class ReportsComponent implements AfterViewInit {
   graphCalculations = this.graphDataService.data;
   options: ChartOptions;
   ordersCount = 0;
+  d3 = d3;
 
   constructor(
     public sockets: SocketsService,
     private graphDataService: GraphValuesCalculatorService,
     private modalCtrl: ModalController,
-    private loader: LoaderService
+    private loader: LoaderService,
   ) {
     this.graphDataService.onSet
       .subscribe((data) => {

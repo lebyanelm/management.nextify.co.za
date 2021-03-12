@@ -31,6 +31,7 @@
     "@types/superagent": "^4.1.7",
     "chart.js": "^2.9.3",
     "core-js": "^2.5.4",
+    "d3": "^6.5.0",
     "date-and-time": "^0.13.1",
     "digit-format": "^0.1.2",
     "mapbox-gl": "^1.10.1",

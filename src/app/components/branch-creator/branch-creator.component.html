@@ -15,7 +15,7 @@
   
   <ion-content>
     <div class="branches">
-      <h3>{{ isSelectBranch ? 'Select login branch' : 'Your branches' }}</h3>
+      <b class="branch-creator-title">{{ isSelectBranch ? 'Select login branch' : 'Your branches' }}</b>
   
       <div class="branches-list" *ngIf="sockets.data?.branches.length">
         <div class="branch" [attr.isCurrent]="sockets.data.branches.indexOf(branch) === selectedBranchIndex" *ngFor="let branch of sockets.data.branches">

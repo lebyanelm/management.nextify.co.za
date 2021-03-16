@@ -73,6 +73,7 @@
       okText="Set extras"
       header="Select product extras"
       [options]="extrasOptions"
+      [exclude]=[]
       [selected]="data.extras ? data.extras : []"
       [isMultiSelect]=true
       #Extras></app-select>
@@ -82,14 +83,15 @@
 
     <label for="sides">Product sides</label>
       <app-select
-      placeholder="eg. Coca Cola, Chips, Ribs"
-      okText="Set sides"
-      header="Select product sides"
-      [options]=sidesOptions
-      #Sides
-      title="Products that can be bought together with this product."
-      [selected]="data.sides ? data.sides : []"
-      [isMultiSelect]=true></app-select>
+        placeholder="eg. Coca Cola, Chips, Ribs"
+        okText="Set sides"
+        header="Select product sides"
+        [options]=sidesOptions
+        [exclude]="data.id ? [data.id] : []"
+        #Sides
+        title="Products that can be bought together with this product."
+        [selected]="data.sides ? data.sides : []"
+        [isMultiSelect]=true></app-select>
 
     <!-- Number of sides required to product to basket -->
     <br>

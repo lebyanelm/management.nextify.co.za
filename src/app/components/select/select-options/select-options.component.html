@@ -1,7 +1,7 @@
 <div class="select-options-container">
   <div class="select-options-header">{{title}}</div>
   <ion-content class="select-options ion-padding">
-    <div class="select-option" *ngFor="let option of options" (click)="selectOption(option)">
+    <div class="select-option" *ngFor="let option of options" (click)="selectOption(option)" [style.display]="exclude.includes(option.id) ? 'none' : 'flex'">
       <ion-checkbox [checked]="selectedValues.indexOf(option) !== -1"></ion-checkbox>
       <div class="option-detail">
         <div class="name">{{option.name}}</div>

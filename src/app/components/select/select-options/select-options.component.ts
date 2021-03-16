@@ -10,6 +10,7 @@ import { EventEmitter } from '@angular/core';
 })
 export class SelectOptionsComponent implements OnInit {
   @Input() options: Extra[];
+  @Input() exclude: string[] | any[];
   @Input() currentlySelected: Extra[];
   @Input() okText: string;
   @Input() title: string;

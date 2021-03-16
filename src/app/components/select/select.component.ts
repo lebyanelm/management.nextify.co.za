@@ -12,6 +12,7 @@ import { EventEmitter } from '@angular/core';
 export class SelectComponent implements AfterViewInit {
   @ViewChild('Select', {static: false}) selectContainer: ElementRef<HTMLDivElement>;
   @Input() options: any[] | any;
+  @Input() exclude: string[] | any[];
   @Input() placeholder: string;
   @Input() okText: string;
   @Input() header: string;
@@ -40,7 +41,9 @@ export class SelectComponent implements AfterViewInit {
     const selectOptionsModal = await this.modalCtrl.create({
       component: SelectOptionsComponent,
       cssClass: ['select-options-modal', 'modal'],
-      componentProps: { options: this.options,
+      componentProps: {
+          options: this.options,
+          exclude: this.exclude,
           currentlySelected: this.selected,
           title: this.header,
           multiSelect: this.isMultiSelect,

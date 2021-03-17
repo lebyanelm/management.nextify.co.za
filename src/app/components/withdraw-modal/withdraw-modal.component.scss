@@ -20,26 +20,27 @@
     
     .account {
         padding: 5px 8px;
-        background: #EEE;
+        background: $theme-color;
+        color: $text-light;
         border-radius: 50px;
+        font-weight: bolder;
 
         &.withdraw-to {
             background: $secondary-color;
-            color: $text-light;
         }
     }
 }
 
 .withdrawal-amount {
     width: 70%;
-    margin: 0 auto;
+    margin: 10px auto;
     text-align: center;
 
     input {
         border: none !important;
         font-size: 3rem;
-        font-family: monospace !important;
-        font-weight: lighter !important;
+        font-family: "Neue Machina" !important;
+        font-weight: bolder !important;
         text-align: center;
         transition: color 300ms ease-in-out;
         color: $success;

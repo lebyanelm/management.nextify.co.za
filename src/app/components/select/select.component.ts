@@ -29,6 +29,10 @@ export class SelectComponent implements AfterViewInit {
     if (this.isMultiSelect === undefined) {
       this.isMultiSelect = false;
     }
+
+    if (this.exclude === undefined) {
+      this.exclude = [];
+    }
   }
 
   ngAfterViewInit() {

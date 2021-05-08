@@ -47,7 +47,7 @@
       <br>
       <br>
       <div class="settings">
-        <div class="section-name">Settings</div>
+        <div class="section-name">Authentication and Login</div>
         <div class="setting flexbox">
           <div class="leftside">
             <div class="label flexbox">Enable Two-Factor Authentication</div>
@@ -55,10 +55,14 @@
           </div>
           <div class="space"></div>
           <div class="rightside">
-            <ion-checkbox mode="ios" [(ngModel)]="updatedData.isTwoFactorLogin"></ion-checkbox>
+            <ion-checkbox size=small [(ngModel)]="updatedData.isTwoFactorLogin"></ion-checkbox>
           </div>
         </div>
+      </div>
 
+      <!-- Delivery settings -->
+      <div class="settings">
+        <div class="section-name">Order Deliveries and Orders</div>
         <div class="setting">
           <div class="leftside">
             <div class="label flexbox">Delivery range <ion-badge mode=ios><div class="badge-value">{{parseFloat(IonRange.value.toString()).toFixed(1)}}km</div></ion-badge></div>

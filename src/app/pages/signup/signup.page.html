@@ -14,7 +14,7 @@
           <div class="tesitomy-container">
             <div class="message">"Have the ability to expand your business to the world of click to deliver, online industry."</div>
             <div class="testimonee">LIBBY LEBYANE</div>
-            <div class="testimonee-role">CHIEF EXECUTIVE OFFICER</div>
+            <div class="testimonee-role">CHIEF TECHNOLOGIES OFFICER</div>
           </div>
         </div>
       </ion-slide>
@@ -24,8 +24,8 @@
         <div class="testimonial">
           <div class="tesitomy-container">
             <div class="message">"Manage your menu with ease, anywhere, at anytime and make it custom to your liking."</div>
-            <div class="testimonee">VINCENT SIBANYONI</div>
-            <div class="testimonee-role">CHIEF OPERATIONS OFFICER</div>
+            <div class="testimonee">BONGANI DUMA</div>
+            <div class="testimonee-role">CHIEF EXECUTIVE OFFICER</div>
           </div>
         </div>
       </ion-slide>
@@ -35,8 +35,8 @@
         <div class="testimonial">
           <div class="tesitomy-container">
             <div class="message">"Great products deserve a good looking and easy to use online delivery platform."</div>
-            <div class="testimonee">BONGANI DUMA</div>
-            <div class="testimonee-role">CHIEF TECHNOLOGY OFFICER</div>
+            <div class="testimonee">VINCENT SIBANYONI</div>
+            <div class="testimonee-role">CHIEF OPERATIONS OFFICER</div>
           </div>
         </div>
       </ion-slide>
@@ -49,9 +49,10 @@
           <div class="form-header">Outlet Onboarding</div>
           <span class="description">With us you have nothing to loose, you only get charged when your customers place orders.</span>
 
-          <label for="username">Work email address</label>
+          <label for="email">Work email address</label>
           <input
-            type="text"
+            type="email"
+            id="email"
             class="accounts-input"
             placeholder="eg. youremail@site.com"
             [(ngModel)]="data.emailAddress"
@@ -60,17 +61,19 @@
           <div class="error"
             *ngIf="!isEmailValid">The email you entered is invalid.</div>
 
-          <label for="username">What's your business name?</label>
+          <label for="name">What's your business name?</label>
           <input
-            type="text"
+            type="name"
+            id="name"
             class="accounts-input"
             placeholder="eg. ABCs Restaurant"
             [(ngModel)]="data.businessName"
             [disabled]=isLoading>
 
-          <label for="username">Password</label>
+          <label for="password">Password</label>
           <input
             type="password"
+            id="password"
             class="accounts-input" 
             placeholder="8+ Characters"
             [(ngModel)]="data.password"

@@ -24,7 +24,7 @@ export class AddDriverModalComponent implements OnInit {
 
   ngOnInit() {
     if (!this.data) {
-      this.data = {name: 'Test', username: 'test@username.com', loginPassword: 'password2'};
+      this.data = {};
     }
 
     // Disable global

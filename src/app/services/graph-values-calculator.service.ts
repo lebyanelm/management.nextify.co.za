@@ -49,7 +49,7 @@ export class GraphValuesCalculatorService {
       
       if (this.sockets.data.transactions.length) {
         this.sockets.data.transactions.forEach((transaction: Transaction) => {
-          if (transaction.type === 'Credit Card' || transaction.type === 'Cash') {
+          if (transaction.type === 'Online' || transaction.type === 'Cash') {
             const transactionDate = new Date(transaction.timeCreated.timestamp);
             if (transactionDate.getFullYear() === date.getFullYear()) {
               if (transactionDate.getMonth() === date.getMonth()) {

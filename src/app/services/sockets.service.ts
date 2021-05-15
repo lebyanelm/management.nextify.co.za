@@ -116,9 +116,10 @@ export class SocketsService {
                 if (order.paymentMethod === 'cash') {
                   // Since the payment was done with cash, take the service payment from the partners balance
                   this.data.snapshots.totalEarnings -= order.totalPrice * (this.data.orderPercentage);
+                } else if (order.paymentMethod === 'online') {
+                  this.data.snapshots.totalEarnings += order.totalPrice - (order.totalPrice * (this.data.orderPercentage / 100));
                 }
-
-                this.data.snapshots.totalEarnings += order.totalPrice - (order.totalPrice * (this.data.orderPercentage / 100));
+                
                 this.data.snapshots.totalOrders++;
               }
             });

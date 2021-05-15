@@ -114,10 +114,11 @@ export class SocketsService {
 
                 // Update the snapshots data
                 if (order.paymentMethod === 'cash') {
-                  this.data.snapshots.totalEarnings -= order.totalPrice * (25 / 100);
-                } else {
-                  this.data.snapshots.totalEarnings += order.totalPrice - (order.totalPrice * (25 / 100));
+                  // Since the payment was done with cash, take the service payment from the partners balance
+                  this.data.snapshots.totalEarnings -= order.totalPrice * (this.data.orderPercentage);
                 }
+
+                this.data.snapshots.totalEarnings += order.totalPrice - (order.totalPrice * (this.data.orderPercentage / 100));
                 this.data.snapshots.totalOrders++;
               }
             });

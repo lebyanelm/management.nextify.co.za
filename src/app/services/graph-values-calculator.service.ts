@@ -55,11 +55,11 @@ export class GraphValuesCalculatorService {
               if (transactionDate.getMonth() === date.getMonth()) {
                 if (day === transactionDate.getDate()) {
                   if (transaction.amountIn) {
-                    data.series[day - 1].value += transaction.amountIn;
+                    data.series[day - 1].value += parseFloat(transaction.amountIn);
                   }
 
                   if (transaction.amountOut) {
-                    data.series[day - 1].value -= transaction.amountOut;
+                    data.series[day - 1].value -= parseFloat(transaction.amountOut);
                   }
                 }
               }

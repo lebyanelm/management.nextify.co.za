@@ -68,6 +68,7 @@ export class BranchCreatorComponent implements AfterViewInit {
       // Load the current location and pan the map to it
       navigator.geolocation.getCurrentPosition((position) => {
         this.map.panTo({ lat: position.coords.latitude, lng: position.coords.longitude });
+        this.loadCurrentAddressLocation()
       });
       
       // For showing a heatmap of voted areas, to help the partner to know where to expand branches to.
@@ -119,13 +120,14 @@ export class BranchCreatorComponent implements AfterViewInit {
 
   async loadCurrentAddressLocation() {
     const coordinates = this.map.getCenter();
+    console.log(coordinates)
     this.formattedAddress = await this.geocodeCoordinatesToAddress(coordinates.lat, coordinates.lng);
   }
 
   geocodeCoordinatesToAddress(lat: number, lng: number) {
     return new Promise<string>((resolve, reject) => {
       superagent
-        .get(environment.GOOGLE_GEOCODE + [lat, lng].join())
+        .get([environment.backendServer, ['geocoding?latlong=', [lat, lng].join()].join('')].join('/'))
         .end((error, response) => {
           if (response) {
             if (response.status === 200) {

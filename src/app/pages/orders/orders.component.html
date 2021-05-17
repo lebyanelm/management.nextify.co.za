@@ -30,12 +30,18 @@
               <td>Preview & Customer</td>
               <td>Order Number</td>
               <td>Items</td>
+              <td>Ordering Mode</td>
               <td>Special Instructions</td>
               <td></td>
             </tr>
           </thead>
           <tbody>
-            <tr class="order-item" *ngFor="let order of SearchInput.value ? searchResults : sockets.data?.orders[branch?.id]" [style.display]="order.status === 1 ? '' : 'none'" [title]="['Order placed by ', order.customer].join('')" (dblclick)="openTranscript(order)">
+            <tr
+              class="order-item"
+              [title]="order.orderingMode === 'delivery' ? 'Delivery Mode' : 'Collection Mode'"
+              *ngFor="let order of SearchInput.value ? searchResults : sockets.data?.orders[branch?.id]"
+              [style.display]="order.status === 1 ? '' : 'none'"
+              (dblclick)="openTranscript(order)">
               <td>
                 <div class="order-product-previews" [attr.data-customerName]="order.customer" [attr.data-orderStatus]="order.status">
                   <div class="order-product-preview" *ngFor="let snapshot of order.snapshots" [style.background-image]="'url(' + snapshot + ')'"></div>
@@ -49,6 +55,12 @@
               <td class="items">
                 <span *ngFor="let item of order.products">{{item.name}}{{order.products.indexOf(item) === order.products.length-1 ? '' : ', '}}</span>
               </td>
+
+              <!-- The mode the user prefers to get the order when it has been processed -->
+              <!-- Collection orders will not be sent to the driver, but moved down the stack still -->
+              <div class="ordering-mode">
+                {{ order.orderingMode === 'delivery' ? 'Delivery' : 'Collection' }}
+              </div>
   
               <td class="order-time-details">
                 <div class="expectation-time">{{order.restaurantInstructions || 'No Instructions'}}</div>
@@ -77,6 +89,7 @@
               <td>Preview & Customer</td>
               <td>Order Number</td>
               <td>Items</td>
+              <td>Ordering Mode</td>
               <td>Special Instructions</td>
               <td></td>
             </tr>
@@ -96,6 +109,12 @@
               <td class="items">
                 <span *ngFor="let item of order.products">{{item.name}}{{order.products.indexOf(item) === order.products.length-1 ? '' : ', '}}</span>
               </td>
+
+              <!-- The mode the user prefers to get the order when it has been processed -->
+              <!-- Collection orders will not be sent to the driver, but moved down the stack still -->
+              <div class="ordering-mode">
+                {{ order.orderingMode === 'delivery' ? 'Delivery' : 'Collection' }}
+              </div>
     
               <td class="order-time-details">
                 <div class="expectation-time">{{order.restaurantInstructions || 'No Instructions'}}</div>
@@ -115,7 +134,7 @@
       <!-- Order Status: 3 -->
       <div class="orders-section">
         <div class="section-name">
-          <span class="name">Delivering</span>
+          <span class="name">Delivering / Collection Ready</span>
         </div>
   
         <table class="orders-section-list">
@@ -124,6 +143,7 @@
               <td>Preview & Driver</td>
               <td>Order Number</td>
               <td>Items</td>
+              <td>Ordering Mode</td>
               <td>Special Instructions</td>
               <td></td>
             </tr>
@@ -144,6 +164,12 @@
                 <span *ngFor="let item of order.products">{{item.name}}{{order.products.indexOf(item) === order.products.length-1 ? '' : ', '}}</span>
               </td>
   
+              <!-- The mode the user prefers to get the order when it has been processed -->
+              <!-- Collection orders will not be sent to the driver, but moved down the stack still -->
+              <div class="ordering-mode">
+                {{ order.orderingMode === 'delivery' ? 'Delivery' : 'Collection' }}
+              </div>
+              
               <td class="order-time-details">
                 <div class="expectation-time">{{order.restaurantInstructions || 'No Instructions'}}</div>
               </td>

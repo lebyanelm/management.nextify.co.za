@@ -29,6 +29,11 @@
         </tr>
 
         <tr>
+          <td class="name">Ordering Mode</td>
+          <td>{{order.orderingMode === 'delivery' ? 'Delivery Mode' : 'Collection Mode'}}</td>
+        </tr>
+
+        <tr>
           <td class="name">Instructions</td>
           <td>{{order.restaurantInstructions ? order.restaurantInstructions : 'No Instructions'}}</td>
         </tr>

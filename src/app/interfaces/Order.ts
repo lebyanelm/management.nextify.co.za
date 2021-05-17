@@ -19,7 +19,7 @@ export interface Order  {
   uid?: string;
   products?: OrderProduct[];
   promocodeUsed?: Promocode;
-  paymentMethodId?: string;
+  orderingMode?: string;
   deliveryInstructions?: string;
   restaurantInstructions?: string;
   location?: Location;

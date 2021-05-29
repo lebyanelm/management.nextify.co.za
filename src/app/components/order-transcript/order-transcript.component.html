@@ -1,6 +1,6 @@
 <ion-content class="ion-padding" *ngIf="order">
   <div class="order-transcript-header">
-    <div class="order-number">Order {{order.id}} - {{orderStatus}}</div>
+    <div class="order-number">Order {{order.id}} | {{orderStatus}}</div>
     <div class="order-customer-name">Placed {{getTimeElapsed(order.timeCreated.timestamp).hours}} hours and {{getTimeElapsed(order.timeCreated.timestamp).minutes}} minutes ago</div>
   </div>
 

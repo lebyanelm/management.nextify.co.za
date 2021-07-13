@@ -395,7 +395,19 @@ export class ChatComponent implements OnInit, AfterViewInit {
       .set('Authorization', this.sockets.data.token)
       .send({ messageId: id, customerId: this.activeCustomerId, branchId: this.branchService.id })
       .end((_, response) => {
-        if (!response) {
+        if (response) {
+          if (response.ok) {
+            const mIndex = this.sockets.data.messages[this.branchService.id][this.activeCustomerId].findIndex(m => m.id === id);
+            if (mIndex){
+              this.sockets.data.messages[this.branchService.id][this.activeCustomerId].splice(mIndex, 1);
+              if (!this.sockets.data.messages[this.branchService.id][this.activeCustomerId].length)
+                delete this.sockets.data.messages[this.branchService.id][this.activeCustomerId];
+            }
+          } else {
+            this.toast.show(response.body.reason || 'Something went wrong.');
+          }
+        }
+        else {
           this.toast.show('You\'re not connected to the internet.');
         }
       });

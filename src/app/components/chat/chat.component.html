@@ -13,10 +13,10 @@
     <div class="chatlisting">
         <div *ngFor="let chat of recipientList" (click)="openMessages(false, chat)" [attr.isActive]="chat === activeCustomerId">
             <div class="chat" *ngIf="recipientDetails[chat]">
-                <div class="chat-avatar-container"><div class="chat-avatar" [attr.isOnline]="recipientDetails[chat].isOnline" [style.background-image]="'url(' + recipientDetails[chat].avatar + ')'"></div></div>
+                <div class="chat-avatar-container"><div class="chat-avatar" [attr.isOnline]="recipientDetails[chat]?.isOnline" [style.background-image]="'url(' + recipientDetails[chat]?.avatar + ')'"></div></div>
                 <div class="chat-details">
                     <div class="chat-name">{{ recipientDetails[chat].name }}</div>
-                    <div class="chat-last-message">{{ sockets.data.messages[branchService.id][chat][sockets.data.messages[branchService.id][chat].length ? sockets.data.messages[branchService.id][chat].length - 1 : sockets.data.messages[branchService.id][chat][0]].body }}</div>
+                    <div class="chat-last-message" *ngIf="sockets.data?.messages[this.branchService.id][chat]">{{ sockets.data?.messages[branchService.id][chat][sockets.data.messages[branchService.id][chat]?.length ? sockets.data.messages[branchService.id][chat]?.length - 1 : sockets.data.messages[branchService.id][chat][0]]?.body }}</div>
                 </div>
                 <div class="space"></div>
                 <!-- <div class="chat-unread-message-count"></div> -->

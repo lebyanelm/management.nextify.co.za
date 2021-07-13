@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { StatusService } from './status.service';
 import { ModalController } from '@ionic/angular';
 import { SocketsService } from 'src/app/services/sockets.service';
@@ -16,7 +17,8 @@ export class BranchService {
   constructor(
     private sockets: SocketsService,
     private modalCtrl: ModalController,
-    private status: StatusService
+    private status: StatusService,
+    private title: Title
   ) {
     this.sockets.connected.subscribe(() => {
       if (this._index !== undefined) {
@@ -41,6 +43,8 @@ export class BranchService {
             if (modal) {
               modal.dismiss();
             }
+
+            this.title.setTitle([this.title.getTitle().split(' | ')[0], [this.sockets.data.businessName, '(' + this.sockets.data.branches[this._index].name.trim() + ')'].join(' ')].join(' | '));
           })
         this.status.status = true;
       });

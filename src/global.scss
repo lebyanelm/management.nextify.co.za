@@ -623,7 +623,7 @@ table {
                 text-indent: 0;
                 font-size: xx-large;
                 font-weight: normal;
-                font-family: 'Uber Move Text';
+                
     
                 &:focus {
                     border-bottom-color: $secondary-color !important;
@@ -653,7 +653,6 @@ table {
                 left: 0;
 
                 .message {
-                    font-family: 'Uber Move Text' !important;
                     font-size: x-large;
                     font-weight: bolder;
                     text-shadow: $shadow;
@@ -704,7 +703,7 @@ table {
         }
 
         .form-header {
-            font-family: 'Uber Move Text' !important;
+            
             font-size: x-large;
             font-weight: bolder;
         }
@@ -1150,6 +1149,8 @@ ion-modal {
             position: absolute;
             bottom: 0;
             height: 500;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
         }
     }
 }

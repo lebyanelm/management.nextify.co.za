@@ -1,3 +1,4 @@
+import { BranchService } from 'src/app/services/branch.service';
 import { Router } from '@angular/router';
 import { StorageService } from './../../services/storage.service';
 import { AvatarUploadComponent } from './../../components/avatar-upload/avatar-upload.component';
@@ -11,6 +12,7 @@ import { Component, OnInit } from '@angular/core';
 import { Partner } from 'src/app/interfaces/Partner';
 import * as superagent from 'superagent';
 import { environment } from 'src/environments/environment';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-settings',
@@ -31,11 +33,13 @@ export class SettingsComponent implements OnInit {
 
   constructor(
     public sockets: SocketsService,
+    private branch: BranchService,
     private toast: ToastService,
     private modalCtrl: ModalController,
     private loader: LoaderService,
     private storage: StorageService,
-    private router: Router
+    private router: Router,
+    private title: Title
   ) { }
 
   ngOnInit() {
@@ -114,9 +118,10 @@ export class SettingsComponent implements OnInit {
             this.updatedData.isTwoFactorLogin = data.isTwoFactorLogin;
 
             // Update the title of the page, only if the business name has been changed
-            if (data.businessName) {
-              document.title = data.businessName;
-            }
+            // Retain the first part of the string to make sure no notification count is lost
+            const newPageTitle = [this.title.getTitle().split(' | ')[0],
+                                  [this.sockets.data.businessName, '(' + this.sockets.data.branches[this.branch.index].name.trim() + ')' ].join(' ')].join(' | ');
+            this.title.setTitle(newPageTitle);
           }
         }
       });

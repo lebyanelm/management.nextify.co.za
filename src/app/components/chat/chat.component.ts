@@ -224,7 +224,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
             scrollIntroView(this.chatMessages.nativeElement.children[this.chatMessages.nativeElement.children.length - 1]);
             if (this.recipientList.indexOf(this.message.to) === -1)
               this.recipientList.push(this.message.to);
-            this.message = { from: this.sockets.data.id, body: '' };
+            this.message = { from: this.sockets.data.id, body: '', to: this.activeCustomerId };
           } else {
             this.toast.show('Message was not sent.');
           }

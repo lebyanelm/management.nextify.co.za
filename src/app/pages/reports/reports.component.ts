@@ -21,6 +21,11 @@ export class ReportsComponent implements AfterViewInit {
   lineChartOptions: ChartOptions = {
     cutoutPercentage: 20
   }
+  colorScheme = {
+    domain: [
+      '#106525'
+    ]
+  }
 
   constructor(
     public sockets: SocketsService,

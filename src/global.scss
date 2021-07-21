@@ -422,7 +422,7 @@ table {
                     color: $text-light;
                 }
 
-                .buttons button { background: $theme-color; }
+                .buttons button { background: $secondary-color; }
                 .buttons button ion-icon { color: $text-light; }
                 
                 .checkbox-container::before { background: $text-light !important; }
@@ -454,7 +454,7 @@ table {
 
             button {
                 border: $border;
-                background: $background-color;
+                background: $secondary-color;
                 position: relative;
                 margin-left: 5px;
                 transition: transform 300ms ease-in-out;
@@ -744,7 +744,7 @@ ion-footer {
 }
 button {
     padding: 14px;
-    background: $theme-color;
+    background: $secondary-color;
     color: $text-light;
     border: none;
     border-radius: $radius;
@@ -1187,14 +1187,14 @@ input {
     }
 
     &:focus {
-        border-color: $theme-color !important;
+        border-color: $secondary-color !important;
     }
 }
 
 .select-options-modal {
     height: 100vh;
     width: 100vw;
-    background: rgba(#000000, 0.5);
+    background: rgba($secondary-color, 0.5);
     .modal-wrapper {
         width: 20%;
         height: 300px;

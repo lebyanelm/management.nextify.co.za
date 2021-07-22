@@ -60,7 +60,6 @@ a {
 ion-content.flexbox {
     padding: 0;
     button {
-        margin: 0;
         height: 100%;
     }
 }
@@ -747,6 +746,7 @@ button {
     background: $secondary-color;
     color: $text-light;
     border: none;
+    margin: 0 5px;
     border-radius: $radius;
     font-weight: bolder !important;
     
@@ -938,21 +938,18 @@ button {
 /** PAGES SETUP **/
 .page-header {
     margin-bottom: 20px;
-    .page-header {
-        div.name {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
     
-            span.name {
-                font-size: 20px;
-                color: $theme-color;
-            }
-            
-            span.description {
-                opacity: 0.5;
-                font-size: small;
-            }
+    div.name {
+        flex-direction: column;
+        align-items: flex-start;
+
+        span.name {
+            font-size: 20px;
+        }
+        
+        span.description {
+            opacity: 0.5;
+            font-size: small;
         }
     }
      
@@ -1030,6 +1027,10 @@ ion-modal {
         &:focus {
             border-color: transparentize($theme-color, 0)
         }
+    }
+
+    button {
+        margin: 0;
     }
 
     .modal-wrapper {

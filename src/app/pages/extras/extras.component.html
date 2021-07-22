@@ -8,18 +8,18 @@
       <span class="name current-category clickable flexbox" *ngIf="sockets.data && (sockets.data.users.length > 0)"><div class="category-name">Currently active</div> <ion-icon name="arrow-down"></ion-icon></span>
     </div>
     <div class="space"></div>
-    <div class="buttons">
+    <div class="buttons flexbox">
       <div class="input focus-grow">
         <ion-icon name="search"></ion-icon>
         <input type="text" placeholder="Search extras" [disabled]="!sockets.data?.extras.length" #SearchInput>
       </div>
     </div>
-    <div class="buttons">
-      <button [disabled]="!selectedExtras.length" (click)="confirmExtraDelete(selectedExtras)">Delete selected</button>
+
+    <div class="flexbox">
+      <button [disabled]="!selectedExtras.length" (click)="confirmExtraDelete(selectedExtras)">Delete</button>
+      <button class="flexbox clickable" (click)="openExtrasModal()">Create</button>
     </div>
-    <div class="buttons flexbox">
-      <button class="flexbox clickable" (click)="openExtrasModal()">Add new</button>
-    </div>
+    
   </div>
   <ion-content *ngIf="(sockets.data?.extras.length && !SearchInput.value.length) || (SearchInput.value.length && searchResults.length)">
     <table>

@@ -5,11 +5,9 @@
             <span class="description">Summary of your business from the app (Includes all branches)</span>
         </div>
         <div class="space"></div>
-        <div class="buttons">
-            <button class="clickable" (click)="openDateStatementSelection()">Request statement</button>
-        </div>
         <div class="buttons flexbox">
-            <button class="clickable" (click)="openWithdrawalModal()">Request withdrawal</button>
+            <button class="clickable" (click)="openDateStatementSelection()">Statement</button>
+            <button class="clickable" (click)="openWithdrawalModal()">Payout</button>
         </div>
     </div>
 
@@ -20,7 +18,7 @@
                 <thead>
                     <tr>
                         <!-- Partner Balance -->
-                        <td class="balance-value" [attr.isPositive]="sockets.data?.snapshots.totalEarnings > -1">R{{sockets.data?.snapshots.totalEarnings.toFixed(2)}}</td>
+                        <td class="balance-value" [attr.isPositive]="sockets.data?.snapshots.totalEarnings > -1">R{{sockets.data?.snapshots.totalEarnings.toLocaleString()}}</td>
                         <!-- Quantities Sold in total -->
                         <td>{{sockets.data?.snapshots.quantitiesSold}}</td>
                         <!-- Total orders made in total -->

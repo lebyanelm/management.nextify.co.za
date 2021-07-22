@@ -112,7 +112,7 @@
     
     <!-- Time expected for the product to be prepared -->
     <br>
-    <label for="" class="flexbox">Expected prepare time <ion-badge>{{data.expectedPrepareTime.lower}} &mdash;{{data.expectedPrepareTime.upper}} min</ion-badge></label>
+    <label for="" class="flexbox">Expected prepare time <ion-badge color="#106525">({{data.expectedPrepareTime.lower}} &mdash;{{data.expectedPrepareTime.upper}} min)</ion-badge></label>
     <ion-range class="ion-no-padding"
       [min]="5"
       [max]="30"
@@ -125,7 +125,7 @@
       color="dark"></ion-range>
 
     <br>
-    <div class="title flexbox">Added sections <ion-badge>Optional</ion-badge></div>
+    <div class="title flexbox">Added sections <ion-badge color="#106525">Optional</ion-badge></div>
     <div class="added-sections" *ngIf="data.sections.length">
       <div class="added-section flexbox" *ngFor="let section of data.sections" (click)="editSection(section)">
         <div>

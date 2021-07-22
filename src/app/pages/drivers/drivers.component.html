@@ -14,11 +14,9 @@
         <input type="text" placeholder="Search drivers" [disabled]="!sockets.data?.extras.length" (keyup)="search(SearchInput.value)" #SearchInput>
       </div>
     </div>
-    <div class="buttons">
-      <button [disabled]="!selectedDrivers.length" (click)="confirmDeleteSelected()">Remove selected</button>
-    </div>
     <div class="buttons flexbox">
-      <button class="flexbox clickable" (click)="openAddDriverModal()">Add a driver</button>
+      <button [disabled]="!selectedDrivers.length" (click)="confirmDeleteSelected()">Remove</button>
+      <button class="flexbox clickable" (click)="openAddDriverModal()">Add</button>
     </div>
   </div>
   <ion-content *ngIf="sockets.data?.drivers.length && ((!SearchInput.value && !searchResults.length) || (SearchInput.value && searchResults.length))">

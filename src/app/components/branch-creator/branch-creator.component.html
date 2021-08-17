@@ -19,9 +19,9 @@
   
       <div class="branches-list" *ngIf="sockets.data?.branches.length">
         <div class="branch" [attr.isCurrent]="sockets.data.branches.indexOf(branch) === selectedBranchIndex" *ngFor="let branch of sockets.data.branches">
-          <div class="count" (click)="selectBranch(sockets.data.branches.indexOf(branch))">{{sockets.data.branches.indexOf(branch) + 1}}.</div>
+          <!-- <div class="count" (click)="selectBranch(sockets.data.branches.indexOf(branch))">{{sockets.data.branches.indexOf(branch) + 1}}.</div> -->
           <div class="metadata clickable" (click)="selectBranch(sockets.data.branches.indexOf(branch))">
-            <div class="name">{{branch.name}} <ion-icon name="checkmark"></ion-icon></div>
+            <div class="name">{{branch.name}} <ion-icon name="checkmark-circle"></ion-icon></div>
             <div class="coordinates">{{branch.coordinates.lat.toFixed(5)}}, {{branch.coordinates.lng.toFixed(5)}}</div>
           </div>
           <div class="space" (click)="selectBranch(sockets.data.branches.indexOf(branch))"></div>

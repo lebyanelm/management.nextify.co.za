@@ -1,171 +1,178 @@
-@import '../../../setup.scss';
+@import "../../../setup.scss";
+
+// HEADER CONTAINER
+.header-container {
+  background: $background-color;
+}
 
 .business-profile-dropdown-button {
-    padding: 20px 0 20px 0;
+  padding: 20px 0 20px 0;
 
-    .avatar-container .avatar {
-        height: 50px;
-        width: 50px;
-        border: 3px solid $theme-color;
-        border-radius: 50px;
-        background-position: center center;
-        background-size: cover;
+  .avatar-container .avatar {
+    height: 50px;
+    width: 50px;
+    border: 3px solid $theme-color;
+    border-radius: 50px;
+    background-position: center center;
+    background-size: cover;
+  }
+
+  .business-details {
+    margin-left: 20px;
+
+    .name {
+      display: flex;
+      align-items: center;
+      font-size: 15px;
+      font-weight: bolder;
+      margin-bottom: 2px;
     }
 
-    .business-details {
-        margin-left: 20px;
-        
-        .name {
-            display: flex;
-            align-items: center;
-            font-size: 15px;
-            font-weight: bolder;
-            margin-bottom: 2px;
-        }
-
-        .status {
-            padding: 2px 10px;
-            margin-left: 5px;
-            background: transparentize($theme-color, 0);
-            border: 2px solid $theme-color;
-            float: left;
-            color: $text-light;
-            text-transform: capitalize;
-            font-weight: bolder;
-            border-radius: 50px;
-            font-size: smaller;
-        }
-
-        .status[accountType="entreprise"] {
-            background: transparentize($secondary-color, 0);
-            border: 2px solid $secondary-color;
-        }
-
-        .status[accountType="establishment"] {
-            background: transparentize($success, 0);
-            border: 2px solid $success;
-        }
-
-        .partner-id {
-            opacity: 0.7;
-            user-select: all !important;
-        }
+    .status {
+      padding: 2px 10px;
+      margin-left: 5px;
+      background: transparentize($theme-color, 0);
+      border: 2px solid $theme-color;
+      float: left;
+      color: $text-light;
+      text-transform: capitalize;
+      font-weight: bolder;
+      border-radius: 50px;
+      font-size: smaller;
     }
 
-    ion-icon {
-        margin-left: 30px; 
+    .status[accountType="entreprise"] {
+      background: transparentize($secondary-color, 0);
+      border: 2px solid $secondary-color;
     }
+
+    .status[accountType="establishment"] {
+      background: transparentize($success, 0);
+      border: 2px solid $success;
+    }
+
+    .partner-id {
+      opacity: 0.7;
+      user-select: all !important;
+    }
+  }
+
+  ion-icon {
+    margin-left: 30px;
+  }
 }
 
 .stats {
-    .profits-comparisons {
-        padding: 10px 40px 10px 20px;
-        border: $border;
-        border-radius: $radius;
-        font-size: 12px;
-        font-weight: 200 !important;
-        position: relative;
+  .profits-comparisons {
+    padding: 10px 40px 10px 20px;
+    border: $border;
+    border-radius: $radius;
+    font-size: 12px;
+    font-weight: 200 !important;
+    position: relative;
 
-        .currency {
-            opacity: 0.7;
-        }
-
-        .comparison {
-            transform: translateY(2px);
-        }
-
-        ion-icon {
-            margin-left: 10px;
-            opacity: 1;
-            position: absolute;
-            right: 20px;
-        }
-
-        &[data-isIncreasing=true] {
-            ion-icon {
-                color: $success;
-                transform: rotate(45deg)
-            }
-
-            ion-icon[name="arrow-down-outline"],
-            ion-icon[name="arrow-forward-outline"] {
-                opacity: 0;
-            }
-        }
-
-        &[data-isIncreasing=false] {
-            ion-icon {
-                color: $danger;
-                transform: rotate(-45deg)
-            }
-
-            ion-icon[name="arrow-up-outline"],
-            ion-icon[name="arrow-forward-outline"] {
-                opacity: 0;
-            }
-        }
+    .currency {
+      opacity: 0.7;
     }
 
-    .order-notifications {
-        padding: 7px 10px;
-        border-radius: $radius;
-        position: relative;
-        transition: background 300ms ease-in-out;
-        cursor: pointer;
-
-        &[data-hasUnfinishedOrders=true] {
-            .dot { opacity: 1; }
-        }
-
-        span {
-            transform: translateY(2px);
-        }
+    .comparison {
+      transform: translateY(2px);
     }
 
-    .order-notifications,
-    .send-message,
-    .car-connected {
-        font-weight: bold;
+    ion-icon {
+      margin-left: 10px;
+      opacity: 1;
+      position: absolute;
+      right: 20px;
     }
 
+    &[data-isIncreasing="true"] {
+      ion-icon {
+        color: $success;
+        transform: rotate(45deg);
+      }
 
-    .car-connected {
-        margin-left: 20px;
-
-        &,
-        ion-icon {
-            color: $secondary-color;
-        }
+      ion-icon[name="arrow-down-outline"],
+      ion-icon[name="arrow-forward-outline"] {
+        opacity: 0;
+      }
     }
 
-    .send-message {
-        span { padding-left: 5px; }
+    &[data-isIncreasing="false"] {
+      ion-icon {
+        color: $danger;
+        transform: rotate(-45deg);
+      }
+
+      ion-icon[name="arrow-up-outline"],
+      ion-icon[name="arrow-forward-outline"] {
+        opacity: 0;
+      }
     }
+  }
+
+  .order-notifications {
+    padding: 7px 10px;
+    border-radius: $radius;
+    position: relative;
+    transition: background 300ms ease-in-out;
+    cursor: pointer;
+
+    &[data-hasUnfinishedOrders="true"] {
+      .dot {
+        opacity: 1;
+      }
+    }
+
+    span {
+      transform: translateY(2px);
+    }
+  }
+
+  .order-notifications,
+  .send-message,
+  .car-connected {
+    font-weight: bold;
+  }
+
+  .car-connected {
+    margin-left: 20px;
+
+    &,
+    ion-icon {
+      color: $secondary-color;
+    }
+  }
+
+  .send-message {
+    span {
+      padding-left: 5px;
+    }
+  }
 }
 ion-icon {
-    --color: red !important;
-    margin-right: 5px;
+  --color: red !important;
+  margin-right: 5px;
 }
 
 .connection-toggle .toggle-inner {
-    background: $theme-color;
+  background: $theme-color;
 }
 .tabs {
-    border-bottom: $border;
-    width: 100%;
+  border-bottom: $border;
+  width: 100%;
 
-    .tab {
-        padding: 20px 0 15px 0;
-        margin-right: 20px;
-        border-bottom: 2px solid transparent;
+  .tab {
+    padding: 20px 0 15px 0;
+    margin-right: 20px;
+    border-bottom: 2px solid transparent;
 
-        &.active {
-            border-color: $secondary-color;
-        }
-
-        &:hover {
-            border-color: transparentize($secondary-color, 0.5);
-        }
+    &.active {
+      border-color: $secondary-color;
     }
-}
 
+    &:hover {
+      border-color: transparentize($secondary-color, 0.5);
+    }
+  }
+}

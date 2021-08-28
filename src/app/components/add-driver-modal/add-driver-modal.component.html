@@ -1,5 +1,8 @@
 <ion-content>
-  <div class="modal-header"><div class="name">{{data && data.id ? 'Edit: ' + data.name : 'Add a new Driver'}}</div></div>
+  <div class="modal-header">
+    <div class="name">{{data && data.username ? 'Edit: ' + data.name : 'Add a new Driver'}}</div>
+    <div class="right-side-button clickable" (click)="duplicate()" *ngIf="this.data.username">SET AS PAID OUT</div>
+  </div>
 
   <div class="content product-modal-content ion-padding">
     <div class="metadata">
@@ -24,6 +27,6 @@
 </ion-content>
 
 <ion-footer class="buttons">
-  <button class="clickable" (click)="createDriver()" [disabled]="isLoading && !(data && data.name && data.username &&  data.loginPassword)" *ngIf="data && !data.id">Add Driver</button>
-  <button class="clickable" (click)="editDriver()" [disabled]="(isLoading || !isLoading) && !(data && data.name && data.username &&  (data.id ? true : !!data.loginPassword))" *ngIf="data && data.id">Edit Driver</button>
+  <button class="clickable" (click)="createDriver()" [disabled]="isLoading && !(data && data.name && data.username && data.loginPassword)" *ngIf="data && !data.username">Add Driver</button>
+  <button class="clickable" (click)="editDriver()" [disabled]="(isLoading || !isLoading) && !(data && data.name && data.username)" *ngIf="data && data.username">Edit Driver</button>
 </ion-footer>

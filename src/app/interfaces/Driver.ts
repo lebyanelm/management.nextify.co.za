@@ -1,7 +1,8 @@
 export interface Driver {
-    id: string;
-    name: string;
-    loginPassword?: string;
-    orders: string;
-    deliveredOrderIds: string[];
+  username: string;
+  name: string;
+  balance: number;
+  loginPassword?: string;
+  orders: string;
+  deliveredOrderIds: string[];
 }

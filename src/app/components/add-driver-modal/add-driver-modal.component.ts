@@ -1,26 +1,28 @@
-import { LoaderService } from './../../services/loader.service';
-import { ToastService } from './../../services/toast.service';
-import { SocketsService } from './../../services/sockets.service';
-import { Driver } from './../../interfaces/Driver';
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import * as superagent from 'superagent';
-import { environment } from 'src/environments/environment';
+import { LoaderService } from "./../../services/loader.service";
+import { ToastService } from "./../../services/toast.service";
+import { SocketsService } from "./../../services/sockets.service";
+import { Driver } from "./../../interfaces/Driver";
+import { Component, OnInit } from "@angular/core";
+import { ModalController } from "@ionic/angular";
+import * as superagent from "superagent";
+import { environment } from "src/environments/environment";
 
 @Component({
-  selector: 'app-add-driver-modal',
-  templateUrl: './add-driver-modal.component.html',
-  styleUrls: ['./add-driver-modal.component.scss'],
+  selector: "app-add-driver-modal",
+  templateUrl: "./add-driver-modal.component.html",
+  styleUrls: ["./add-driver-modal.component.scss"],
 })
 export class AddDriverModalComponent implements OnInit {
   isLoading: boolean = false;
   data;
+  drivers: Driver[] = [];
   unEdited = {};
   constructor(
     private modalCtrl: ModalController,
     private sockets: SocketsService,
     private toast: ToastService,
-    private loader: LoaderService) {}
+    private loader: LoaderService
+  ) {}
 
   ngOnInit() {
     if (!this.data) {
@@ -28,7 +30,7 @@ export class AddDriverModalComponent implements OnInit {
     }
 
     // Disable global
-    if (this.data && this.data.id) {
+    if (this.data && this.data.username) {
       const copy = {};
       for (let property in this.data) {
         copy[property] = this.data[property];
@@ -41,9 +43,9 @@ export class AddDriverModalComponent implements OnInit {
     this.loader.showLoader(true);
     this.isLoading = true;
     superagent
-      .post([environment.backendServer, 'driver'].join('/'))
-      .set('Authorization', this.sockets.data.token)
-      .on('progress', (e) => this.loader.pipe(e.percent))
+      .post([environment.backendServer, "driver"].join("/"))
+      .set("Authorization", this.sockets.data.token)
+      .on("progress", (e) => this.loader.pipe(e.percent))
       .send(this.data)
       .end((error, response) => {
         this.loader.showLoader(false);
@@ -57,10 +59,12 @@ export class AddDriverModalComponent implements OnInit {
             this.sockets.data.drivers.push(response.body.driver);
             this.modalCtrl.dismiss();
           } else {
-            this.toast.show(response.body.reason || 'ERROR: SOMETHING WENT WRONG.');
+            this.toast.show(
+              response.body.reason || "ERROR: SOMETHING WENT WRONG."
+            );
           }
         } else {
-          this.toast.show('ERROR: NO INTERNET CONNECTION.');
+          this.toast.show("ERROR: NO INTERNET CONNECTION.");
         }
       });
   }
@@ -70,35 +74,39 @@ export class AddDriverModalComponent implements OnInit {
     const changes = this.getChanges();
     if (changes.changesFound) {
       superagent
-        .patch([environment.backendServer, 'driver'].join('/'))
-        .set('Authorization', this.sockets.data.token)
-        .on('progress', (e) => this.loader.pipe(e.percent))
-        .send({ changes: changes.changes, driverId: this.data.id })
+        .patch([environment.backendServer, "driver"].join("/"))
+        .set("Authorization", this.sockets.data.token)
+        .on("progress", (e) => this.loader.pipe(e.percent))
+        .send({ changes: changes.changes, username: this.data.username })
         .end((_, response) => {
           this.loader.showLoader(false);
           this.isLoading = false;
           if (response) {
             if (response.status === 200) {
-              const driverIndex = this.sockets.data.drivers.findIndex((_driver) => _driver.id === this.data.id);
+              const driverIndex = this.drivers.findIndex(
+                (_driver) => _driver.username === this.data.username
+              );
               if (driverIndex !== -1) {
                 for (let change in changes.changes) {
-                  this.sockets.data.drivers[driverIndex][change] = changes.changes[change];
-                  delete this.sockets.data.drivers[driverIndex].loginPassword;
+                  this.drivers[driverIndex][change] = changes.changes[change];
+                  delete this.drivers[driverIndex].loginPassword;
                 }
               }
 
-              this.modalCtrl.dismiss();
+              this.modalCtrl.dismiss(this.drivers);
             } else {
-              this.toast.show(response.body.reason || 'ERROR: SOMETHING WENT WRONG.');
+              this.toast.show(
+                response.body.reason || "ERROR: SOMETHING WENT WRONG."
+              );
             }
           } else {
-            this.toast.show('ERROR: NO INTERNET CONNECTION.');
+            this.toast.show("ERROR: NO INTERNET CONNECTION.");
           }
         });
     } else {
       this.loader.showLoader(false);
       this.isLoading = false;
-      this.toast.show('ERROR: NO CHANGES MADE.');
+      this.toast.show("ERROR: NO CHANGES MADE.");
     }
   }
 
@@ -111,6 +119,6 @@ export class AddDriverModalComponent implements OnInit {
         changesFound = true;
       }
     }
-    return {changes, changesFound};
+    return { changes, changesFound };
   }
 }

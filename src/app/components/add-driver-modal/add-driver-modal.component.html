@@ -1,7 +1,7 @@
 <ion-content>
   <div class="modal-header">
     <div class="name">{{data && data.username ? 'Edit: ' + data.name : 'Add a new Driver'}}</div>
-    <div class="right-side-button clickable" (click)="duplicate()" *ngIf="this.data.username">SET AS PAID OUT</div>
+    <div class="right-side-button clickable" *ngIf="this.data.username">SET AS PAID OUT</div>
   </div>
 
   <div class="content product-modal-content ion-padding">

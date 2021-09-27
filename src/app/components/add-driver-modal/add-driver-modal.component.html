@@ -1,7 +1,7 @@
 <ion-content>
   <div class="modal-header">
     <div class="name">{{data && data.username ? 'Edit: ' + data.name : 'Add a new Driver'}}</div>
-    <div class="right-side-button clickable" *ngIf="this.data.username">SET AS PAID OUT</div>
+    <div class="right-side-button clickable" *ngIf="this.data && this.data._id">SET AS PAID OUT</div>
   </div>
 
   <div class="content product-modal-content ion-padding">
@@ -10,7 +10,7 @@
         <div class="split-input">
           <!-- Promocode -->
           <div class="label">Name</div>
-          <input type="text" style="text-transform: capitalize;" placeholder="eg. John Doe" [(ngModel)]="data.name" [disabled]="isLoading"> 
+          <input type="text" style="text-transform: capitalize;" placeholder="eg. John Doe" [(ngModel)]="data.name" [disabled]="isLoading">
         </div>
         <div class="split-input">
           <!-- Promocode end date -->
@@ -27,6 +27,6 @@
 </ion-content>
 
 <ion-footer class="buttons">
-  <button class="clickable" (click)="createDriver()" [disabled]="isLoading && !(data && data.name && data.username && data.loginPassword)" *ngIf="data && !data.username">Add Driver</button>
-  <button class="clickable" (click)="editDriver()" [disabled]="(isLoading || !isLoading) && !(data && data.name && data.username)" *ngIf="data && data.username">Edit Driver</button>
+  <button class="clickable" (click)="createDriver()" [disabled]="isLoading && !(data && data.name && data.username && data.loginPassword)" *ngIf="data && !data._id">Add Driver</button>
+  <button class="clickable" (click)="editDriver()" [disabled]="(isLoading || !isLoading) && !(data && data.name && data.username)" *ngIf="data && data._id">Edit Driver</button>
 </ion-footer>

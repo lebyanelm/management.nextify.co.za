@@ -74,7 +74,7 @@
             <td class="name">Is added as side?</td>
             <td>{{item.isSide ? 'Yes (for ' + getProductName(item.mainProduct) + ')' : 'No'}}</td>
           </tr>
-          
+
           <tr>
             <td class="name" *ngIf="item.extras.length">Extras</td>
             <td>{{getExtraNames(item.extras)}}</td>
@@ -89,8 +89,8 @@
     </div>
 
     <button *ngIf="order.status === 1" (click)="updateOrderStatus(2)" [disabled]="isLoading">Mark as in Progress</button>
-    <button *ngIf="order.status === 2" (click)="updateOrderStatus(3)" [disabled]="isLoading">Mark as Completed</button>
-    <button *ngIf="order.status === 3" (click)="updateOrderStatus(4)" [disabled]="isLoading">Remove this order</button>
-    <button class="light danger-text" (click)="cancelOrder()" [disabled]="order.status === 3 || isLoading">Cancel this order</button>
+    <button *ngIf="order.status === 2" (click)="updateOrderStatus(3)" [disabled]="isLoading">Mark as Progressed</button>
+    <button *ngIf="order.status === 3" (click)="updateOrderStatus(5)" [disabled]="isLoading">Complete this order</button>
+    <button class="light danger-text" (click)="cancelOrder()" [disabled]="order.status === 3 || order.status === 4 || isLoading">Cancel this order</button>
   </div>
 </ion-content>

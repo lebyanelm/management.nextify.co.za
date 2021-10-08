@@ -13,7 +13,7 @@ ion-content.main {
 }
 
 .map {
-  background: rgb(232, 233, 237);
+  background: $background-color;
   flex: 0.5;
 }
 
@@ -28,7 +28,7 @@ ion-content.main {
   span {
     padding: 5px 10px;
     font-weight: bold;
-    border-radius: 5px;
+    border-radius: $radius;
     font-size: smaller;
     background: $theme-color;
   }
@@ -91,7 +91,7 @@ ion-content.main {
       align-items: center;
       padding-bottom: 5px;
       margin-bottom: 5px;
-      border-bottom: 1px solid #eee;
+      border-bottom: $border;
       cursor: pointer;
 
       ion-icon {
@@ -148,7 +148,7 @@ ion-content.main {
 
   .bottom-buttons {
     display: flex;
-    background: #fff;
+    background: $background-color;
     flex-direction: column;
     position: absolute;
     bottom: 20px;
@@ -160,8 +160,8 @@ ion-content.main {
       float: left;
       padding: 12px 10px;
       background: $theme-color;
-      border: 1px solid #eee;
-      color: #fff;
+      border: $border;
+      color: $text-light;
       width: 100%;
       margin-right: 20px;
     }

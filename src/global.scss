@@ -37,6 +37,7 @@ body {
 * {
   font-size: $font-size;
   font-family: $font-family !important;
+  color: $text-light;
 
   &[isError="true"] {
     color: $danger;
@@ -65,9 +66,19 @@ ion-content.flexbox {
   }
 }
 
+ion-content {
+  --ion-background-color: rgb(14, 17, 22) !important;
+}
+
 // Badge
 ion-badge {
   margin-left: 10px;
+}
+
+// Ion Toggle
+ion-toggle {
+  --background: #fff !important;
+  --handle-background: #ddd;
 }
 
 // Label
@@ -79,10 +90,11 @@ label,
 // Ion Checkboxes
 ion-checkbox {
   --background-color: #fff;
-  --checkmark-color: #000;
-  --background-checked: #000;
-  --border-color-checked: #000;
-  --border-width: 3px;
+  --checkmark-color: #fff;
+  --border-color: #fff;
+  --background-checked: #106525;
+  --border-color-checked: #fff;
+  --border-width: 2px;
   --border-radius: 0;
 }
 
@@ -120,7 +132,7 @@ ion-spinner[secondary] {
 }
 
 .description {
-  color: gray;
+  color: transparentize($text-light, 0.3);
 }
 
 // Errors on pages
@@ -283,7 +295,7 @@ ion-alert {
 
 /***** INPUT *****/
 .input {
-  background: #eee;
+  background: transparent;
   border-radius: $radius;
   position: relative;
   margin: 0 10px 0 10px;
@@ -313,7 +325,7 @@ ion-alert {
     top: 50%;
     transform: translateY(-50%);
     left: 15px;
-    color: transparentize($theme-color, 0.5);
+    color: transparentize($text-light, 0.5);
   }
 }
 
@@ -570,7 +582,7 @@ table {
 
     app-header {
       padding: 0 20px 0 20px;
-      border-bottom: 4px solid #eee;
+      border-bottom: $border;
     }
   }
 }
@@ -635,7 +647,7 @@ table {
       input {
         width: 60px;
         border: none !important;
-        border-bottom: 4px solid $theme-color-light !important;
+        border-bottom: 4px solid $text-light !important;
         text-align: center;
         text-indent: 0;
         font-size: xx-large;
@@ -847,9 +859,8 @@ button {
   app-order {
     padding: 20px;
     border-radius: 8px;
-    font-family: "Sailec";
     position: relative;
-    background: $text-light;
+    background: $background-color;
 
     &.placeholder {
       border-style: dashed;
@@ -870,7 +881,7 @@ button {
       .name {
         font-weight: bolder !important;
         font-size: 20px;
-        color: $theme-color !important;
+        color: $text-light !important;
       }
       .id {
         opacity: 0.5;
@@ -1073,7 +1084,7 @@ ion-modal {
   .modal-wrapper {
     width: 450px;
     transition: height 300ms ease-in-out;
-    border-radius: 10px;
+    border-radius: $radius;
 
     .content {
       padding-top: 50px;
@@ -1219,10 +1230,11 @@ input {
 input {
   padding: 13px 0;
   text-indent: 15px;
-  border: 3px solid $theme-color-light !important;
+  border: $border !important;
   border-radius: $radius;
   font-weight: 400;
   font-size: 14.5px;
+  background-color: transparent;
 
   &[disabled] {
     opacity: 0.5 !important;
@@ -1241,4 +1253,18 @@ input {
     width: 20%;
     height: 300px;
   }
+}
+
+// METRICS GRAPHS
+.ngx-charts .gridline-path {
+  stroke: transparentize($text-light, 0.95) !important;
+}
+
+g.line-chart > g:last-of-type > g:nth-child(n) g.line-series > path {
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.ngx-charts text {
+  fill: $text-light;
 }

@@ -11,7 +11,7 @@
   .avatar-container .avatar {
     height: 50px;
     width: 50px;
-    border: 3px solid $theme-color;
+    border: 1px solid $text-light;
     border-radius: 50px;
     background-position: center center;
     background-size: cover;
@@ -32,7 +32,7 @@
       padding: 2px 10px;
       margin-left: 5px;
       background: transparentize($theme-color, 0);
-      border: 2px solid $theme-color;
+      border: 1px solid $text-light;
       float: left;
       color: $text-light;
       text-transform: capitalize;

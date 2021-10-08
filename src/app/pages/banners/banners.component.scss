@@ -1,41 +1,41 @@
-@import '../../../setup.scss';
+@import "../../../setup.scss";
 
 .banner {
-    display: inline-block;
-    margin-right: 10px;
-    height: 100px;
-    width: 100px;
-    background: #EEE;
+  display: inline-block;
+  margin-right: 10px;
+  height: 100px;
+  width: 100px;
+  background: $background-color;
+  border-radius: 50px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border: $border;
+
+  & > div {
+    opacity: 0;
+    height: 100%;
+    width: 100%;
     border-radius: 50px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    border: 2px solid #EEE;
-    
+    background: transparentize($theme-color, 0.3);
+    position: relative;
+    transition: opacity 300ms ease-in-out;
+  }
+
+  &:hover {
+    // filter: grayscale(10);
     & > div {
-        opacity: 0;
-        height: 100%;
-        width: 100%;
-        border-radius: 50px;
-        background: transparentize($theme-color, 0.3);
-        position: relative;
-        transition: opacity 300ms ease-in-out;
+      opacity: 1;
+      cursor: pointer;
     }
+  }
 
-    &:hover {
-        // filter: grayscale(10);
-        & > div {
-            opacity: 1;
-            cursor: pointer;
-        }
-    }
+  .button-name {
+    color: $text-light;
+    font-weight: bold;
+  }
 
-    .button-name {
-        color: $text-light;
-        font-weight: bold;
-    }
-
-    &:hover {
-        border-color: $theme-color;
-    }
+  &:hover {
+    border-color: $theme-color;
+  }
 }

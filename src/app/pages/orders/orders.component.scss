@@ -1,280 +1,292 @@
-@import '../../../setup.scss';
+@import "../../../setup.scss";
 
 ion-content {
-    --background-color: #FFF;
+  & > div {
+    background-color: $background-color;
+  }
+
+  & > div:fullscreen {
+    padding: 0 20px;
+  }
+
+  table {
+    thead {
+      td {
+        padding: 10px 0 !important;
+      }
+    }
+    td {
+      padding: auto 0 !important;
+    }
+  }
+
+  .orders-section {
+    width: 100%;
+    margin-bottom: 10px;
+    background-color: $background-color;
 
     & > div {
-        background-color: #FFF;
-    }
-    
-    & > div:fullscreen {
-        padding: 0 20px;
+      width: 100%;
+      background-color: $background-color;
     }
 
-    table {
-        thead { td { padding: 10px 0 !important; } }
-        td { padding: auto 0 !important; }
-    }
-    
-    .orders-section {
-        width: 100%;
-        margin-bottom: 10px;
-        background-color: #FFF;
-
-        & > div {
-            width: 100%;
-            background-color: #FFF;
-        }
-        
-        .no-items {
-            text-align: center;
-            opacity: 0.5;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        &:last-child {
-            margin-bottom: 100px;
-        }
-        
-        .section-name {
-            align-items: center;
-            display: flex;
-            width: 100%;
-            padding: 10px 0;
-
-            .quick-action {
-                align-items: center;
-                display: flex;
-                transform: translateY(20px);   
-            }
-
-            .name {
-                font-size: large;
-                font-weight: bolder;
-            }
-
-            .quick-action {
-                font-size: smaller !important;
-                font-weight: bold;
-                color: $secondary-color;
-                transform: translateY(-1px);
-                margin-left: 10px;
-                opacity: 0;
-                transition: opacity 300ms ease-in-out;
-                cursor: pointer;
-
-                &:hover {
-                    opacity: 1 !important;
-                }
-            }
-        }
-
-        &:hover {
-            .quick-action {
-                opacity: 0.6 !important;
-            }
-        }
+    .no-items {
+      text-align: center;
+      opacity: 0.5;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
     }
 
-    .section-grid-items {
-        display: grid;
-        grid-template-columns: 20% 20% 20% 20% 20%;
-        gap: 10px;
-        padding: 20px 0;
-        border-top: 4px solid #EEE;
+    &:last-child {
+      margin-bottom: 100px;
     }
 
-    .section-grid-items .grid-order-item {
-        height: 200px;
-        background: transparentize(tomato, 0.5);
-        color: $text-light;
-        text-align: center;
-        position: relative;
-        transition: background 300ms ease-in-out;
-        cursor: pointer;
-        border-radius: 10px;
-    }
+    .section-name {
+      align-items: center;
+      display: flex;
+      width: 100%;
+      padding: 10px 0;
 
-    .section-grid-items .grid-order-item:hover {
-        background: tomato;
-        color: $text-light;
-    }
+      .quick-action {
+        align-items: center;
+        display: flex;
+        transform: translateY(20px);
+      }
 
-    // Orders in Prepation
-    .section-grid-items .grid-order-item[orderStatus="2"] {
-        background: transparentize(orange, 0.5);
-    }
-
-    .section-grid-items .grid-order-item[orderStatus="2"]:hover {
-        background: orange;
-        color: $text-light;
-    }
-
-    // Orders in Delivery
-    .section-grid-items .grid-order-item[orderStatus="3"] {
-        background: transparentize($success, 0.5);
-    }
-    
-    .section-grid-items .grid-order-item[orderStatus="3"]:hover {
-        background: $success;
-        color: $text-light;
-    }
-
-    .section-grid-items .grid-order-item span {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-family: "Neue Machina" !important;
-        font-size: xx-large;
+      .name {
+        font-size: large;
         font-weight: bolder;
-    }
+      }
 
-    .order-item {
-        background: transparent !important;
-
-        &[isStrikeThrough=true] {
-            td { text-decoration: line-through; }
-        }
-        
-        td { padding: 5px 0 !important; }
-
-        thead td { font-weight: normal !important; }
-        
-        .order-product-previews {
-            width: 80px;
-            .order-product-preview {
-                display: inline-block;
-                border-radius: 50%;
-                overflow: hidden;
-                width: 40px;
-                height: 40px;
-                background: #EEE;
-                border: 2px solid $background-color;
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-image: url('http://192.168.8.100:5000/assets/1591750141414/31834.jpeg');
-                transition: margin-left 200ms ease-in-out;
-            }
-            
-            .order-product-preview:not(:first-child) {
-                margin-left: -30px;
-            }
-
-            &[data-driverName]::before,
-            &[data-customerName]::before {
-                content: attr(data-driverName);
-                display: block;
-                padding: 2px 6px;
-                border-radius: 50px;
-                font-weight: bold;
-                font-size: small;
-                border: 2px solid $background-color;
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                text-decoration: none !important;
-                color: $text-light;
-            }
-
-            &[data-customerName]::before {
-                content: attr(data-customerName);
-            }
-
-            &[data-orderStatus="1"] {
-                &[data-customerName]::before {
-                    background: tomato;
-                }
-            }
-
-            &[data-orderStatus="2"] {
-                &[data-customerName]::before {
-                    background: orange;
-                }
-            }
-
-            &[data-orderStatus="3"] {
-                &[data-customerName]::before {
-                    background: lightgreen;
-                }
-            }
-        }
-
-        .order-reference-details {
-            .order-customer-name {
-                text-transform: uppercase;
-                color: $secondary-color;
-                font-weight: bold;
-            }
-
-            .order-number {
-                opacity: 1;
-                font-size: larger;
-                font-weight: bold;
-            }
-        }
-
-        .ordering-mode {
-            font-weight: bolder;
-        }
-
-        .order-time {
-            opacity: 0.8;
-            font-weight: bold;
-            color: $secondary-color;
-        }
+      .quick-action {
+        font-size: smaller !important;
+        font-weight: bold;
+        color: $secondary-color;
+        transform: translateY(-1px);
+        margin-left: 10px;
+        opacity: 0;
+        transition: opacity 300ms ease-in-out;
+        cursor: pointer;
 
         &:hover {
-            border-left-color: transparent !important;
-            
-            .order-product-preview:not(:first-child) {
-                margin-left: -28px !important;
-            }
+          opacity: 1 !important;
         }
-
-        .action {
-            display: flex;
-            align-items: center;
-            .height-adgustment {
-                display: block;
-                height: inherit;
-                width: 10px;
-            }
-            
-            .button {
-                font-weight: bold;
-                max-width: 180px;
-                padding: 8px 0 !important;
-                cursor: pointer;
-                // font-size: smaller !important;
-                margin: 6px 0;
-                opacity: .3;
-                transition: opacity 300ms ease-in-out;
-
-                &.smaller {
-                    max-width: 100px;
-                }
-            }
-        }
-
-        &:hover {
-            .button { opacity: 1 !important; }
-        }
+      }
     }
+
+    &:hover {
+      .quick-action {
+        opacity: 0.6 !important;
+      }
+    }
+  }
+
+  .section-grid-items {
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+    gap: 10px;
+    padding: 20px 0;
+    border-top: 4px solid #eee;
+  }
+
+  .section-grid-items .grid-order-item {
+    height: 200px;
+    background: transparentize(tomato, 0.5);
+    color: $text-light;
+    text-align: center;
+    position: relative;
+    transition: background 300ms ease-in-out;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+
+  .section-grid-items .grid-order-item:hover {
+    background: tomato;
+    color: $text-light;
+  }
+
+  // Orders in Prepation
+  .section-grid-items .grid-order-item[orderStatus="2"] {
+    background: transparentize(orange, 0.5);
+  }
+
+  .section-grid-items .grid-order-item[orderStatus="2"]:hover {
+    background: orange;
+    color: $text-light;
+  }
+
+  // Orders in Delivery
+  .section-grid-items .grid-order-item[orderStatus="3"] {
+    background: transparentize($success, 0.5);
+  }
+
+  .section-grid-items .grid-order-item[orderStatus="3"]:hover {
+    background: $success;
+    color: $text-light;
+  }
+
+  .section-grid-items .grid-order-item span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: "Neue Machina" !important;
+    font-size: xx-large;
+    font-weight: bolder;
+  }
+
+  .order-item {
+    background: transparent !important;
+
+    &[isStrikeThrough="true"] {
+      td {
+        text-decoration: line-through;
+      }
+    }
+
+    td {
+      padding: 5px 0 !important;
+    }
+
+    thead td {
+      font-weight: normal !important;
+    }
+
+    .order-product-previews {
+      width: 80px;
+      .order-product-preview {
+        display: inline-block;
+        border-radius: 50%;
+        overflow: hidden;
+        width: 40px;
+        height: 40px;
+        background: #eee;
+        border: 2px solid $background-color;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-image: url("http://192.168.8.100:5000/assets/1591750141414/31834.jpeg");
+        transition: margin-left 200ms ease-in-out;
+      }
+
+      .order-product-preview:not(:first-child) {
+        margin-left: -30px;
+      }
+
+      &[data-driverName]::before,
+      &[data-customerName]::before {
+        content: attr(data-driverName);
+        display: block;
+        padding: 2px 6px;
+        border-radius: 50px;
+        font-weight: bold;
+        font-size: small;
+        border: 2px solid $background-color;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        text-decoration: none !important;
+        color: $text-light;
+      }
+
+      &[data-customerName]::before {
+        content: attr(data-customerName);
+      }
+
+      &[data-orderStatus="1"] {
+        &[data-customerName]::before {
+          background: tomato;
+        }
+      }
+
+      &[data-orderStatus="2"] {
+        &[data-customerName]::before {
+          background: orange;
+        }
+      }
+
+      &[data-orderStatus="3"] {
+        &[data-customerName]::before {
+          background: lightgreen;
+        }
+      }
+    }
+
+    .order-reference-details {
+      .order-customer-name {
+        text-transform: uppercase;
+        color: $secondary-color;
+        font-weight: bold;
+      }
+
+      .order-number {
+        opacity: 1;
+        font-size: larger;
+        font-weight: bold;
+      }
+    }
+
+    .ordering-mode {
+      font-weight: bolder;
+    }
+
+    .order-time {
+      opacity: 0.8;
+      font-weight: bold;
+      color: $secondary-color;
+    }
+
+    &:hover {
+      border-left-color: transparent !important;
+
+      .order-product-preview:not(:first-child) {
+        margin-left: -28px !important;
+      }
+    }
+
+    .action {
+      display: flex;
+      align-items: center;
+      .height-adgustment {
+        display: block;
+        height: inherit;
+        width: 10px;
+      }
+
+      .button {
+        font-weight: bold;
+        max-width: 180px;
+        padding: 8px 0 !important;
+        cursor: pointer;
+        // font-size: smaller !important;
+        margin: 6px 0;
+        opacity: 0.3;
+        transition: opacity 300ms ease-in-out;
+
+        &.smaller {
+          max-width: 100px;
+        }
+      }
+    }
+
+    &:hover {
+      .button {
+        opacity: 1 !important;
+      }
+    }
+  }
 }
 
 // Custom button
 .icon-button {
-    width: 40px;
-    padding: 8px 0;
-    background: transparent;
-    color: $text-dark;
-    margin-right: 8px;
+  width: 40px;
+  padding: 8px 0;
+  background: transparent;
+  color: $text-dark;
+  margin-right: 8px;
 }
 
 .icon-button:hover {
-    transition: color 300ms ease-in-out;
-    color: $success;
+  transition: color 300ms ease-in-out;
+  color: $success;
 }

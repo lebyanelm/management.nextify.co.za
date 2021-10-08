@@ -110,6 +110,30 @@ export class AddDriverModalComponent implements OnInit {
     }
   }
 
+  payout() {
+    superagent
+      .post([environment.backendServer, "driver/payout"].join("/"))
+      .set("Authorization", this.sockets.data.token)
+      .send({ driverUsername: this.data.username })
+      .end((_, response) => {
+        if (response) {
+          if (response.status === 200) {
+            this.toast.show(
+              "DRIVER BALANCE UPDATED. YOU MAY NEED TO RELOAD PAGE FOR CHANGES."
+            );
+            this.data.balance = 0;
+            this.editDriver();
+          } else {
+            this.toast.show(
+              response.body.reason || "ERROR: SOMETHING WENT WRONG."
+            );
+          }
+        } else {
+          this.toast.show("ERROR: NO INTERNET CONNECTION.");
+        }
+      });
+  }
+
   getChanges() {
     const changes = {};
     let changesFound = false;

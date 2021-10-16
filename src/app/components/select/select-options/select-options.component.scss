@@ -1,50 +1,54 @@
 ion-checkbox {
-    pointer-events: none !important;
+  pointer-events: none !important;
 }
 
 .select-options-container {
-    height: 100%;
-    
-    .select-options-header {
-        text-align: center;
-        padding: 10px 0;
-        border-bottom: 1px solid #EEE;
-        font-weight: bolder;
-    }
+  height: 100%;
+  color: $text-dark;
 
-    .select-options {
-        padding: 20px;
-        height: 80% !important;
+  .select-options-header {
+    text-align: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    font-weight: bolder;
+    background-color: $background-color;
+  }
 
-        .select-option {
-            display: flex;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #EEE;
+  .select-options {
+    padding: 20px;
+    height: 80% !important;
+    background-color: $background-color;
 
-            .option-detail {
-                margin-left: 10px;
+    .select-option {
+      display: flex;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
 
-                .name {
-                    font-weight: bold;
-                }
+      .option-detail {
+        margin-left: 10px;
 
-                .price {
-                    font-size: smaller;
-                    opacity: 0.5;
-                }
-            }
+        .name {
+          font-weight: bold;
         }
+
+        .price {
+          font-size: smaller;
+          opacity: 0.5;
+        }
+      }
     }
+  }
 }
 
 .bottom-buttons {
-    position: absolute;
-    bottom: 0;
+  position: absolute;
+  bottom: 0;
+  background-color: $background-color;
 
-    button {
-        display: flex;
-        align-items: center;
-        flex-direction: row;
-    }
+  button {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
 }

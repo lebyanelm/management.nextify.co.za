@@ -1,10 +1,12 @@
+@import "../../../../setup.scss";
+
 ion-checkbox {
   pointer-events: none !important;
 }
 
 .select-options-container {
   height: 100%;
-  color: $text-dark;
+  color: $text-light;
 
   .select-options-header {
     text-align: center;

@@ -1,28 +1,57 @@
 <div class="product-modal-header">
-  {{isDuplicate ? 'Duplicate a product' : (data.id ? 'Edit: ' + data.name : 'Create a new product')}}
+  {{
+    isDuplicate
+      ? "Duplicate a product"
+      : data.id
+      ? "Edit: " + data.name
+      : "Create a new product"
+  }}
 
-  <div class="right-side-button clickable" (click)="duplicate()" *ngIf="!isDuplicate && data.id">DUPLICATE PRODUCT</div>
+  <div
+    class="right-side-button clickable"
+    (click)="duplicate()"
+    *ngIf="!isDuplicate && data.id"
+  >
+    DUPLICATE PRODUCT
+  </div>
 </div>
 
 <div class="product-modal-contents">
   <div class="basic-metadata">
     <div class="title">Basics</div>
     <div class="images">
-      <input type="file" hidden accept="image/*" #ImagesInput>
-      <div class="image" *ngFor="let image of data.images" [attr.data-state]="image.state || 'Uploaded'">
+      <input type="file" hidden accept="image/*" #ImagesInput />
+      <div
+        class="image"
+        *ngFor="let image of data.images"
+        [attr.data-state]="image.state || 'Uploaded'"
+      >
         <div class="image-details">
-          <div class="name">{{image.name || image.split('/').pop()}}</div>
-          <div class="size">{{image.state || 'Uploaded'}}</div>
+          <div class="name">{{ image.name || image.split("/").pop() }}</div>
+          <div class="size">{{ image.state || "Uploaded" }}</div>
         </div>
         <div class="space"></div>
         <div class="status">
           <ion-icon class="accepted" name="checkmark"></ion-icon>
-          <ion-icon class="rejected" style.cursor="pointer" name="close" (click)="removeProductImage(image.index || image)"></ion-icon>
+          <ion-icon
+            class="rejected"
+            style.cursor="pointer"
+            name="close"
+            (click)="removeProductImage(image.index || image)"
+          ></ion-icon>
         </div>
-        <div class="progress" *ngIf="image.state" [style.width]="image.progress + '%'"></div>
+        <div
+          class="progress"
+          *ngIf="image.state"
+          [style.width]="image.progress + '%'"
+        ></div>
       </div>
-      
-      <div class="image placeholder" *ngIf="data.images.length !== 2" (click)="openImageSelector()">
+
+      <div
+        class="image placeholder"
+        *ngIf="data.images.length !== 2"
+        (click)="openImageSelector()"
+      >
         <div class="wrapper">
           <div class="placeholder-image">
             <ion-icon name="add"></ion-icon>
@@ -40,23 +69,40 @@
     <div class="split-inputs">
       <div>
         <label for="">Name</label>
-        <input type="text" placeholder="eg. Patty Cake" [(ngModel)]="data.name">
+        <input
+          type="text"
+          placeholder="eg. Patty Cake"
+          [(ngModel)]="data.name"
+        />
       </div>
       <div>
         <label for="">Category</label>
-        <input type="text" placeholder="eg. Cakes" name="category" [(ngModel)]="data.category">
+        <input
+          type="text"
+          placeholder="eg. Cakes"
+          name="category"
+          [(ngModel)]="data.category"
+        />
       </div>
     </div>
 
     <div class="split-inputs">
       <div>
         <label>Price</label>
-        <input type="text" placeholder="eg. 99.99 (No currency)" [(ngModel)]="data.price">
+        <input
+          type="tel"
+          placeholder="eg. 99.99 (No currency)"
+          [(ngModel)]="data.price"
+        />
       </div>
 
       <div>
         <label for="" class="flexbox">Tags</label>
-        <input type="text" placeholder="eg. Vegan, Healthy" [(ngModel)]="data.dietary">
+        <input
+          type="text"
+          placeholder="eg. Vegan, Healthy"
+          [(ngModel)]="data.dietary"
+        />
       </div>
     </div>
 
@@ -65,7 +111,8 @@
       type="text"
       placeholder="eg. Best cake you've ever tasted in the whole world. Try it you won't regret!"
       name="description"
-      [(ngModel)]="data.description">
+      [(ngModel)]="data.description"
+    />
 
     <label for="extras">Extras</label>
     <app-select
@@ -73,104 +120,140 @@
       okText="Set extras"
       header="Select product extras"
       [options]="extrasOptions"
-      [exclude]=[]
+      [exclude]="[]"
       [selected]="data.extras ? data.extras : []"
-      [isMultiSelect]=true
-      #Extras></app-select>
+      [isMultiSelect]="true"
+      #Extras
+    ></app-select>
   </div>
   <div class="advanced-metadata">
-    <div class="title flexbox">Advanced metadata <ion-badge color="#106525">Recommended</ion-badge></div>
+    <div class="title flexbox">
+      Advanced metadata <ion-badge color="#106525">Recommended</ion-badge>
+    </div>
 
     <label for="sides">Product sides</label>
-      <app-select
-        placeholder="eg. Coca Cola, Chips, Ribs"
-        okText="Set sides"
-        header="Select product sides"
-        [options]=sidesOptions
-        [exclude]="data.id ? [data.id] : []"
-        #Sides
-        title="Products that can be bought together with this product."
-        [selected]="data.sides ? data.sides : []"
-        [isMultiSelect]=true></app-select>
+    <app-select
+      placeholder="eg. Coca Cola, Chips, Ribs"
+      okText="Set sides"
+      header="Select product sides"
+      [options]="sidesOptions"
+      [exclude]="data.id ? [data.id] : []"
+      #Sides
+      title="Products that can be bought together with this product."
+      [selected]="data.sides ? data.sides : []"
+      [isMultiSelect]="true"
+    ></app-select>
 
     <!-- Number of sides required to product to basket -->
-    <br>
+    <br />
     <label for="" class="flexbox">Number of sides required </label>
-    <ion-range class="ion-no-padding"
+    <ion-range
+      class="ion-no-padding"
       [min]="0"
-      [max]="Sides.selected.length" 
-      [snaps]=true 
-      [ticks]=false
-      [pin]=true
+      [max]="Sides.selected.length"
+      [snaps]="true"
+      [ticks]="false"
+      [pin]="true"
       [step]="1"
       #NoOfSides
       [value]="data.noRequiredSides"
       title="The required number of sides this product can be purchased with."
       [(ngModel)]="data.noRequiredSides"
       [disabled]="!Sides.selected.length"
-      color="dark"></ion-range>
-    
+      color="dark"
+    ></ion-range>
+
     <!-- Time expected for the product to be prepared -->
-    <br>
-    <label for="" class="flexbox">Expected prepare time <ion-badge color="#106525">({{data.expectedPrepareTime.lower}} &mdash;{{data.expectedPrepareTime.upper}} min)</ion-badge></label>
-    <ion-range class="ion-no-padding"
+    <br />
+    <label for="" class="flexbox"
+      >Expected prepare time
+      <ion-badge color="#106525"
+        >({{ data.expectedPrepareTime.lower }} &mdash;{{
+          data.expectedPrepareTime.upper
+        }}
+        min)</ion-badge
+      ></label
+    >
+    <ion-range
+      class="ion-no-padding"
       [min]="5"
       [max]="30"
-      [snaps]=true
-      [ticks]=false
-      [dualKnobs]=true
-      #ExpectedPrepareTime 
+      [snaps]="true"
+      [ticks]="false"
+      [dualKnobs]="true"
+      #ExpectedPrepareTime
       title="Time it takes to prepare this product, in minutes."
       [(ngModel)]="data.expectedPrepareTime"
-      color="dark"></ion-range>
+      color="dark"
+    ></ion-range>
 
-    <br>
-    <div class="title flexbox">Added sections <ion-badge color="#106525">Optional</ion-badge></div>
+    <br />
+    <div class="title flexbox">
+      Added sections <ion-badge color="#106525">Optional</ion-badge>
+    </div>
     <div class="added-sections" *ngIf="data.sections.length">
-      <div class="added-section flexbox" *ngFor="let section of data.sections" (click)="editSection(section)">
+      <div
+        class="added-section flexbox"
+        *ngFor="let section of data.sections"
+        (click)="editSection(section)"
+      >
         <div>
-          <label class="section-name">{{section.name}}</label>
-          <div class="section-options">{{getOptions(section)}}
-        </div>
+          <label class="section-name">{{ section.name }}</label>
+          <div class="section-options">{{ getOptions(section) }}</div>
         </div>
         <div class="space"></div>
         <div class="remove-button-container" (click)="removeSection(section)">
-          <div class="remove-button"><ion-icon class="center" name="close"></ion-icon></div>
+          <div class="remove-button">
+            <ion-icon class="center" name="close"></ion-icon>
+          </div>
         </div>
       </div>
     </div>
-    <div class="add-option-button" (click)="openSectionAdder()"> 
+    <div class="add-option-button" (click)="openSectionAdder()">
       <b>Add a section</b>
-      <div class="description">Add a question or flavour options</div></div>
-    <br>
-    <br>
+      <div class="description">Add a question or flavour options</div>
+    </div>
+    <br />
+    <br />
     <div class="buttons">
       <button
         class="add-button flexbox"
         [attr.isLoading]="isLoading"
-        [disabled]="isLoading && !(data.name && data.category && data.price && data.images.length)"
+        [disabled]="
+          isLoading &&
+          !(data.name && data.category && data.price && data.images.length)
+        "
         (click)="createProduct()"
-        *ngIf="!data.id">
-          <div class="button-content flexbox" *ngIf="!isLoading">
-            <span>Create Product</span>
-            <div class="space"></div>
-            <ion-icon name="arrow-forward"></ion-icon>
-          </div>
+        *ngIf="!data.id"
+      >
+        <div class="button-content flexbox" *ngIf="!isLoading">
+          <span>Create Product</span>
+          <div class="space"></div>
+          <ion-icon name="arrow-forward"></ion-icon>
+        </div>
 
-          <ion-spinner name=crescent color=royalblue *ngIf="isLoading"></ion-spinner>
-        </button>
+        <ion-spinner
+          name="crescent"
+          color="royalblue"
+          *ngIf="isLoading"
+        ></ion-spinner>
+      </button>
       <button
         class="save-button flexbox"
-        [disabled]="isLoading && !(data.name && data.category && data.price && data.images.length)"
+        [disabled]="
+          isLoading &&
+          !(data.name && data.category && data.price && data.images.length)
+        "
         (click)="editProduct()"
-        *ngIf="data.id">
+        *ngIf="data.id"
+      >
         <div class="button-content flexbox" *ngIf="!isLoading">
           <span>Save Changes</span>
           <div class="space"></div>
           <ion-icon name="arrow-forward"></ion-icon>
         </div>
 
-        <ion-spinner name=crescent *ngIf="isLoading"></ion-spinner>
+        <ion-spinner name="crescent" *ngIf="isLoading"></ion-spinner>
       </button>
     </div>
   </div>

@@ -1,244 +1,253 @@
-@import '../../../setup.scss';
+@import "../../../setup.scss";
 
 .product-modal-header {
-    width: 100%;
-    padding: 15px 0;
+  width: 100%;
+  padding: 15px 0;
+  font-weight: bold;
+  border-bottom: $border;
+  text-align: center;
+  position: relative;
+  background: $background-color;
+
+  .right-side-button {
+    padding: 10px;
     font-weight: bold;
-    border-bottom: $border;
-    text-align: center;
-    position: relative;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: $secondary-color;
+    background: transparent;
+    transition: background 300ms ease-in-out;
+    cursor: pointer;
 
-    .right-side-button {
-        padding: 10px;
-        font-weight: bold;
-        position: absolute;
-        top: 50%;
-        right: 10px;
-        transform: translateY(-50%);
-        color: $secondary-color;
-        background: transparent;
-        transition: background 300ms ease-in-out;
-        cursor: pointer;
-
-        &:hover {
-            background: transparentize($secondary-color, 0.8);
-        }
+    &:hover {
+      background: transparentize($secondary-color, 0.8);
     }
+  }
 }
 
 .product-modal-contents {
-    display: flex;
-    flex-direction: row;
-    margin: 20px 0;
+  display: flex;
+  flex-direction: row;
+  margin: 20px 0;
+  height: 100%;
+  background-color: $background-color;
+
+  .basic-metadata,
+  .advanced-metadata {
+    flex: 1;
     height: 100%;
+    padding: 0 20px;
 
-    .basic-metadata,
-    .advanced-metadata {
-        flex: 1;
-        height: 100%;
-        padding: 0 20px;
-
-        .title {
-            font-size: large;
-            margin-bottom: 10px;
-        }
-
-        .label {
-            font-weight: bold;
-        }
+    .title {
+      font-size: large;
+      margin-bottom: 10px;
     }
 
-    .basic-metadata {
-        border-right: $border;
-        padding-left: 20px;
+    .label {
+      font-weight: bold;
+    }
+  }
+
+  .basic-metadata {
+    border-right: $border;
+    padding-left: 20px;
+  }
+
+  .advanced-metadata {
+    overflow-y: scroll;
+    padding-bottom: 100px;
+
+    .buttons {
+      bakground-color: $background-color;
+      position: absolute;
+      bottom: 0px;
+      padding: 20px 40px 20px 0;
+      width: 50%;
     }
 
-    .advanced-metadata {
-        overflow-y: scroll;
-        padding-bottom: 100px;
+    // Button to add sections
+    .add-option-button {
+      display: block;
+      width: 100%;
+      padding: 20px 0;
+      text-align: center;
+      font-size: small;
+      text-transform: uppercase;
+      color: $secondary-color;
+      cursor: pointer;
+      opacity: 0.5;
+      transition: opacity 300ms ease-in-out;
 
-        .buttons {
-            bakground-color: $background-color;
-            position: absolute;
-            bottom: 0px;
-            padding: 20px 40px 20px 0;
-            width: 50%;
-        }
-        
-        // Button to add sections
-        .add-option-button {
-            display: block;
-            width: 100%;
-            padding: 20px 0;
-            text-align: center;
-            font-size: small;
-            text-transform: uppercase;
-            color: $secondary-color;
-            cursor: pointer;
-            opacity: 0.5;
-            transition: opacity 300ms ease-in-out;
+      &:hover {
+        opacity: 1;
+      }
 
-            &:hover {
-                opacity: 1;
-            }
-
-            .description {
-                text-transform: none;
-                color: $theme-color;
-            }
-        }
-
-        .added-sections {
-            .added-section {
-                border-bottom: 1px solid #EEE;
-                padding: 10px 0;
-                .section-options {
-                    opacity: .5;
-                }
-
-                .remove-button {
-                    height: 20px;
-                    width: 20px;
-                    border-radius: 50px;
-                    background: $danger;
-                    position: relative;
-
-                    ion-icon {
-                        color: $text-light;
-                    }
-                }
-            }
-        }
+      .description {
+        text-transform: none;
+        color: $theme-color;
+      }
     }
+
+    .added-sections {
+      .added-section {
+        border-bottom: 1px solid #eee;
+        padding: 10px 0;
+        .section-options {
+          opacity: 0.5;
+        }
+
+        .remove-button {
+          height: 20px;
+          width: 20px;
+          border-radius: 50px;
+          background: $danger;
+          position: relative;
+
+          ion-icon {
+            color: $text-light;
+          }
+        }
+      }
+    }
+  }
 }
 
 // Product images as they're added
 // Images uploaded by the user
 .images {
+  display: flex;
+  margin-bottom: 20px;
+
+  .image {
     display: flex;
-    margin-bottom: 20px;
-    
-    .image {
-        display: flex;
-        flex: 1;
-        align-items: center;
-        padding: 8px 5px;
-        border: $border;
-        border-bottom-width: 4px;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: border-color 500ms ease-in-out;
-        position: relative;
-        margin-right: 5px;
+    flex: 1;
+    align-items: center;
+    padding: 8px 5px;
+    border: $border;
+    border-bottom-width: 4px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color 500ms ease-in-out;
+    position: relative;
+    margin-right: 5px;
 
-        .progress {
-            transition: opacity 400ms ease-in-out,
-                        width 1000ms ease-in-out !important;
-        }
-
-        &[data-state="Uploading"],
-        &[data-state="Uploaded"] {
-            padding: 2px 10px;
-        }
-        
-        &[data-state="Uploading"] {
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-
-            .status {
-                background: $danger;
-                .accepted { opacity: 0; }
-                .rejected { opacity: 1 !important; }
-            }
-        }
-
-        &[data-state="Uploaded"] {
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-            
-            .status {
-                background: $success;
-                .rejected { opacity: 0; }
-                .accepted {  color: $text-light; }
-            }
-
-            .progress {
-                background: $success;
-            }
-        }
-
-        .progress {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 4px;
-            background: $theme-color;
-            transform: translateY(100%);
-        }
-
-        ion-icon {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        
-        .image-details {
-            transform: translateY(2px);
-            .size { opacity: 0.5; }
-        }
-        
-        .placeholder-image {
-            height: 40px;
-            width: 40px;
-            border-radius: 50px;
-            border: $border;
-            background: #EEE;
-            position: relative;
-            margin-right: 8px;
-            background-size: cover !important;
-            background-repeat: no-repeat !important;
-        }
-        .status {
-            height: 20px;
-            width: 20px;
-            border: $border;
-            border-radius: 50px;
-            position: relative;
-            transition: background 300ms ease-in-out;
-
-            ion-icon {
-                color: $text-light;
-                transition: opacity 300ms ease-in-out;
-            }
-
-            
-        }
-
-        &:hover {
-            border-color: transparentize($theme-color, 0.8);
-
-            .status {
-                background: $danger;
-                .accepted,
-                .warning {
-                    opacity: 0;
-                }
-
-                .rejected {
-                    opacity: 1;
-                }
-            }
-        }
+    .progress {
+      transition: opacity 400ms ease-in-out, width 1000ms ease-in-out !important;
     }
+
+    &[data-state="Uploading"],
+    &[data-state="Uploaded"] {
+      padding: 2px 10px;
+    }
+
+    &[data-state="Uploading"] {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+
+      .status {
+        background: $danger;
+        .accepted {
+          opacity: 0;
+        }
+        .rejected {
+          opacity: 1 !important;
+        }
+      }
+    }
+
+    &[data-state="Uploaded"] {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+
+      .status {
+        background: $success;
+        .rejected {
+          opacity: 0;
+        }
+        .accepted {
+          color: $text-light;
+        }
+      }
+
+      .progress {
+        background: $success;
+      }
+    }
+
+    .progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 4px;
+      background: $theme-color;
+      transform: translateY(100%);
+    }
+
+    ion-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .image-details {
+      transform: translateY(2px);
+      .size {
+        opacity: 0.5;
+      }
+    }
+
+    .placeholder-image {
+      height: 40px;
+      width: 40px;
+      border-radius: 50px;
+      border: $border;
+      background: #eee;
+      position: relative;
+      margin-right: 8px;
+      background-size: cover !important;
+      background-repeat: no-repeat !important;
+    }
+    .status {
+      height: 20px;
+      width: 20px;
+      border: $border;
+      border-radius: 50px;
+      position: relative;
+      transition: background 300ms ease-in-out;
+
+      ion-icon {
+        color: $text-light;
+        transition: opacity 300ms ease-in-out;
+      }
+    }
+
+    &:hover {
+      border-color: transparentize($theme-color, 0.8);
+
+      .status {
+        background: $danger;
+        .accepted,
+        .warning {
+          opacity: 0;
+        }
+
+        .rejected {
+          opacity: 1;
+        }
+      }
+    }
+  }
 }
 
 input,
 .split-inputs {
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 label {
-    font-size: small;
+  font-size: small;
 }

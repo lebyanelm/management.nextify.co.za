@@ -50,7 +50,7 @@ export class SocketsService {
         this.storage.getItem(environment.PARTNER_DATA_REF, false)
         .then((token) => {
             const io = connect(environment.socketsServer, {
-              path: environment.production ? '/partners/socket.io' : '/socket.io',
+              path: '/socket.io',
               query: {
                 token,
                 type: 'partner'

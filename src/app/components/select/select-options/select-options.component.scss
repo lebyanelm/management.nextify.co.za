@@ -4,9 +4,16 @@ ion-checkbox {
   pointer-events: none !important;
 }
 
+ion-content {
+  --background-color: #000;
+  --ion-background-color: #000;
+}
+
 .select-options-container {
   height: 100%;
   color: $text-light;
+  background: #000;
+  border: 1.5px solid #EEE;
 
   .select-options-header {
     text-align: center;
@@ -47,6 +54,7 @@ ion-checkbox {
   position: absolute;
   bottom: 0;
   background-color: $background-color;
+  border: 1.5px solid #EEE;
 
   button {
     display: flex;

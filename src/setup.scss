@@ -13,9 +13,9 @@ $secondary-color-light: transparentize($secondary-color, 0.98);
 $radius: 3px;
 $font-size: 13px;
 $shadow: 1px 1px 40px transparentize($theme-color, 0.9);
-$border: 1px solid transparentize($text-light, 0.9);
-$border-secondary: 1px solid $secondary-color;
-$font-family: "Roboto", Helvetica, sans-serif;
+$border: 2px solid transparentize($text-light, 0.9);
+$border-secondary: 2px solid $secondary-color;
+$font-family: "Programme", "Roboto", Helvetica, sans-serif;
 
 // Polyfills
 .ion-activatable {

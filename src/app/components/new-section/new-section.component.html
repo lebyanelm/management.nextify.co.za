@@ -1,13 +1,13 @@
 <ion-content>
   <div class="section-details">
-    <input class="section-name" type="text" [value]="data ? data.name : ''" placeholder="Section name (Eg. Flavour)" #SectionName>
+    <input class="section-name large" type="text" [value]="data ? data.name : ''" placeholder="Enter section name (eg. Flavour)" #SectionName>
   </div>
 
   <div class="section-options">
     <label for="option-name">Section Options</label>
     <div class="options">
       <div>
-        <input class="section-name option-input small" type="text" placeholder="Option name (eg. Peri-Peri Hot)" #OptionInput>
+        <input class="section-name option-input small" type="text" placeholder="Option name (eg. Peri-Peri)" #OptionInput>
         <input class="section-price small" type="text" placeholder="Adjusted price (No currency) [Optional]" #OptionPrice>
       </div>
       <button class="add-button option-input ion-activatable" (click)="addOption(OptionInput.value, OptionPrice.value || null); OptionInput.value = ''; OptionPrice.value = ''; OptionInput.focus();">
@@ -35,5 +35,5 @@
     <app-setting [isChecked]="data ? data.isRequired : false" description="Product can not be added to the basket without an option being specified." name="Required?" #IsRequiredSetting></app-setting>
   </div>
   <button [disabled]="!(SectionName.value.length && options.length)" (click)="exportOptions(SectionName.value)">{{data ? 'Save section changes' : 'Add new section'}}</button>
-  
+
 </ion-footer>

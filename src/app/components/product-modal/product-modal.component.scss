@@ -1,5 +1,10 @@
 @import "../../../setup.scss";
 
+ion-content {
+  --background-color: #000;
+  --ion-background-color: #000;
+}
+
 .product-modal-header {
   width: 100%;
   padding: 15px 0;
@@ -7,7 +12,7 @@
   border-bottom: $border;
   text-align: center;
   position: relative;
-  background: $background-color;
+  background: #000;
 
   .right-side-button {
     padding: 10px;
@@ -16,7 +21,7 @@
     top: 50%;
     right: 10px;
     transform: translateY(-50%);
-    color: $secondary-color;
+    color: #000;
     background: transparent;
     transition: background 300ms ease-in-out;
     cursor: pointer;
@@ -86,7 +91,7 @@
 
       .description {
         text-transform: none;
-        color: $theme-color;
+        // color: $theme-color;
       }
     }
 
@@ -226,7 +231,7 @@
     }
 
     &:hover {
-      border-color: transparentize($theme-color, 0.8);
+      border-color: transparentize($secondary-color, 0);
 
       .status {
         background: $danger;

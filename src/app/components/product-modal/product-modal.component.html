@@ -115,6 +115,8 @@
       [(ngModel)]="data.description"
     />
 
+    <br>
+    <br>
     <label for="extras">Extras</label>
     <app-select
       placeholder="Select product extra"
@@ -169,7 +171,7 @@
     <label for="" class="flexbox"
       >Expected prepare time
       <ion-badge color="#106525"
-        >({{ data.expectedPrepareTime.lower }} &mdash;{{
+        >({{ data.expectedPrepareTime.lower }}&mdash;{{
           data.expectedPrepareTime.upper
         }}
         min)</ion-badge
@@ -199,7 +201,7 @@
         (click)="editSection(section)"
       >
         <div>
-          <label class="section-name">{{ section.name }}</label>
+          <label class="section-name">{{ section.name }} {{ section.isRequired ? "(Required)" : "" }} {{ section.isMultiSelect ? "(Multiple Select)" : "" }}</label>
           <div class="section-options">{{ getOptions(section) }}</div>
         </div>
         <div class="space"></div>
@@ -220,10 +222,7 @@
       <button
         class="add-button flexbox"
         [attr.isLoading]="isLoading"
-        [disabled]="
-          isLoading &&
-          !(data.name && data.category && data.price && data.images.length)
-        "
+        [disabled]="!(data.name && data.category && data.price && data.description)"
         (click)="createProduct()"
         *ngIf="!data.id"
       >

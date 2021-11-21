@@ -185,7 +185,7 @@
         }
       }
     }
-  }
+  },
   "cli": {
     "defaultCollection": "@ionic/angular-toolkit"
   },

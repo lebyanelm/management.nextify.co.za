@@ -128,7 +128,9 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "e2e": {
@@ -173,6 +175,17 @@
       }
     }
   },
+  "architect": {
+    "build": {
+      "options": {
+        "assets": {
+          "glob": "_redirects",
+          "input": "src",
+          "output": "/"
+        }
+      }
+    }
+  }
   "cli": {
     "defaultCollection": "@ionic/angular-toolkit"
   },

@@ -1,0 +1,16 @@
+name: Greetings
+
+on: [pull_request, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+    - uses: actions/first-interaction@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        issue-message: 'Thank you for contributing to the management repo! We hope to hear more form you. Regards, Libby.'
+        pr-message: 'Thank you for the pull-request to the management repo! We hope to hear more form you. Regards, Libby.'

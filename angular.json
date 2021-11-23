@@ -29,6 +29,11 @@
                 "glob": "**/*.svg",
                 "input": "node_modules/ionicons/dist/ionicons/svg",
                 "output": "./svg"
+              },
+              {
+                "glob": "_redirects",
+                "input": "src",
+                "output": "/"
               }
             ],
             "styles": [
@@ -177,13 +182,7 @@
   },
   "architect": {
     "build": {
-      "options": {
-        "assets": {
-          "glob": "_redirects",
-          "input": "src",
-          "output": "/"
-        }
-      }
+      "options": {}
     }
   },
   "cli": {

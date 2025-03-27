@@ -3,7 +3,7 @@
 
 **Tech Stack:** Ionic (Angular), Node.js, Express, Firebase / MongoDB  
 **Type:** Cross-Platform Mobile & Web Application  
-**Status:** ✅ Deployed / In Development *(adjust as needed)*
+**Status:** Stopped
 
 ### 📌 Overview  
 A cross-platform platform developed to help **local restaurants digitize their menus** and streamline customer ordering. Inspired by the rise of platforms like **UberEats, Mr D, and Famous Brands**, this solution focuses on empowering small food businesses with affordable, scalable digital tools.
@@ -11,17 +11,17 @@ A cross-platform platform developed to help **local restaurants digitize their m
 ### ✨ Key Features  
 - 📱 **Frontend built with Ionic (Angular)** for a responsive, mobile-first experience across devices.  
 - ⚙️ **Node.js backend** using Express to handle routing, APIs, and restaurant data management.  
-- 🧩 **Subdomain-based website templates** for each restaurant, giving them a unique branded page (e.g., `restaurant-name.platform.com`).  
+- 🧩 **Subdomain-based website templates** for each restaurant, giving them a unique branded page (e.g., `restaurant-name.nextify.co.za`).  
 - 📋 Customers can **browse menus**, view item details, and **place orders** seamlessly online.  
 - 👥 Restaurant owners can **manage their menus and receive orders** via a dedicated dashboard or admin panel.  
-- ☁️ Data powered by **Firebase / MongoDB** (or similar), offering real-time updates and scalability.
+- ☁️ Data powered by **MongoDB**, offering real-time updates and scalability.
 
 ### 🔗 Inspired By  
 | Platform      | Influence                     |
 |---------------|-------------------------------|
 | **UberEats**   | Modern UX for food discovery  |
 | **Mr D Food**  | Local delivery convenience     |
-| **Famous Brands** | Franchise menu visibility      |
+| **Famous Brands** | Debonairs, Fishaways, etc.      |
 
 ### 🛠️ Responsibilities  
 - Designed and implemented a **scalable full-stack architecture** using modern JS technologies.  
